@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="38px" viewBox="0 0 14 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>scrolldown</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="Homepage" transform="translate(-693.000000, -675.000000)" stroke="#FFFFFF">
+            <g id="scrolldown" transform="translate(694.000000, 675.500000)">
+                <line x1="6" y1="1.57209636e-14" x2="6" y2="28" id="Path"></line>
+                <polygon id="Path-2" points="12 28.5 6 36.5 0 28.5"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>next arrow@3x</title>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="delivery-item" transform="translate(-328.000000, -207.000000)" stroke="#FFFFFF" stroke-width="1.5">
+            <g id="detail-to-button" transform="translate(20.000000, 194.000000)">
+                <g id="Group" transform="translate(299.000000, 4.000000)">
+                    <g id="next-arrow-2" transform="translate(9.000000, 9.000000)">
+                        <g id="next-arrow" transform="translate(2.000000, 1.000000)">
+                            <polyline id="Path-3" transform="translate(7.000000, 6.000000) scale(-1, 1) translate(-7.000000, -6.000000) " points="10 0 4 6 10 12"></polyline>
+                            <line x1="10" y1="6" x2="1.38777878e-16" y2="6" id="Path-2"></line>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

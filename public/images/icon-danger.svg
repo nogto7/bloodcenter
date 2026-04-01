@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon-danger</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#E7235F" offset="0%"></stop>
+            <stop stop-color="#F33898" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon-danger">
+            <circle id="Oval" fill="url(#linearGradient-1)" cx="50" cy="50" r="50"></circle>
+            <circle id="Oval1" fill="#272727" cx="50" cy="72.2222222" r="5.55555556"></circle>
+            <path d="M50,22.2222222 C53.9888889,22.2222222 57.2277778,25.4555556 57.2277778,29.45 C57.2277778,29.7944444 57.2055556,30.1333333 57.1555556,30.4722222 L53.1722222,58.3611111 C52.9444444,59.9388889 51.5944444,61.1111111 50,61.1111111 C48.4055556,61.1111111 47.0555556,59.9388889 46.8277778,58.3611111 L42.8444444,30.4722222 C42.2833333,26.5222222 45.0277778,22.8611111 48.9777778,22.2944444 C49.3166667,22.2444444 49.6555556,22.2222222 50,22.2222222 Z" id="Rectangle" fill="#272727"></path>
+        </g>
+    </g>
+</svg>

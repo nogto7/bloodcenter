@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon-success</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#3AC47F" offset="0%"></stop>
+            <stop stop-color="#19F5A1" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon-success">
+            <circle id="Oval" fill="url(#linearGradient-1)" fill-rule="nonzero" cx="50" cy="50" r="50"></circle>
+            <path d="M33,48.359555 L45.5640227,60.923578 C55.5511737,51.329108 63.0298328,44.104582 68,39.25" id="Path-3" stroke="#272727" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path>
+        </g>
+    </g>
+</svg>

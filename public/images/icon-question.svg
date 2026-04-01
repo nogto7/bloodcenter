@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>question@3x</title>
+    <g id="Auction-App" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.98">
+        <g id="Profile-bank-add-empty-policy" transform="translate(-158.000000, -281.000000)">
+            <g id="Group-4" transform="translate(20.000000, 241.000000)">
+                <g id="question" transform="translate(138.000000, 40.000000)">
+                    <circle id="Oval" fill="#EDF0FD" cx="30" cy="30" r="30"></circle>
+                    <text id="?" font-family="ZonaPro-Bold, Zona Pro" font-size="36" font-weight="bold" fill="#3155F7">
+                        <tspan x="20.25" y="45">?</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

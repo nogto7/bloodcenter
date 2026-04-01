@@ -1,0 +1,283 @@
+.scroller {
+	overflow-y: scroll;
+}
+
+.scroller,
+.scroller-inner {
+	position: relative;
+}
+.menu-trigger {
+	position: relative;
+	padding-left: 60px;
+	font-size: 0.9em;
+}
+
+.menu-trigger:before {
+	content: '';
+	position: absolute;
+	top: 2px;
+	left: 0;
+	width: 40px;
+	height: 6px;
+	background: #fff;
+	box-shadow: 0 6px #34495e, 0 12px #fff, 0 18px #34495e, 0 24px #fff;
+}
+
+.sbemt-pusher {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	height: 100%;
+	perspective: 1000px;
+	visibility: hidden;
+	z-index: 99;
+}
+.sbemt-pushed{
+	visibility: visible;
+}
+
+.sbemt-menu {
+	position: relative;
+	top: 60px;
+	left: 0;
+	bottom: 0;
+	z-index: 1;
+	width: 320px;
+	height: calc(100vh - 60px);
+	background-color: #fff;
+	-webkit-transform: translate3d(-100%, 0, 0);
+	transform: translate3d(-100%, 0, 0);
+	box-shadow: 2px 0 3px rgba(0,0,0,0.2);
+}
+
+.sbemt-level {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	-webkit-transform: translate3d(-100%, 0, 0);
+	transform: translate3d(-100%, 0, 0);
+	overflow-y: auto;
+}
+
+/* overlays for pusher and for level that gets covered */
+.sbemt-pusher::after,
+.sbemt-level::after,
+.sbemt-level::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 0;
+	height: 0;
+	opacity: 0;
+}
+
+.sbemt-pusher::after,
+.sbemt-level::after {
+	-webkit-transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
+	transition: opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s;
+}
+
+.sbemt-level::after {
+	z-index: -1;
+}
+
+.sbemt-pusher.sbemt-pushed::after,
+.sbemt-level.sbemt-level-overlay::after {
+	left: 0;
+	right: 0;
+	width: 100vw;
+	height: 100vh;
+	opacity: 1;
+	background-color: rgba(255,255,255,.4);
+	-webkit-transition: opacity 0.3s;
+	transition: opacity 0.3s;
+}
+
+.sbemt-level.sbemt-level-overlay {
+	cursor: pointer;
+}
+
+.sbemt-level.sbemt-level-overlay.sbemt-level::before {
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	opacity: 1;
+}
+
+.sbemt-pusher,
+.sbemt-level {
+	-webkit-transition: -webkit-transform 0.5s;
+	transition: transform 0.5s;
+}
+
+/* overlap */
+.sbemt-overlap .sbemt-level.sbemt-level-open {
+	box-shadow: 1px 0 2px rgba(0,0,0,0.2);
+	-webkit-transform: translate3d(-40px, 0, 0);
+	transform: translate3d(-40px, 0, 0);
+}
+
+/* First level */
+.sbemt-menu > .sbemt-level,
+.sbemt-menu > .sbemt-level.sbemt-level-open,
+.sbemt-menu.sbemt-overlap > .sbemt-level,
+.sbemt-menu.sbemt-overlap > .sbemt-level.sbemt-level-open {
+	box-shadow: none;
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+/* cover */
+.sbemt-cover .sbemt-level.sbemt-level-open {
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+.sbemt-cover .sbemt-level.sbemt-level-open > ul > li > .sbemt-level:not(.sbemt-level-open) {
+	-webkit-transform: translate3d(-100%, 0, 0);
+	transform: translate3d(-100%, 0, 0);
+}
+
+/* content style */
+.sbemt-menu ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.sbemt-menu h2 {
+	margin: 0;
+	padding: 10px 14px;
+	color: rgba(0,0,0,0.4);
+	text-shadow: 0 0 1px rgba(0,0,0,0.1);
+	font-weight: 300;
+	font-size: 2em;
+}
+
+.sbemt-menu.sbemt-overlap h2::before {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin-right: 8px;
+	font-size: 75%;
+	line-height: 1.8;
+	opacity: 0;
+	-webkit-transform: translateX(-100%);
+	transform: translateX(-100%);
+	-webkit-transition: opacity 0.3s, -webkit-transform 0.1s 0.3s;
+	transition: opacity 0.3s, transform 0.1s 0.3s;
+}
+
+.sbemt-menu.sbemt-cover h2 {
+	color: #080404;
+	font-weight: 600;
+	font-size: 17px;
+}
+
+.sbemt-overlap .sbemt-level.sbemt-level-overlay > h2::before {
+	opacity: 1;
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+	transition: transform 0.3s, opacity 0.3s;
+}
+
+.sbemt-menu ul li > a {
+	display: block;
+	padding: 12px 12px 12px 28px;
+	outline: none;
+	text-shadow: 0 0 1px rgba(255,255,255,0.1);
+	font-size: 16px;
+	-webkit-transition: background 0.3s, box-shadow 0.3s;
+	transition: background 0.3s, box-shadow 0.3s;
+}
+
+.sbemt-menu ul li::before {
+	position: absolute;
+	left: 10px;
+	z-index: -1;
+	color: rgba(0,0,0,0.2);
+	line-height: 3.5;
+}
+.sbemt-level > ul > li > a,
+.sbemt-level > ul > li ~ li > a {
+	box-shadow: inset 0 -1px rgba(0,0,0,0.1);
+}
+
+
+.sbemt-menu .sbemt-level.sbemt-level-overlay > ul > li > a,
+.sbemt-level.sbemt-level-overlay > ul > li:first-child > a {
+	box-shadow: inset 0 -1px rgba(0,0,0,0);
+}
+
+.sbemt-level > ul > li:first-child > a:hover,
+.sbemt-level.sbemt-level-overlay > ul > li:first-child > a {
+	box-shadow: inset 0 -1px rgba(0,0,0,0), inset 0 1px rgba(0,0,0,0);
+} /* seems like Chrome 34.0.1847.131 needs the second shadow otherwise the transition breaks */
+
+.sbemt-back {
+	color: #555;
+	position: relative;
+	display: block;
+	padding: 10px 14px;
+	outline: none;
+	font-weight: 500;
+	font-size: 14px;
+	background-color: #f9f8f7;
+	-webkit-transition: background 0.3s;
+	transition: background 0.3s;
+}
+
+.sbemt-back::after {
+	position: absolute;
+	content: '';
+	right: 10px;
+	height: 18px;
+	width: 18px;
+	background: url('../images/icon-slide-prev.svg') no-repeat center center;
+	background-size: 100%;
+}
+
+.icon.icon-arrow-left > a{
+
+}
+/* .icon.icon-arrow-left > a::before{
+	position: absolute;
+	content: '';
+	top: 10px;
+	left: 6px;
+	height: 20px;
+	width: 20px;
+	background: url('../images/icon-slide-next.svg') no-repeat center center;
+	background-size: 100%;
+	transform: translateY(-50%);
+} */
+
+.sbemt-menu .sbemt-level.sbemt-level-overlay > .sbemt-back,
+.sbemt-menu .sbemt-level.sbemt-level-overlay > .sbemt-back::after {
+	background: transparent;
+	box-shadow: none;
+	color: transparent;
+}
+
+/* Fallback example for browsers that don't support 3D transforms (and no JS fallback) */
+/* We'll show the first level only */
+.no-csstransforms3d .sbemt-pusher,
+.no-js .sbemt-pusher {
+	padding-left: 320px;
+}
+
+.no-csstransforms3d .sbemt-menu .sbemt-level,
+.no-js .sbemt-menu .sbemt-level {
+	display: none;
+}
+
+.no-csstransforms3d .sbemt-menu > .sbemt-level,
+.no-js .sbemt-menu > .sbemt-level {
+	display: block;
+}

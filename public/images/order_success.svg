@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-miterlimit:1.41421;">
+    <g id="Group">
+        <g id="Oval" transform="matrix(2,0,0,2,0,-6.4948e-15)">
+            <circle cx="10" cy="10" r="10" style="fill:rgb(36,161,110);fill-opacity:0.2;"/>
+        </g>
+        <g id="Oval1" transform="matrix(1.2,0,0,1.2,8,8)">
+            <circle cx="10" cy="10" r="10" style="fill:rgb(36,161,110);"/>
+        </g>
+        <g id="Path-3" transform="matrix(1.2,0,0,1.2,8,8)">
+            <path d="M6,10.672L8.513,13.185L14,7.825" style="fill:none;stroke-width:2px;stroke:white;"/>
+        </g>
+    </g>
+</svg>

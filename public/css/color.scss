@@ -1,0 +1,66 @@
+/* Color */
+:root{
+    --backgroundColor: #eef1f8;
+
+    --primaryColor: #003bff;
+    --primaryHoverColor: #001faa;
+
+    --baseColor: #2a2b2f;
+    --baseColorHover: #24252a;
+
+    --redPrimaryColor: #b21114;
+    --redPrimaryHoverColor: #bd1013;
+
+    --darkBlueColor: #294895;
+
+    --blueColor: #0078f9;
+    --greenColor: #24a16e;
+    --greenHoverColor: #198052;
+
+    --secondColor: #D10F1B;
+    --secondHoverColor: #bd0c18;
+
+    --brandSTColor: rgb(63,198,215);
+
+    --inputBg: #f1f3f4;
+    --borderColor: #d7dae5;
+    --borderGrayColor: #e9e9e9;
+
+    --textColor: #555;
+    --grayText: #858585;
+    --lgrayText: #353535;
+
+    --lgrayColor: #f4f5f6;
+    --checkradioBg: #f3f5f6;
+    --switchBg: #f0f2f3;
+
+    --itemBorder: #f5f3f0;
+
+    --saleColor: #b2b2b2;
+
+    --boxBg: #f5f7ff;
+
+    --grayColor: #e1e6eb;
+    --grayColorHover: #d0d7dd;
+
+    --lightGrayColor: #eceff3;
+
+
+    --spacing-top: clamp(3*1rem,((3 - ((6.2 - 3)/(var(--max-viewport) - var(--min-viewport))*var(--min-viewport)))*1rem + ((6.2 - 3)/(var(--max-viewport) - var(--min-viewport)))*100vw),6.2*1rem);
+    --spacing-bottom: clamp(3*1rem,((3 - ((6.2 - 3)/(var(--max-viewport) - var(--min-viewport))*var(--min-viewport)))*1rem + ((6.2 - 3)/(var(--max-viewport) - var(--min-viewport)))*100vw),6.2*1rem);
+    --min-viewport: 23.5;
+    --max-viewpor: 90;
+}
+
+$headerLinkColor: #b1b7bf;
+$tertiaryColor: #7f8da5;
+$tertiaryHoverColor: #5c677a;
+$backgroundLightColor: #f1f4f5;
+$errorColor: #d0021b;
+
+$descriptionColor: #495460;
+$stepColor: var(--primaryColor);
+$borderColor:var(--primaryColor);
+
+$wh: #fff;
+/* Color End */

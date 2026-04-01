@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon-info</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#3B65E2" offset="0%"></stop>
+            <stop stop-color="#3D85FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon-info">
+            <circle id="Oval" fill="url(#linearGradient-1)" cx="50" cy="50" r="50"></circle>
+            <path d="M55.5555556,44.4444444 C55.5555556,41.3777778 53.0666667,38.8888889 50,38.8888889 C46.9333333,38.8888889 44.4444444,41.3777778 44.4444444,44.4444444 L44.4444444,72.2222222 C44.4444444,75.2888889 46.9333333,77.7777778 50,77.7777778 C53.0666667,77.7777778 55.5555556,75.2888889 55.5555556,72.2222222 L55.5555556,44.4444444 Z" id="Path" fill="#272727"></path>
+            <g id="Oval1" transform="translate(44.4444, 22.2222)" fill="#272727">
+                <circle id="Oval" cx="5.55555556" cy="5.55555556" r="5.55555556"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

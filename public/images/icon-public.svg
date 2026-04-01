@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>public@3x</title>
+    <defs>
+        <circle id="path-1" cx="10" cy="10" r="10"></circle>
+    </defs>
+    <g id="Auction-App" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Auction-public-or-private-choice" transform="translate(-44.000000, -228.000000)">
+            <g id="Group-3-Copy" transform="translate(34.000000, 218.000000)">
+                <g id="public" transform="translate(10.000000, 10.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <circle stroke="#FFFFFF" cx="10" cy="10" r="9.5"></circle>
+                    <ellipse id="Oval-Copy-2" stroke="#FFFFFF" mask="url(#mask-2)" cx="7" cy="10" rx="6.5" ry="10.5"></ellipse>
+                    <ellipse id="Oval-Copy-3" stroke="#FFFFFF" mask="url(#mask-2)" cx="13" cy="10" rx="6.5" ry="10.5"></ellipse>
+                    <line x1="0" y1="10" x2="20" y2="10" id="Path" stroke="#FFFFFF" mask="url(#mask-2)"></line>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

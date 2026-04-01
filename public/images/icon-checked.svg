@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>checked</title>
+    <g id="Auction-App" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Auction-brand-choice" transform="translate(-101.000000, -151.000000)">
+            <g id="Group-3" transform="translate(20.000000, 143.000000)">
+                <g id="checked" transform="translate(81.000000, 8.000000)">
+                    <circle id="Oval" fill="#3155F7" cx="8" cy="8" r="8"></circle>
+                    <polyline id="Path-3" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" points="5 7.96021559 6.8846034 9.84481899 11 5.82512929"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

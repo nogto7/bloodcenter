@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>report</title>
+    <g id="report" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" fill="#676E89" cx="9" cy="9" r="9"></circle>
+        <circle id="Oval" fill="#FFFFFF" cx="9" cy="13" r="1"></circle>
+        <path d="M9,4 C9.71849104,4 10.3009431,4.58245207 10.3009431,5.3009431 C10.3009431,5.36250226 10.2965737,5.42398379 10.287868,5.48492424 L9.57071068,10.5050253 C9.53013719,10.7890396 9.28689785,11 9,11 C8.71310215,11 8.46986281,10.7890396 8.42928932,10.5050253 L7.71213203,5.48492424 C7.61052206,4.7736544 8.10474902,4.11468511 8.81601886,4.01307514 C8.87695932,4.00436936 8.93844084,4 9,4 Z" id="Rectangle" fill="#FFFFFF"></path>
+    </g>
+</svg>
