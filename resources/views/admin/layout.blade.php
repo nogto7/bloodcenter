@@ -1,4 +1,5 @@
-<html lang="mn">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta name="keywords" content="">
     <meta charset="utf-8">

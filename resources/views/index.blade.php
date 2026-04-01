@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="main_slider_container">
     <div class="dg menu_slide">
         <div class="slide_wrap">

@@ -190,27 +190,62 @@
 </div> --}}
 
 {{-- {{ $item->links() }} --}}
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+<script src="/js/tinymce/tinymce.min.js"></script>
+
 <script>
-    ClassicEditor.create(document.querySelector('#content'), {
-        ckfinder: {
-            uploadUrl: "{{ route('admin.news.upload') }}?_token={{ csrf_token() }}"
-        },
-        image: {
-            resizeOptions: [
-                { name: 'resizeImage:original', label: 'Original', value: null },
-                { name: 'resizeImage:50', label: '50%', value: '50' },
-                { name: 'resizeImage:75', label: '75%', value: '75' }
-            ],
-            toolbar: [
-                'imageTextAlternative',
-                'imageStyle:inline',
-                'imageStyle:block',
-                'imageStyle:side',
-                'resizeImage'
-            ]
+tinymce.init({
+  selector: '#content',
+  height: 500,
+license_key: 'gpl',
+  plugins: 'image table lists link code',
+  toolbar: `
+    undo redo | bold italic underline |
+    alignleft aligncenter alignright |
+    bullist numlist |
+    table image link |
+    code
+  `,
+  menubar: true,
+//   images_upload_url: '/admin/upload/news',
+  images_upload_url: "{{ route('admin.news.upload') }}",
+  automatic_uploads: true,
+  file_picker_types: 'image',
+  image_title: true,
+
+  images_upload_handler: function (blobInfo, progress) {
+    return new Promise((resolve, reject) => {
+      let xhr = new XMLHttpRequest();
+      xhr.open('POST', "{{ route('admin.news.upload') }}");
+
+      // ✅ ЭНЭ Л ЧУХАЛ
+      xhr.setRequestHeader(
+        'X-CSRF-TOKEN',
+        document.querySelector('meta[name="csrf-token"]').content
+      );
+
+      xhr.onload = function () {
+        if (xhr.status !== 200) {
+          reject('HTTP Error: ' + xhr.status);
+          return;
         }
-    })
-    .catch(error => console.error(error));
+
+        let json = JSON.parse(xhr.responseText);
+
+        if (!json.location) {
+          reject('Invalid response');
+          return;
+        }
+
+        resolve(json.location);
+      };
+
+      let formData = new FormData();
+      formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+      xhr.send(formData);
+    });
+  }
+});
 </script>
 @endsection

@@ -805,9 +805,17 @@ $(document).ready(function(){
     if(newsForm){
         newsForm.addEventListener('submit', function (e) {
             e.preventDefault();
-        
+    
+            // ⚠️ TinyMCE content-г formData-д нэмэх
+            if (typeof tinymce !== "undefined") {
+                const editor = tinymce.get('content'); // textarea id
+                if(editor){
+                    this.querySelector('textarea[name="content"]').value = editor.getContent();
+                }
+            }
+    
             const formData = new FormData(this);
-        
+    
             fetch('/admin/news', {
                 method: 'POST',
                 headers: {
@@ -822,6 +830,11 @@ $(document).ready(function(){
                     alert('Мэдээ амжилттай нэмэгдлээ');
                     this.reset();
                     bootstrap.Modal.getInstance(document.getElementById('addNews')).hide();
+    
+                    // ⚡ TinyMCE-г ч бас reset хийх
+                    if(editor){
+                        editor.setContent('');
+                    }
                 } else {
                     alert('Алдаа гарлаа');
                 }

@@ -1482,6 +1482,7 @@ span[class^="icon-"]{
 }
 .table_content, .ck-content .table, .news_content table{
     width: 100%;
+    max-width: 100% !important;
     letter-spacing: 0;
     border-spacing: 0;
     background-color: $wh;
@@ -3386,6 +3387,7 @@ em{
 .department{
     .img_block{
         max-height: 540px;
+        overflow: hidden;
     }
 }
 .department_color{

@@ -241,29 +241,47 @@ class AdminNewsController extends Controller
 
     public function upload(Request $request)
     {
-        if ($request->hasFile('upload')) {
-            $file = $request->file('upload');
-            $filename = time().'_'.$file->getClientOriginalName();
-            $file->move(public_path('uploads/ckeditor'), $filename);
+        if ($request->hasFile('file')) { 
+            $file = $request->file('file');
 
-            // ⚠️ ЭНЭ ЧУХАЛ
-            $url = '/uploads/ckeditor/' . $filename;
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/news'), $filename);
 
             return response()->json([
-                'uploaded' => 1,
-                'fileName' => $filename,
-                'url' => $url
+                'location' => asset('uploads/news/' . $filename)
             ]);
         }
 
         return response()->json([
-            "uploaded" => false,
-            "error" => [
-                "message" => "File not uploaded"
-            ]
-        ]);
-
+            'error' => 'File not uploaded'
+        ], 400);
     }
+
+    // public function upload(Request $request)
+    // {
+    //     if ($request->hasFile('file')) {
+    //         $file = $request->file('file');
+    //         $filename = time().'_'.$file->getClientOriginalName();
+    //         $file->move(public_path('uploads/ckeditor'), $filename);
+
+    //         // ⚠️ ЭНЭ ЧУХАЛ
+    //         $url = '/uploads/ckeditor/' . $filename;
+
+    //         return response()->json([
+    //             'uploaded' => 1,
+    //             'fileName' => $filename,
+    //             'url' => $url
+    //         ]);
+    //     }
+
+    //     return response()->json([
+    //         "uploaded" => false,
+    //         "error" => [
+    //             "message" => "File not uploaded"
+    //         ]
+    //     ]);
+
+    // }
 
     public function edit(News $news)
     {
