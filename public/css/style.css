@@ -3794,6 +3794,7 @@ iframe {
   font-size: 34px;
   font-family: "ChBodoni";
   font-weight: 500;
+  line-height: 1.1;
   margin: 0 auto;
   max-width: 80%;
 }

@@ -20,6 +20,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,13 +28,31 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/who', function(){
-    return Auth::user();
+Route::post('/deploy', function (Request $request) {
+
+    $secret = env('DEPLOY_SECRET');
+
+    $signature = $request->header('X-Hub-Signature-256');
+    $payload = $request->getContent();
+
+    $hash = 'sha256=' . hash_hmac('sha256', $payload, $secret);
+
+    if (!hash_equals($hash, $signature)) {
+        abort(403, 'Invalid signature');
+    }
+
+    $output = shell_exec('cd /opt/sites/bloodcenter.mn && git pull 2>&1');
+
+    return response("<pre>$output</pre>");
 });
 
-Route::get('/phpinfo', function () {
-    phpinfo();
-});
+// Route::get('/who', function(){
+//     return Auth::user();
+// });
+
+// Route::get('/phpinfo', function () {
+//     phpinfo();
+// });
 
 Route::get('/test-role', function () {
     return Auth::user()->role;
