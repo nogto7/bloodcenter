@@ -13,8 +13,7 @@ class FileManagerController extends Controller
 {
     public function index()
     {
-        $folders = Folder::where(1)
-            ->whereNull('parent_id')
+        $folders = Folder::whereNull('parent_id')
             ->with('children')
             ->orderBy('sort')
             ->get();

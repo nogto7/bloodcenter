@@ -34,7 +34,7 @@
                         data-folder-name="{{ $folder->name }}"
                         ondragover="allowDrop(event)"
                         ondrop="dropFile(event, {{ $folder->id }})"
-                        ><span></span>{{ $folder->name }}<button class="btn btn-danger btn-sm delete-folder" onclick="deleteFolder({{ $folder->id }})">
+                        ><span></span><i>{{ $folder->name }}</i><button class="btn btn-danger btn-sm delete-folder" onclick="deleteFolder({{ $folder->id }})">
                             Устгах
                         </button></p>
                         @if($folder->children->count())

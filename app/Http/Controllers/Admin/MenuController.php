@@ -80,6 +80,8 @@ class MenuController extends Controller
         $types = [
             'news'   => 'Мэдээ',
             'files'  => 'Файл',
+            'url'    => 'Линк',
+            'shilen' => 'Шилэн',
             'page'   => 'Энгийн хуудас',
             'custom' => 'Тусгай layout',
         ];
@@ -98,7 +100,7 @@ class MenuController extends Controller
             'parent_id' => 'nullable|exists:menus,id',
             'sort' => 'nullable|integer',
             'active' => 'boolean',
-            'type' => 'required|in:news,files,page,custom',
+            'type' => 'required|in:news,files,url,shilen,page,custom',
         ]);
 
         $menu->update($data);

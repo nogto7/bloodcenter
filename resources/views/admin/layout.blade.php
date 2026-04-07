@@ -47,6 +47,7 @@
                         @if(auth()->check() && auth()->user()->role === 'admin')
                         <li><a href="/admin/menus" class="icon_sidebar icon_menu"><span></span><i>Цэс</i></a></li>
                         <li><a href="/admin/department" class="icon_sidebar icon_news"><span></span><i>Алба</i></a></li>
+                        <li><a href="/admin/groups" class="icon_sidebar icon_news"><span></span><i>Шил ажиллагаа</i></a></li>
                         @endif
                         @if(auth()->check() && auth()->user()->role === 'admin' || (auth()->check() && auth()->user()->role === 'editor') || (auth()->check() && auth()->user()->role === 'publisher'))
                         <li><a href="/admin/news" class="icon_sidebar icon_news"><span></span><i>Мэдээлэл</i></a></li>

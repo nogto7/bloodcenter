@@ -21,6 +21,8 @@ class Menu extends Model
         return [
             'news'   => 'Мэдээ',
             'files'  => 'Файл',
+            'url'    => 'Линк',
+            'shilen' => 'Шилэн',
             'page'   => 'Энгийн хуудас',
             'custom' => 'Тусгай layout',
         ];
@@ -50,6 +52,11 @@ class Menu extends Model
     public function departments()
     {
         return $this->hasMany(Department::class)->orderBy('order');
+    }
+
+    public function groups()
+    {
+        return $this->hasMany(Group::class)->orderBy('sort');
     }
 }
 

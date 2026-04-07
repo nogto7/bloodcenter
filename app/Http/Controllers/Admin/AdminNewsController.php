@@ -52,7 +52,7 @@ class AdminNewsController extends Controller
         $data = $request->validate([
             'title' => 'required',
             'excerpt' => 'nullable',
-            'content' => 'required',
+            'content' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:6144',
             'highlight_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:8192',
             'menu_id' => 'nullable|string',
@@ -67,6 +67,11 @@ class AdminNewsController extends Controller
             $data['status'] = 'published';
             $data['is_active'] = 1;
         }
+
+        if (empty(trim(strip_tags($request->content)))) {
+            $data['content'] = null;
+        }
+
         $data['highlight'] = $request->has('highlight') ? 1 : 0;
         $data['menu_id'] = $request->menu_id ?? null;
         $data['user_id'] = $user->id;
@@ -98,7 +103,7 @@ class AdminNewsController extends Controller
         $data = $request->validate([
             'title' => 'required',
             'excerpt' => 'nullable',
-            'content' => 'required',
+            'content' => 'nullable|string',
             'image' => 'nullable|image',
             'highlight_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:8192',
             'is_active' => 'nullable|boolean',
@@ -179,26 +184,6 @@ class AdminNewsController extends Controller
         return redirect()->route('admin.news.index')->with('success', 'Мэдээ амжилттай шинэчлэгдлээ');
     }
 
-    // public function publish(News $news)
-    // {
-    //     $user = Auth::user();
-
-    //     // if ($user->role !== 'publisher' || $user->department_id !== $news->department_id) {
-    //     //     abort(403, 'Танд зөвшөөрөл байхгүй байна');
-    //     // }
-
-    //     if (
-    //         $user->role !== 'admin' &&
-    //         ($user->role !== 'publisher' || $user->department_id !== $news->department_id)
-    //     ) {
-    //         abort(403, 'Танд зөвшөөрөл байхгүй байна');
-    //     }
-
-    //     $news->update(['status' => 'published']);
-
-    //     return back()->with('success', 'Мэдээ амжилттай нийтлэгдлээ');
-    // }
-
     public function publish(News $news)
     {
         $user = Auth::user();
@@ -256,32 +241,6 @@ class AdminNewsController extends Controller
             'error' => 'File not uploaded'
         ], 400);
     }
-
-    // public function upload(Request $request)
-    // {
-    //     if ($request->hasFile('file')) {
-    //         $file = $request->file('file');
-    //         $filename = time().'_'.$file->getClientOriginalName();
-    //         $file->move(public_path('uploads/ckeditor'), $filename);
-
-    //         // ⚠️ ЭНЭ ЧУХАЛ
-    //         $url = '/uploads/ckeditor/' . $filename;
-
-    //         return response()->json([
-    //             'uploaded' => 1,
-    //             'fileName' => $filename,
-    //             'url' => $url
-    //         ]);
-    //     }
-
-    //     return response()->json([
-    //         "uploaded" => false,
-    //         "error" => [
-    //             "message" => "File not uploaded"
-    //         ]
-    //     ]);
-
-    // }
 
     public function edit(News $news)
     {

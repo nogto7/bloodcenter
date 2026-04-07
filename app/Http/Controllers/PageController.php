@@ -61,6 +61,11 @@ class PageController extends Controller
                 return view('files.index', compact('menu', 'parentMenu', 'files'));
 
             case 'page':
+                $menu->load([
+                    'groups.items.file' // 🔥 FileManager холбоо
+                ]);
+                // $menu->load('groups.items.file');
+                
                 $department = Department::with(['employees' => function($q){
                     $q->orderBy('order');
                 }])

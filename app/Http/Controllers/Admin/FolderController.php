@@ -65,7 +65,7 @@ class FolderController extends Controller
             'files' => $folder->files()->with([
                 'folder:id,name',
                 'menu:id,title'
-            ])->select('id','title','path','mime_type','created_at','size')->get(),
+            ])->select('id','title','path','mime_type','created_at','size','folder_id','menu_id')->get(),
         ]);
     }
 
@@ -133,5 +133,11 @@ class FolderController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function allFiles(Request $request)
+    {
+        $files = File::latest()->select('id','title','path','mime_type')->get();
 
+        return response()->json($files);
+    }
+    
 }

@@ -452,6 +452,15 @@ textarea{
         font-weight: 500;
     }
 }
+.text_notice{
+    display: $fl;
+    align-items: $c;
+    font-weight: 500;
+    padding: $s_4 $s_7;
+    margin-bottom: $s1;
+    background-color: var(--backgroundColor);
+    border-radius: 8px;
+}
 .input_col{
     display: $g;
     grid-template-columns: 1fr $s4_8;
@@ -1599,7 +1608,6 @@ section{
     width: $s4;
 }
 .swiper-pagination{
-    bottom: $s2 !important;
     .swiper-pagination-bullet{
         border-radius: $s1 !important;
         &-active{
@@ -2238,9 +2246,8 @@ section{
     display: $fl;
     align-items: $c;
     position: $pa;
-    left: 50%;
-    bottom: $s2;
-    transform: translateX(-50%);
+    left: $s4_4;
+    bottom: $s4_4;
     z-index: 3;
     .swiper-pagination-bullet{
         display: $fl;
@@ -2260,20 +2267,20 @@ section{
     position: $pa;
     content: '';
     top: 50%;
-    left: $s4;
-    height: $s4;
-    width: $s4;
+    left: $s4_4;
+    height: $s4_4;
+    width: $s4_4;
     display: $fl;
     align-items: $c;
     justify-content: $c;
-    background-color: $wh;
+    background-color: rgba(0, 0, 0, .25);
     transform: translateY(-50%);
     transition: all .15s;
     border-radius: 50%;
     cursor: pointer;
     z-index: 1;
     &:hover{
-        box-shadow: 0 0 0 4px var(--redPrimaryColor);
+        background-color: var(--redPrimaryColor);
     }
     &::before{
         position: $pa;
@@ -2539,8 +2546,14 @@ section{
 }
 .item_img{
     position: $pr;
-    border-radius: $s1_2;
-    overflow: hidden;
+    .img_block{
+        height: 100%;
+        border-radius: $s1_2;
+        overflow: hidden;
+        img{
+            max-height: 100%;
+        }
+    }
 }
 .item_desc{
     margin-top: $s1_6;
@@ -2574,6 +2587,7 @@ section{
 }
 
 .news_content{
+    font-size: $s1_6;
     text-align: justify;
     .hightlight_img{
         border-radius: $s1_2;
@@ -2585,11 +2599,15 @@ section{
             }
         }
     }
-    figure{
+    font-size: $s1_5;
+    figure img{
         margin: $s1 0;
-        img{
-            width: 100%;
-        }
+        max-width: 100%;
+        height: auto;
+    }
+    img{
+        max-width: 100%;
+        max-height: max-content;
     }
     em{
         font-style: normal;
@@ -2692,6 +2710,7 @@ section{
     display: $fl;
     align-items: $c;
     justify-content: $c;
+    margin-top: $s3;
     .page-item{
         .page-link{
             display: $fl;
@@ -3088,7 +3107,7 @@ section{
                 font-size: 0;
                 height: $s2_4;
                 width: $s2_4;
-                background-color: transparent;
+                background-color: var(--backgroundColor);
                 background-image: url('../images/icon_delete_file.png');
                 background-repeat: no-repeat;
                 background-position: $c $c;
@@ -3131,9 +3150,10 @@ section{
     display: $fl;
     align-items: $c;
     line-height: 1.2;
-    padding: 7px 34px 7px 6px;
+    padding: 7px 6px;
     background-color: transparent;
-    transition: all .3s;
+    overflow: hidden;
+    text-overflow: ellipsis;
     border-radius: $s_6;
     border: none;
     span{
@@ -3150,6 +3170,16 @@ section{
         white-space: nowrap;
         overflow: hidden;
     }
+    i{
+        display: block;
+        font-style: normal;
+        max-width: 165px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: all .3s;
+        cursor: default;
+    }
     &.drag-over{
         background: #e6f2ff;
         border-left: 3px solid #0d6efd;
@@ -3160,6 +3190,9 @@ section{
     }
     &.active, &.active:hover{
         background-color: var(--grayColor);
+        .delete-folder{
+            background-color: var(--grayColor);
+        }
     }
 }
 .file_list{
@@ -3225,17 +3258,47 @@ iframe{
         p{
             color: var(--grayText);
         }
+        .bt1{
+            padding-top: 4px;
+            margin-top: 4px;
+            border-top: 1px solid var(--borderColor);
+        }
     }
     em{
         font-weight: 500;
         margin: 0;
     }
 }
-
+.shilen_file{
+    li{
+        display: $g !important;
+        grid-template-columns: 37% 43% 1fr 90px;
+        gap: $s1;
+        flex-direction: row !important;
+        padding: 4px 8px;
+        background-color: var(--backgroundColor);
+        border: 1px solid var(--borderGrayColor);
+        transition: all .4s;
+        border-radius: 5px;
+        &:hover{
+            background-color: $wh;
+            border-color: var(--borderColor);
+        }
+        & ~ li{
+            margin-top: 5px;
+        }
+        p{
+            & ~ p{
+                margin: 0;
+            }
+        }
+    }
+}
 .ad_emp_list{
     display: $fl;
     align-items: flex-start;
     flex-wrap: wrap;
+    margin-left: $s4;
     li{
         padding: $s_5;
         margin: 0 $s1 $s1 0;

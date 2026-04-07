@@ -41,7 +41,10 @@
                             <ul>
                                 @foreach($menus as $menu)
                                 <li class="{{ count($menu->children) ? 'is_sub' : '' }}">
+                                    @if( $menu->type === 'url')<a href="{{ $menu->url }}" {{ $menu->id == 5 ? 'target=_blank' : '' }}>{{ $menu->title }}</a>
+                                    @else 
                                     <a href="/{{ $menu->url }}" {{ $menu->id == 5 ? 'target=_blank' : '' }}>{{ $menu->title }}</a>
+                                    @endif
                                     @if(count($menu->children))
                                     <div class="sub_menu">
                                         <ul class="sub_menu">

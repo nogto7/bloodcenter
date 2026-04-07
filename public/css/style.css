@@ -947,6 +947,16 @@ textarea::placeholder {
   font-weight: 500;
 }
 
+.text_notice {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  padding: 4px 7px;
+  margin-bottom: 10px;
+  background-color: var(--backgroundColor);
+  border-radius: 8px;
+}
+
 .input_col {
   display: grid;
   grid-template-columns: 1fr 48px;
@@ -2087,9 +2097,6 @@ section {
   width: 40px;
 }
 
-.swiper-pagination {
-  bottom: 20px !important;
-}
 .swiper-pagination .swiper-pagination-bullet {
   border-radius: 10px !important;
 }
@@ -2683,9 +2690,8 @@ section {
   display: flex;
   align-items: center;
   position: absolute;
-  left: 50%;
-  bottom: 20px;
-  transform: translateX(-50%);
+  left: 44px;
+  bottom: 44px;
   z-index: 3;
 }
 .swiper-pagination .swiper-pagination-bullet {
@@ -2706,13 +2712,13 @@ section {
   position: absolute;
   content: "";
   top: 50%;
-  left: 40px;
-  height: 40px;
-  width: 40px;
+  left: 44px;
+  height: 44px;
+  width: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0.25);
   transform: translateY(-50%);
   transition: all 0.15s;
   border-radius: 50%;
@@ -2720,7 +2726,7 @@ section {
   z-index: 1;
 }
 .sbemt_slide_btn:hover {
-  box-shadow: 0 0 0 4px var(--redPrimaryColor);
+  background-color: var(--redPrimaryColor);
 }
 .sbemt_slide_btn::before {
   position: absolute;
@@ -2978,8 +2984,14 @@ section {
 
 .item_img {
   position: relative;
+}
+.item_img .img_block {
+  height: 100%;
   border-radius: 12px;
   overflow: hidden;
+}
+.item_img .img_block img {
+  max-height: 100%;
 }
 
 .item_desc {
@@ -3014,6 +3026,7 @@ section {
 }
 
 .news_content {
+  font-size: 16px;
   text-align: justify;
 }
 .news_content .hightlight_img {
@@ -3026,11 +3039,18 @@ section {
 .news_content .hightlight_img .img_block img {
   height: auto;
 }
-.news_content figure {
-  margin: 10px 0;
+.news_content {
+  font-size: 15px;
 }
 .news_content figure img {
-  width: 100%;
+  margin: 10px 0;
+  max-width: 100%;
+  height: auto;
+}
+.news_content img {
+  max-width: 100%;
+  max-height: -moz-max-content;
+  max-height: max-content;
 }
 .news_content em {
   font-style: normal;
@@ -3118,6 +3138,7 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 30px;
 }
 .pagination .page-item .page-link {
   display: flex;
@@ -3484,7 +3505,7 @@ section {
   font-size: 0;
   height: 24px;
   width: 24px;
-  background-color: transparent;
+  background-color: var(--backgroundColor);
   background-image: url("../images/icon_delete_file.png");
   background-repeat: no-repeat;
   background-position: center center;
@@ -3527,9 +3548,10 @@ section {
   display: flex;
   align-items: center;
   line-height: 1.2;
-  padding: 7px 34px 7px 6px;
+  padding: 7px 6px;
   background-color: transparent;
-  transition: all 0.3s;
+  overflow: hidden;
+  text-overflow: ellipsis;
   border-radius: 6px;
   border: none;
 }
@@ -3547,6 +3569,16 @@ section {
   white-space: nowrap;
   overflow: hidden;
 }
+.folder_item i {
+  display: block;
+  font-style: normal;
+  max-width: 165px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.3s;
+  cursor: default;
+}
 .folder_item.drag-over {
   background: #e6f2ff;
   border-left: 3px solid #0d6efd;
@@ -3556,6 +3588,9 @@ section {
   background-color: var(--backgroundColor);
 }
 .folder_item.active, .folder_item.active:hover {
+  background-color: var(--grayColor);
+}
+.folder_item.active .delete-folder, .folder_item.active:hover .delete-folder {
   background-color: var(--grayColor);
 }
 
@@ -3627,8 +3662,35 @@ iframe {
 .file_preview_info .prev_info p {
   color: var(--grayText);
 }
+.file_preview_info .prev_info .bt1 {
+  padding-top: 4px;
+  margin-top: 4px;
+  border-top: 1px solid var(--borderColor);
+}
 .file_preview_info em {
   font-weight: 500;
+  margin: 0;
+}
+
+.shilen_file li {
+  display: grid !important;
+  grid-template-columns: 37% 43% 1fr 90px;
+  gap: 10px;
+  flex-direction: row !important;
+  padding: 4px 8px;
+  background-color: var(--backgroundColor);
+  border: 1px solid var(--borderGrayColor);
+  transition: all 0.4s;
+  border-radius: 5px;
+}
+.shilen_file li:hover {
+  background-color: #fff;
+  border-color: var(--borderColor);
+}
+.shilen_file li ~ li {
+  margin-top: 5px;
+}
+.shilen_file li p ~ p {
   margin: 0;
 }
 
@@ -3636,6 +3698,7 @@ iframe {
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
+  margin-left: 40px;
 }
 .ad_emp_list li {
   padding: 5px;

@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\AdminVideoController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\FileManagerController;
 use App\Http\Controllers\Admin\FolderController;
+use App\Http\Controllers\Admin\GroupController;
+use App\Http\Controllers\Admin\GroupItemController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\FeedbackController;
@@ -18,8 +20,6 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -55,7 +55,6 @@ Route::get('{slug}', [PageController::class, 'menu'])->name('page.menu');
 Route::get('/file/{id}', [PageController::class, 'fileShow'])->name('file.show');
 Route::get('/department/{id}', [PageController::class, 'departmentShow'])
     ->name('department.show');
-
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
@@ -118,6 +117,22 @@ Route::prefix('admin')
     // Route::patch('files/{file}/move', [FileManagerController::class, 'moveFile']);
 
     Route::get('folders/{folder}/files', [FolderController::class, 'files'])->name('folders.files');
+
+    // Group
+    Route::resource('groups', GroupController::class);
+    Route::get('groups/{group}/json', [GroupController::class, 'getGroup']);
+    Route::get('files', [FolderController::class, 'allFiles']); // бүх файлын жагсаалт
+
+    // Group Items
+    Route::get('group-items/create/{group}', [GroupController::class, 'createItem'])->name('group-items.create');
+    Route::post('group-items', [GroupController::class, 'storeItem'])->name('group-items.store');
+    Route::get('group-items/{groupItem}/json', [GroupController::class, 'showItem']);
+    Route::get('group-items/{groupItem}/edit', [GroupController::class, 'editItem'])->name('group-items.edit');
+    Route::put('group-items/{groupItem}', [GroupController::class, 'updateItem'])->name('group-items.update');
+    Route::delete('group-items/{groupItem}', [GroupController::class, 'destroyItem'])->name('group-items.destroy');
+
+    // sort
+    Route::post('group-items/sort', [GroupController::class, 'sort'])->name('group-items.sort');
 
     Route::resource('users', AdminUserController::class);
     Route::get('users/{user}/edit', [AdminUserController::class, 'edit'])->name('users.edit');

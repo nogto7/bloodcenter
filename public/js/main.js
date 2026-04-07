@@ -387,7 +387,7 @@ function previewFile(fileId) {
         <div class="dcsb">
             <p>Цэс</p>
             <em>${file.menu?.title ?? '-'}</em>
-        </div><div class="dcsb"><p>Үүсгэсэн огноо</p><em>${formatted}</em></div></div></div>
+        </div><div class="dcsb bt1"><p>Үүсгэсэн огноо</p><em>${formatted}</em></div></div></div>
     `
 
     document.getElementById('filePreview').innerHTML = previewHtml;
@@ -496,6 +496,8 @@ $(document).ready(function(){
     const folderForm = document.getElementById('folderForm'),
     menusForm = document.getElementById('menusForm'),
     departmentForm = document.getElementById('departmentForm'),
+    groupForm = document.getElementById('groupForm'),
+    itemForm = document.getElementById('itemForm'),
     newsForm = document.getElementById('newsForm'),
     fileForm = document.getElementById('fileForm'),
     sliderForm = document.getElementById('sliderForm'),
@@ -802,21 +804,13 @@ $(document).ready(function(){
         });
     }
 
-    if(newsForm){
-        newsForm.addEventListener('submit', function (e) {
+    if(groupForm){
+        groupForm.addEventListener('submit', function (e) {
             e.preventDefault();
-    
-            // ⚠️ TinyMCE content-г formData-д нэмэх
-            if (typeof tinymce !== "undefined") {
-                const editor = tinymce.get('content'); // textarea id
-                if(editor){
-                    this.querySelector('textarea[name="content"]').value = editor.getContent();
-                }
-            }
     
             const formData = new FormData(this);
     
-            fetch('/admin/news', {
+            fetch('/admin/groups', {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
@@ -829,7 +823,7 @@ $(document).ready(function(){
                 if(data.success){
                     alert('Мэдээ амжилттай нэмэгдлээ');
                     this.reset();
-                    bootstrap.Modal.getInstance(document.getElementById('addNews')).hide();
+                    bootstrap.Modal.getInstance(document.getElementById('addGroup')).hide();
     
                     // ⚡ TinyMCE-г ч бас reset хийх
                     if(editor){
@@ -840,8 +834,89 @@ $(document).ready(function(){
                 }
             })
             .catch(err => {
-                console.error('News save error:', err);
+                console.error('Group save error:', err);
                 alert('Алдаа гарлаа');
+            });
+        });
+    }
+    if(itemForm){
+        itemForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+    
+            const formData = new FormData(this);
+    
+            fetch('/admin/group-items', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success){
+                    alert('Шил ажиллааны файл амжилттай нэмэгдлээ');
+                    this.reset();
+                    bootstrap.Modal.getInstance(document.getElementById('addItem')).hide();
+    
+                    // ⚡ TinyMCE-г ч бас reset хийх
+                    if(editor){
+                        editor.setContent('');
+                    }
+                } else {
+                    alert('Алдаа гарлаа');
+                }
+            })
+            .catch(err => {
+                console.error('Item save error:', err);
+                alert('Алдаа гарлаа');
+            });
+        });
+    }
+
+    if(newsForm){
+        newsForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+    
+            const editor = tinymce.get('content');
+    
+            if(editor){
+                let plain = editor.getContent({ format: 'text' }).trim();
+    
+                this.querySelector('textarea[name="content"]').value =
+                    plain === '' ? '' : editor.getContent();
+            }
+    
+            const formData = new FormData(this);
+    
+            fetch('/admin/news', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            })
+            .then(async res => {
+                let text = await res.text();
+                console.log('RESPONSE:', text);
+            
+                try {
+                    return JSON.parse(text);
+                } catch (e) {
+                    throw new Error('JSON parse error');
+                }
+            })
+            .then(data => {
+                if(data.success){
+                    alert('Амжилттай');
+                    location.reload();
+                }
+            })
+            .catch(err => {
+                console.error('ERROR:', err);
+                alert('Алдаа гарлаа (console хар)');
             });
         });
     }
