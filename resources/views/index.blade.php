@@ -95,6 +95,23 @@
         </div>
     </div>
 </section>
+<section class="bg_gray pb6 bb1">
+    <div class="section_container">
+        <h1 class="title">Түгээмэл асуулт хариулт</h1>
+        <div class="faq_wrap">
+            @foreach($faqs as $faq)
+            <div class="faq_item">
+                <div class="faq_question">
+                    {{ $faq->question }}
+                </div>
+                <div class="faq_answer">
+                    {!! $faq->answer !!}
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
 <section class="pb6">
     <div class="section_container">
         @include('feedback.index')
@@ -194,6 +211,15 @@
                 slidesPerGroup: 3
             }
         }
+    });
+
+    document.querySelectorAll('.faq_question').forEach(q => {
+        q.addEventListener('click', function(){
+            $('.faq_item').removeClass('active');
+            $(this).parent().toggleClass('active');
+            // const parent = this.parentElement;
+            // parent.classList.toggle('active');
+        });
     });
 </script>
 @endsection

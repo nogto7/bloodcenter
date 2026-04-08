@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\File;
+use App\Models\Group;
+use App\Models\GroupItem;
 use App\Models\Menu;
 use App\Models\News;
 use App\Models\Section;
@@ -47,16 +49,16 @@ class PageController extends Controller
 
             case 'news':
                 $news = News::where('menu_id', $menu->id)
-                            ->where('is_active', 1)
-                            ->orderBy('publish_at','desc')
-                            ->paginate(10);
+                ->where('is_active', 1)
+                ->orderBy('publish_at','desc')
+                ->paginate(10);
 
                 return view('news.index', compact('menu','news'));
 
             case 'files':
                 $files = File::where('menu_id', $menu->id)
-                            ->latest()
-                            ->get();
+                ->latest()
+                ->get();
 
                 return view('files.index', compact('menu', 'parentMenu', 'files'));
 
@@ -74,6 +76,17 @@ class PageController extends Controller
                 ->latest()
                 ->first();
                 return view('pages.show', compact('menu', 'department'));
+
+            case 'shilen':
+                $menuItems = Group::where('menu_id', $menu->id)
+                    ->latest()
+                    ->get();
+            
+                $items = GroupItem::whereIn('group_id', $menuItems->pluck('id'))
+                    ->orderBy('order')
+                    ->get();
+            
+                return view('pages.shilen', compact('menuItems', 'items'));
 
             case 'custom':
                 abort_if(!view()->exists('pages.custom.'.$menu->url), 404);

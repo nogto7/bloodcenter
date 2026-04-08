@@ -54,6 +54,7 @@
                         @endif
                         @if(auth()->check() && auth()->user()->role === 'admin')
                         <li><a href="/admin/slider" class="icon_sidebar icon_slider"><span></span><i>Слайдер</i></a></li>
+                        <li><a href="/admin/faq" class="icon_sidebar icon_slider"><span></span><i>Түгээмэл асуулт хариулт</i></a></li>
                         <li><a href="/admin/video" class="icon_sidebar icon_video"><span></span><i>Видео</i></a></li>
                         <li><a href="/admin/feedback" class="icon_sidebar icon_feedback"><span></span><i>Санал хүсэлт</i></a></li>
                         <li><a href="/admin/folders" class="icon_sidebar icon_folder"><span></span><i>Файлын удирдлага</i></a></li>

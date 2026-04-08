@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminSliderController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminVideoController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\FileManagerController;
 use App\Http\Controllers\Admin\FolderController;
 use App\Http\Controllers\Admin\GroupController;
@@ -18,9 +19,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -121,6 +123,14 @@ Route::prefix('admin')
 
     // Video
     Route::resource('video', AdminVideoController::class);
+
+    // FAQ
+    Route::get('faq', [FaqController::class, 'index']);
+    Route::post('faq', [FaqController::class, 'store']);
+    Route::put('faq/{faq}', [FaqController::class, 'update']);
+    Route::delete('faq/{faq}', [FaqController::class, 'destroy']);
+
+    Route::get('faq/{faq}/json', [FaqController::class, 'show']);
 
     // Slider
     Route::resource('slider', AdminSliderController::class);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\News;
 use App\Models\Slider;
 use App\Models\Video;
+use App\Models\Faq;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,8 +40,10 @@ class HomeController extends Controller
             ->take(15)
             ->get();
 
+        $faqs = Faq::latest()->get();
+
         $slideVideo = Video::where('is_active', 1)->get();
 
-        return view('index', compact('sliderNews', 'highlightNews', 'homeNews', 'slideVideo'));
+        return view('index', compact('sliderNews', 'highlightNews', 'homeNews', 'faqs', 'slideVideo'));
     }
 }

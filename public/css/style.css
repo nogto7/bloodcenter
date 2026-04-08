@@ -72,7 +72,7 @@
 /* Size End */
 /* Color */
 :root {
-  --backgroundColor: #eef1f8;
+  --backgroundColor: #f9f9f9;
   --primaryColor: #003bff;
   --primaryHoverColor: #001faa;
   --baseColor: #2a2b2f;
@@ -2113,25 +2113,13 @@ section {
 .title {
   display: block;
   position: relative;
-  font-size: 34px;
-  font-family: "ChBodoni";
-  font-weight: 700;
+  font-size: 28px;
+  font-weight: 600;
   text-align: center;
   text-transform: uppercase;
   line-height: 1;
-  padding-bottom: 50px;
+  padding-bottom: 40px;
   margin: 0 auto;
-}
-.title::before {
-  position: absolute;
-  content: "";
-  left: 50%;
-  bottom: 30px;
-  height: 2px;
-  width: 50%;
-  max-width: 140px;
-  background-color: var(--redPrimaryColor);
-  transform: translateX(-50%);
 }
 .title .back_btn {
   margin: 0;
@@ -2431,8 +2419,7 @@ section {
   padding-bottom: 50px;
 }
 .video_container h1 {
-  font-size: 24px;
-  font-family: "ChBodoni";
+  font-size: 22px;
   font-weight: 600;
   margin-bottom: 10px;
 }
@@ -2998,8 +2985,7 @@ section {
   margin-top: 16px;
 }
 .item_desc h2 {
-  font-size: 24px;
-  font-family: "ChBodoni";
+  font-size: 22px;
   line-height: 1.2;
   display: -webkit-box;
   margin-bottom: 12px;
@@ -3085,8 +3071,7 @@ section {
   margin-top: 0;
 }
 .other_news .o_news_item .item_desc h3 {
-  font-size: 20px;
-  font-family: "ChBodoni";
+  font-size: 17px;
 }
 .other_news .o_news_item .item_desc p {
   display: -webkit-box;
@@ -3123,8 +3108,8 @@ section {
   transition: all 0.3s;
 }
 .news_item h3 {
-  font-family: "ChBodoni";
   font-size: 20px;
+  font-weight: 600;
   margin-bottom: 10px;
 }
 .news_item:hover h3 {
@@ -3247,6 +3232,10 @@ section {
 
 .bg_gray {
   background-color: var(--backgroundColor);
+}
+
+.bb1 {
+  border-bottom: 1px solid var(--borderColor);
 }
 
 .adminpanel .admin_header {
@@ -3791,8 +3780,7 @@ iframe {
   background-color: var(--primaryColor);
 }
 .page_header h2 {
-  font-size: 34px;
-  font-family: "ChBodoni";
+  font-size: 32px;
   font-weight: 500;
   line-height: 1.1;
   margin: 0 auto;
@@ -3815,6 +3803,92 @@ em i {
   color: var(--primaryColor);
   font-size: 14px;
   margin-right: 5px;
+}
+
+.faq_wrap, .shilen_wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid #e7e7e7;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.faq_wrap .faq_item ~ .faq_item, .faq_wrap .faq_item ~ .shilen_item, .faq_wrap .shilen_item ~ .faq_item, .faq_wrap .shilen_item ~ .shilen_item, .shilen_wrap .faq_item ~ .faq_item, .shilen_wrap .faq_item ~ .shilen_item, .shilen_wrap .shilen_item ~ .faq_item, .shilen_wrap .shilen_item ~ .shilen_item {
+  border-top: 1px solid #e7e7e7;
+}
+.faq_wrap .faq_item.active, .faq_wrap .shilen_item.active, .shilen_wrap .faq_item.active, .shilen_wrap .shilen_item.active {
+  background-color: #fff;
+}
+.faq_wrap .faq_item.active .faq_question::after, .faq_wrap .faq_item.active .shilen_head::after, .faq_wrap .shilen_item.active .faq_question::after, .faq_wrap .shilen_item.active .shilen_head::after, .shilen_wrap .faq_item.active .faq_question::after, .shilen_wrap .faq_item.active .shilen_head::after, .shilen_wrap .shilen_item.active .faq_question::after, .shilen_wrap .shilen_item.active .shilen_head::after {
+  transform: rotate(-90deg) translateX(50%);
+}
+.faq_wrap .faq_item.active .faq_question h2, .faq_wrap .faq_item.active .shilen_head h2, .faq_wrap .shilen_item.active .faq_question h2, .faq_wrap .shilen_item.active .shilen_head h2, .shilen_wrap .faq_item.active .faq_question h2, .shilen_wrap .faq_item.active .shilen_head h2, .shilen_wrap .shilen_item.active .faq_question h2, .shilen_wrap .shilen_item.active .shilen_head h2 {
+  color: var(--baseColor);
+}
+.faq_wrap .shilen_item.active, .shilen_wrap .shilen_item.active {
+  background-color: var(--backgroundColor);
+}
+.faq_wrap .faq_question, .faq_wrap .shilen_head, .shilen_wrap .faq_question, .shilen_wrap .shilen_head {
+  position: relative;
+  color: var(--baseColor);
+  font-size: 18px;
+  font-weight: 500;
+  padding: 16px 20px;
+  cursor: pointer;
+}
+.faq_wrap .faq_question::after, .faq_wrap .shilen_head::after, .shilen_wrap .faq_question::after, .shilen_wrap .shilen_head::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  height: 14px;
+  width: 14px;
+  background: url("../images/icon-small-right.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transform: rotate(90deg) translateX(-50%);
+}
+.faq_wrap .faq_answer, .faq_wrap .shilen_content, .shilen_wrap .faq_answer, .shilen_wrap .shilen_content {
+  color: var(--textColor);
+  display: none;
+  flex-direction: column;
+  flex-wrap: wrap;
+  font-size: 15px;
+  padding: 0 20px 16px;
+}
+.faq_wrap .faq_item.active .faq_answer, .faq_wrap .shilen_item.active .shilen_content, .shilen_wrap .faq_item.active .faq_answer, .shilen_wrap .shilen_item.active .shilen_content {
+  display: flex;
+}
+
+.shilen_wrap .shilen_head {
+  padding-right: 50px;
+}
+.shilen_wrap .shilen_head h2 {
+  color: var(--textColor);
+  font-size: 18px;
+  font-weight: 500;
+}
+.shilen_wrap .shilen_content a {
+  position: relative;
+  padding: 7px 12px 7px 10px;
+  width: -moz-max-content;
+  width: max-content;
+  background-color: #fff;
+  border: 1px solid #b1b7bf;
+  transition: all 0.3s;
+  border-radius: 8px;
+}
+.shilen_wrap .shilen_content a:hover {
+  color: var(--primaryColor);
+  background-color: #fff;
+  border-color: var(--primaryColor);
+}
+.shilen_wrap .shilen_content a ~ a {
+  margin-top: 5px;
+}
+.shilen_wrap .shilen_content span {
+  margin-right: 7px;
 }
 
 .page_content .page_text {

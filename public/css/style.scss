@@ -1624,25 +1624,24 @@ section{
 .title{
     display: block;
     position: $pr;
-    font-size: $s3_4;
-    font-family: 'ChBodoni';
-    font-weight: 700;
+    font-size: $s2_8;
+    font-weight: 600;
     text-align: $c;
     text-transform: uppercase;
     line-height: 1;
-    padding-bottom: $s5;
+    padding-bottom: $s4;
     margin: 0 auto;
-    &::before{
-        position: $pa;
-        content: '';
-        left: 50%;
-        bottom: $s3;
-        height: 2px;
-        width: 50%;
-        max-width: 140px;
-        background-color: var(--redPrimaryColor);
-        transform: translateX(-50%);
-    }
+    // &::before{
+    //     position: $pa;
+    //     content: '';
+    //     left: 50%;
+    //     bottom: $s3;
+    //     height: 2px;
+    //     width: 50%;
+    //     max-width: 140px;
+    //     background-color: var(--redPrimaryColor);
+    //     transform: translateX(-50%);
+    // }
     .back_btn{
         margin: 0;
     }
@@ -1953,8 +1952,7 @@ section{
 .video_container{
     padding-bottom: $s5;
     h1{
-        font-size: $s2_4;
-        font-family: 'ChBodoni';
+        font-size: $s2_2;
         font-weight: 600;
         margin-bottom: $s1;
     }
@@ -2558,8 +2556,7 @@ section{
 .item_desc{
     margin-top: $s1_6;
     h2{
-        font-size: $s2_4;
-        font-family: 'ChBodoni';
+        font-size: $s2_2;
         line-height: 1.2;
         display: -webkit-box;
         margin-bottom: $s1_2;
@@ -2648,8 +2645,7 @@ section{
         .item_desc{
             margin-top: 0;
             h3{
-                font-size: $s2;
-                font-family: 'ChBodoni';
+                font-size: $s1_7;
             }
             p{
                 display: -webkit-box;
@@ -2691,8 +2687,8 @@ section{
         }
     }
     h3{
-        font-family: 'ChBodoni';
         font-size: $s2;
+        font-weight: 600;
         margin-bottom: $s1;
     }
     &:hover{
@@ -2814,6 +2810,9 @@ section{
 }
 .bg_gray{
     background-color: var(--backgroundColor);
+}
+.bb1{
+    border-bottom: 1px solid var(--borderColor);
 }
 
 .adminpanel{
@@ -3395,8 +3394,7 @@ iframe{
     padding: $s5 0;
     background-color: var(--primaryColor);
     h2{
-        font-size: $s3_4;
-        font-family: 'ChBodoni';
+        font-size: $s3_2;
         font-weight: 500;
         line-height: 1.1;
         margin: 0 auto;
@@ -3417,6 +3415,99 @@ em{
         color: var(--primaryColor);
         font-size: $s1_4;
         margin-right: $s_5;
+    }
+}
+.faq_wrap, .shilen_wrap{
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: $wh;
+    border: 1px solid #e7e7e7;
+    border-radius: $s1_2;
+    overflow: hidden;
+    .faq_item, .shilen_item{
+        & ~ .faq_item, & ~ .shilen_item{
+            border-top: 1px solid #e7e7e7;
+        }
+        &.active{
+            background-color: $wh;
+            .faq_question, .shilen_head{
+                &::after{
+                    transform: rotate(-90deg) translateX(50%);
+                }
+                h2{
+                    color: var(--baseColor);
+                }
+            }
+        }
+    }
+    .shilen_item{
+        &.active{
+            background-color: var(--backgroundColor);
+        }
+    }
+    .faq_question, .shilen_head{
+        position: $pr;
+        color: var(--baseColor);
+        font-size: $s1_8;
+        font-weight: 500;
+        padding: $s1_6 $s2;
+        cursor: pointer;
+        &::after{
+            content: '';
+            position: $pa;
+            top: 50%;
+            right: $s2;
+            height: $s1_4;
+            width: $s1_4;
+            background: url('../images/icon-small-right.svg');
+            background-repeat: no-repeat;
+            background-position: $c;
+            background-size: contain;
+            transform: rotate(90deg) translateX(-50%);
+        }
+    }
+    .faq_answer, .shilen_content{
+        color: var(--textColor);
+        display: none;
+        flex-direction: column;
+        flex-wrap: wrap;
+        font-size: $s1_5;
+        padding: 0 $s2 $s1_6;
+    }
+    .faq_item.active .faq_answer, .shilen_item.active .shilen_content{
+        display: $fl;
+    }
+}
+.shilen_wrap{
+    .shilen_head{
+        padding-right: $s5;
+        h2{
+            color: var(--textColor);
+            font-size: $s1_8;
+            font-weight: 500;
+        }
+    }
+    .shilen_content{
+        a{
+            position: $pr;
+            padding: $s_7 $s1_2 $s_7 $s1;
+            width: max-content;
+            background-color: $wh;
+            border: 1px solid $headerLinkColor;
+            transition: all .3s;
+            border-radius: $s_8;
+            &:hover{
+                color: var(--primaryColor);
+                background-color: $wh;
+                border-color: var(--primaryColor);
+            }
+            & ~ a{
+                margin-top: $s_5;
+            }
+        }
+        span{
+            margin-right: $s_7;
+        }
     }
 }
 .page_content{
