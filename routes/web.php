@@ -30,23 +30,9 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::post('/deploy', function (Request $request) {
-
-    $secret = env('DEPLOY_SECRET');
-
-    $signature = $request->header('X-Hub-Signature-256');
-    $payload = $request->getContent();
-
-    $hash = 'sha256=' . hash_hmac('sha256', $payload, $secret);
-
-    if (!hash_equals($hash, $signature)) {
-        abort(403, 'Invalid signature');
-    }
-
-    $output = shell_exec('cd /opt/sites/bloodcenter.mn && git pull 2>&1');
-
-    return response("<pre>$output</pre>");
-});
+// Route::get('/deploy', function(){
+//     return view('deploy');
+// });
 
 // Route::get('/who', function(){
 //     return Auth::user();

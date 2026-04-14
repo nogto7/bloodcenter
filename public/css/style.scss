@@ -2478,6 +2478,8 @@ section{
     .item_img{
         height: fit-content;
         max-height: 410px;
+        border-radius: $s1_2;
+        overflow: hidden;
         &::before, &::after{
             position: $pa;
             content: '';
@@ -3428,7 +3430,7 @@ em{
         & ~ .faq_item, & ~ .shilen_item{
             border-top: 1px solid #e7e7e7;
         }
-        &.active{
+        &.show{
             background-color: $wh;
             .faq_question, .shilen_head{
                 &::after{
@@ -3441,7 +3443,7 @@ em{
         }
     }
     .shilen_item{
-        &.active{
+        &.show{
             background-color: var(--backgroundColor);
         }
     }
@@ -3474,9 +3476,6 @@ em{
         font-size: $s1_5;
         padding: 0 $s2 $s1_6;
     }
-    .faq_item.active .faq_answer, .shilen_item.active .shilen_content{
-        display: $fl;
-    }
 }
 .shilen_wrap{
     .shilen_head{
@@ -3489,6 +3488,7 @@ em{
     }
     .shilen_content{
         a{
+            display: block;
             position: $pr;
             padding: $s_7 $s1_2 $s_7 $s1;
             width: max-content;

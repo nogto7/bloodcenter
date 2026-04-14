@@ -17,14 +17,11 @@
                                     {{ $group->title }}
                                 </button>
                             </h2>
-                    
                             <div id="collapse{{ $group->id }}"
                                     class="accordion-collapse collapse"
                                     data-bs-parent="#accordionExample">
-                    
                                 <div class="accordion-body">
-                    
-                                    @foreach($group->items as $item)
+                                    @for    weach($group->items as $item)
                     
                                         {{-- TEXT --}}
                                         @if($item->type == 'text')
@@ -46,7 +43,6 @@
                                         @endif
                     
                                     @endforeach
-                    
                                 </div>
                             </div>
                         </div>

@@ -2911,6 +2911,8 @@ section {
   height: -moz-fit-content;
   height: fit-content;
   max-height: 410px;
+  border-radius: 12px;
+  overflow: hidden;
 }
 .popular_news .item_img::before, .popular_news .item_img::after {
   position: absolute;
@@ -3816,16 +3818,16 @@ em i {
 .faq_wrap .faq_item ~ .faq_item, .faq_wrap .faq_item ~ .shilen_item, .faq_wrap .shilen_item ~ .faq_item, .faq_wrap .shilen_item ~ .shilen_item, .shilen_wrap .faq_item ~ .faq_item, .shilen_wrap .faq_item ~ .shilen_item, .shilen_wrap .shilen_item ~ .faq_item, .shilen_wrap .shilen_item ~ .shilen_item {
   border-top: 1px solid #e7e7e7;
 }
-.faq_wrap .faq_item.active, .faq_wrap .shilen_item.active, .shilen_wrap .faq_item.active, .shilen_wrap .shilen_item.active {
+.faq_wrap .faq_item.show, .faq_wrap .shilen_item.show, .shilen_wrap .faq_item.show, .shilen_wrap .shilen_item.show {
   background-color: #fff;
 }
-.faq_wrap .faq_item.active .faq_question::after, .faq_wrap .faq_item.active .shilen_head::after, .faq_wrap .shilen_item.active .faq_question::after, .faq_wrap .shilen_item.active .shilen_head::after, .shilen_wrap .faq_item.active .faq_question::after, .shilen_wrap .faq_item.active .shilen_head::after, .shilen_wrap .shilen_item.active .faq_question::after, .shilen_wrap .shilen_item.active .shilen_head::after {
+.faq_wrap .faq_item.show .faq_question::after, .faq_wrap .faq_item.show .shilen_head::after, .faq_wrap .shilen_item.show .faq_question::after, .faq_wrap .shilen_item.show .shilen_head::after, .shilen_wrap .faq_item.show .faq_question::after, .shilen_wrap .faq_item.show .shilen_head::after, .shilen_wrap .shilen_item.show .faq_question::after, .shilen_wrap .shilen_item.show .shilen_head::after {
   transform: rotate(-90deg) translateX(50%);
 }
-.faq_wrap .faq_item.active .faq_question h2, .faq_wrap .faq_item.active .shilen_head h2, .faq_wrap .shilen_item.active .faq_question h2, .faq_wrap .shilen_item.active .shilen_head h2, .shilen_wrap .faq_item.active .faq_question h2, .shilen_wrap .faq_item.active .shilen_head h2, .shilen_wrap .shilen_item.active .faq_question h2, .shilen_wrap .shilen_item.active .shilen_head h2 {
+.faq_wrap .faq_item.show .faq_question h2, .faq_wrap .faq_item.show .shilen_head h2, .faq_wrap .shilen_item.show .faq_question h2, .faq_wrap .shilen_item.show .shilen_head h2, .shilen_wrap .faq_item.show .faq_question h2, .shilen_wrap .faq_item.show .shilen_head h2, .shilen_wrap .shilen_item.show .faq_question h2, .shilen_wrap .shilen_item.show .shilen_head h2 {
   color: var(--baseColor);
 }
-.faq_wrap .shilen_item.active, .shilen_wrap .shilen_item.active {
+.faq_wrap .shilen_item.show, .shilen_wrap .shilen_item.show {
   background-color: var(--backgroundColor);
 }
 .faq_wrap .faq_question, .faq_wrap .shilen_head, .shilen_wrap .faq_question, .shilen_wrap .shilen_head {
@@ -3857,9 +3859,6 @@ em i {
   font-size: 15px;
   padding: 0 20px 16px;
 }
-.faq_wrap .faq_item.active .faq_answer, .faq_wrap .shilen_item.active .shilen_content, .shilen_wrap .faq_item.active .faq_answer, .shilen_wrap .shilen_item.active .shilen_content {
-  display: flex;
-}
 
 .shilen_wrap .shilen_head {
   padding-right: 50px;
@@ -3870,6 +3869,7 @@ em i {
   font-weight: 500;
 }
 .shilen_wrap .shilen_content a {
+  display: block;
   position: relative;
   padding: 7px 12px 7px 10px;
   width: -moz-max-content;

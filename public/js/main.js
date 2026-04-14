@@ -493,6 +493,21 @@ $(document).ready(function(){
     closeMenu();
     headerFixed();
 
+    $('.faq_question, .shilen_head').click(function(e) {
+        e.preventDefault();
+        let $this = $(this);
+        if($this.parent().hasClass('show')){
+            $this.parent().removeClass('show');
+            $this.next().slideUp(300);
+        } else {
+            $('.faq_question, .shilen_head').parent().removeClass('show');
+            $('.faq_answer, .shilen_content').slideUp(300);
+            $this.parent().removeClass('show');
+            $this.parent().toggleClass('show');
+            $this.next().slideToggle(300);
+        }
+    });
+
     const folderForm = document.getElementById('folderForm'),
     menusForm = document.getElementById('menusForm'),
     departmentForm = document.getElementById('departmentForm'),

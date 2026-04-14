@@ -6,7 +6,9 @@
             <div class="page_wrap">
                 <div class="dg">
                     <h1 class="title">
-                        {{-- {{ $menu->title }} --}}
+                        @if(isset($menu->title))
+                        {{ $menu->title }}
+                        @endif
                     </h1>
                     <div class="dg page_grid gap3">
                         <div class="page_content">
@@ -36,14 +38,4 @@
         </div>
     </div>
 </div>
-<script>
-document.querySelectorAll('.shilen_head').forEach(q => {
-    q.addEventListener('click', function(){
-        $('.shilen_item').removeClass('active');
-        $(this).parent().toggleClass('active');
-        // const parent = this.parentElement;
-        // parent.classList.toggle('active');
-    });
-});
-</script>
 @endsection

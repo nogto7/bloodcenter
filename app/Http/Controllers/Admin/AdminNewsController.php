@@ -7,6 +7,9 @@ use App\Models\Menu;
 use App\Models\News;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -224,22 +227,49 @@ class AdminNewsController extends Controller
         return back()->with('success','Мэдээ publisher руу илгээгдлээ');
     }
 
+    // public function upload(Request $request)
+    // {
+    //     if ($request->hasFile('file')) { 
+    //         $file = $request->file('file');
+
+    //         $filename = time() . '_' . $file->getClientOriginalName();
+    //         $file->move(public_path('uploads/news'), $filename);
+
+    //         return response()->json([
+    //             'location' => asset('uploads/news/' . $filename)
+    //         ]);
+    //     }
+
+    //     return response()->json([
+    //         'error' => 'File not uploaded'
+    //     ], 400);
+    // }
+
     public function upload(Request $request)
     {
-        if ($request->hasFile('file')) { 
-            $file = $request->file('file');
+        if ($request->hasFile('file')) {
 
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/news'), $filename);
+            $file = $request->file('file');
+            $filename = time() . '.jpg'; // 🔥 бүгдийг jpg болгоё
+
+            $manager = new ImageManager(new Driver());
+            $image = $manager->read($file);
+
+            $image->scaleDown(1000);
+
+            // ✅ 2. Encode + шахалт
+            $encoded = $image->toJpeg(75); // 🔥 quality = 75 (сайн баланс)
+
+            $path = 'uploads/news/' . $filename;
+
+            Storage::disk('public')->put($path, (string) $encoded);
 
             return response()->json([
-                'location' => asset('uploads/news/' . $filename)
+                'location' => asset('storage/' . $path)
             ]);
         }
 
-        return response()->json([
-            'error' => 'File not uploaded'
-        ], 400);
+        return response()->json(['error' => 'No file'], 400);
     }
 
     public function edit(News $news)

@@ -212,14 +212,5 @@
             }
         }
     });
-
-    document.querySelectorAll('.faq_question').forEach(q => {
-        q.addEventListener('click', function(){
-            $('.faq_item').removeClass('active');
-            $(this).parent().toggleClass('active');
-            // const parent = this.parentElement;
-            // parent.classList.toggle('active');
-        });
-    });
 </script>
 @endsection

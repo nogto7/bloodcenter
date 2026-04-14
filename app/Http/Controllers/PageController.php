@@ -86,7 +86,7 @@ class PageController extends Controller
                     ->orderBy('order')
                     ->get();
             
-                return view('pages.shilen', compact('menuItems', 'items'));
+                return view('pages.shilen', compact('menu','menuItems', 'items'));
 
             case 'custom':
                 abort_if(!view()->exists('pages.custom.'.$menu->url), 404);
