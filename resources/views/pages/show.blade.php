@@ -21,7 +21,7 @@
                                     class="accordion-collapse collapse"
                                     data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    @for    weach($group->items as $item)
+                                    @foreach($group->items as $item)
                     
                                         {{-- TEXT --}}
                                         @if($item->type == 'text')
