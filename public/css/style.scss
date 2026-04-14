@@ -3422,13 +3422,13 @@ em{
 .faq_wrap, .shilen_wrap{
     max-width: 800px;
     margin: 0 auto;
-    background-color: $wh;
-    border: 1px solid #e7e7e7;
-    border-radius: $s1_2;
-    overflow: hidden;
     .faq_item, .shilen_item{
+        background-color: $wh;
+        border: 1px solid #e7e7e7;
+        border-radius: $s1_2;
+        overflow: hidden;
         & ~ .faq_item, & ~ .shilen_item{
-            border-top: 1px solid #e7e7e7;
+            margin-top: $s1;
         }
         &.show{
             background-color: $wh;
@@ -3450,7 +3450,7 @@ em{
     .faq_question, .shilen_head{
         position: $pr;
         color: var(--baseColor);
-        font-size: $s1_8;
+        font-size: $s2;
         font-weight: 500;
         padding: $s1_6 $s2;
         cursor: pointer;
@@ -3474,7 +3474,8 @@ em{
         flex-direction: column;
         flex-wrap: wrap;
         font-size: $s1_5;
-        padding: 0 $s2 $s1_6;
+        padding: $s1_6 $s2;
+        border-top: 1px solid #e7e7e7;
     }
 }
 .shilen_wrap{

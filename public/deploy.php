@@ -1,4 +1,3 @@
-Alpha Amaraa, [14 Apr 2026 at 13:32:50]:
 <?php
 /**
  * Git Webhook Deploy Script

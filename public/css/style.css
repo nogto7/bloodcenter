@@ -3810,13 +3810,15 @@ em i {
 .faq_wrap, .shilen_wrap {
   max-width: 800px;
   margin: 0 auto;
+}
+.faq_wrap .faq_item, .faq_wrap .shilen_item, .shilen_wrap .faq_item, .shilen_wrap .shilen_item {
   background-color: #fff;
   border: 1px solid #e7e7e7;
   border-radius: 12px;
   overflow: hidden;
 }
 .faq_wrap .faq_item ~ .faq_item, .faq_wrap .faq_item ~ .shilen_item, .faq_wrap .shilen_item ~ .faq_item, .faq_wrap .shilen_item ~ .shilen_item, .shilen_wrap .faq_item ~ .faq_item, .shilen_wrap .faq_item ~ .shilen_item, .shilen_wrap .shilen_item ~ .faq_item, .shilen_wrap .shilen_item ~ .shilen_item {
-  border-top: 1px solid #e7e7e7;
+  margin-top: 10px;
 }
 .faq_wrap .faq_item.show, .faq_wrap .shilen_item.show, .shilen_wrap .faq_item.show, .shilen_wrap .shilen_item.show {
   background-color: #fff;
@@ -3833,7 +3835,7 @@ em i {
 .faq_wrap .faq_question, .faq_wrap .shilen_head, .shilen_wrap .faq_question, .shilen_wrap .shilen_head {
   position: relative;
   color: var(--baseColor);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
   padding: 16px 20px;
   cursor: pointer;
@@ -3857,7 +3859,8 @@ em i {
   flex-direction: column;
   flex-wrap: wrap;
   font-size: 15px;
-  padding: 0 20px 16px;
+  padding: 16px 20px;
+  border-top: 1px solid #e7e7e7;
 }
 
 .shilen_wrap .shilen_head {
