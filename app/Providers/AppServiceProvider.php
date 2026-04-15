@@ -39,9 +39,18 @@ class AppServiceProvider extends ServiceProvider
     
             $view->with('menus', $menus);
 
+            // $news = News::where('is_active', 1)
+            //     ->orderBy('publish_at', 'desc')
+            //     ->latest()
+            //     ->take(15)
+            //     ->get();
+
             $news = News::where('is_active', 1)
+                ->whereHas('menu', function ($q) {
+                    $q->where('type', 'news');
+                })
                 ->orderBy('publish_at', 'desc')
-                ->latest()
+                ->latest('publish_at')
                 ->take(15)
                 ->get();
 

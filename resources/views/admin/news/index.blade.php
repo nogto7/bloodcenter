@@ -57,7 +57,7 @@
                                 @if ($item->status === 'draft')
                                     <span class="status status_danger">Түр хадгалсан</span>
                                 @elseif ($item->status === 'pending')
-                                    <span class="status status_warning">Хүлээгдэж байна</span>
+                                    <span class="status status_waiting">Хүлээгдэж байна</span>
                                 @elseif ($item->status === 'published')
                                     <span class="status status_success">Нийтлэгдсэн</span>
                                 @endif

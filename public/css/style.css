@@ -1550,7 +1550,7 @@ span[class^=icon-].search {
 }
 
 .status_waiting {
-  color: var(--primaryColor);
+  color: #e0861a;
   background-color: rgba(255, 181, 3, 0.1450980392);
   border-color: rgba(255, 181, 3, 0.1450980392);
 }

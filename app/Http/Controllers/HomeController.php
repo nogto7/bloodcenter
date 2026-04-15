@@ -36,7 +36,11 @@ class HomeController extends Controller
                     });
                 }
             })
-            ->orderBy('publish_at', 'desc')
+            ->where('is_active', 1)
+            ->whereHas('menu', function ($q) {
+                $q->where('type', 'news');
+            })
+            ->latest('publish_at')
             ->take(15)
             ->get();
 
