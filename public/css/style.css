@@ -3894,6 +3894,10 @@ em i {
   margin-right: 7px;
 }
 
+.page_content p {
+  font-size: 16px;
+  text-align: justify;
+}
 .page_content .page_text {
   font-size: 16px;
   text-align: justify;

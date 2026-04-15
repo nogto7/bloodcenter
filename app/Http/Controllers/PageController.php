@@ -89,8 +89,11 @@ class PageController extends Controller
                 return view('pages.shilen', compact('menu','menuItems', 'items'));
 
             case 'custom':
-                abort_if(!view()->exists('pages.custom.'.$menu->url), 404);
-                return view('pages.custom.'.$menu->url, compact('menu'));
+                $news = News::where('menu_id', $menu->id)
+                    ->where('is_active', 1)
+                    ->firstOrFail();
+            
+                return view('pages.custom', compact('menu','news'));
 
             default:
                 abort(404);
