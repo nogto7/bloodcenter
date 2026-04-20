@@ -40,7 +40,13 @@
                         <td>{{ $item->title }}</td>
                         <td style="width: 160px">
                             <div class="dfc">
-                                <a href="{{ route('admin.video.edit', $item) }}" class="f_f_button f_edit"><span></span>Засах</a>
+                                <button 
+                                    class="f_f_button f_edit btnEditVideo"
+                                    data-id="{{ $item->id }}"
+                                    data-title="{{ $item->title }}"
+                                    data-url="{{ $item->url }}">
+                                    <span></span>Засах
+                                </button>
                                 <form action="{{ route('admin.video.destroy', $item) }}" method="POST" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
@@ -91,4 +97,84 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="editVideo" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="core_modal">
+            <div class="modal_header">
+                <h2>Видео засах</h2>
+            </div>
+
+            <form id="editVideoForm">
+                @csrf
+                @method('PUT')
+
+                <input type="hidden" name="id" id="edit_id">
+
+                <div class="modal_main">
+                    <div class="form_item">
+                        <label>Гарчиг</label>
+                        <input name="title" id="edit_title" class="form_input">
+                    </div>
+
+                    <div class="form_item">
+                        <label>Youtube ID</label>
+                        <input name="url" id="edit_url" class="form_input">
+                    </div>
+                </div>
+
+                <div class="modal_footer">
+                    <button type="submit" class="__btn btn_primary">Хадгалах</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.btnEditVideo').forEach(btn => {
+        btn.addEventListener('click', function () {
+            document.getElementById('edit_id').value = this.dataset.id;
+            document.getElementById('edit_title').value = this.dataset.title;
+            document.getElementById('edit_url').value = this.dataset.url;
+
+            new bootstrap.Modal(document.getElementById('editVideo')).show();
+        });
+    });
+
+    const editForm = document.getElementById('editVideoForm');
+
+    if (editForm) {
+        editForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const id = document.getElementById('edit_id').value;
+            const formData = new FormData(this);
+
+            fetch(`/admin/video/${id}`, {
+                method: 'POST', // Laravel spoof
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            })
+            .then(res => {
+                if (!res.ok) throw res;
+                return res.json();
+            })
+            .then(data => {
+                bootstrap.Modal.getInstance(
+                    document.getElementById('editVideo')
+                ).hide();
+
+                location.reload(); // эсвэл row update хийж болно
+            })
+            .catch(err => {
+                console.error('Update error:', err);
+                alert('Алдаа гарлаа');
+            });
+        });
+    }
+</script>
 @endsection

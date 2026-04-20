@@ -91,7 +91,7 @@ Route::prefix('admin')
 
     // Feedback
     Route::resource('feedback', AdminFeedbackController::class);
-    Route::delete('feedback/{id}', [AdminFeedbackController::class, 'destroy'])->name('feedback.destroy');
+    // Route::delete('feedback/{id}', [AdminFeedbackController::class, 'destroy'])->name('feedback.destroy');
 
     // Menus
     Route::resource('menus', MenuController::class);

@@ -51,12 +51,20 @@ class AdminVideoController extends Controller
         ]);
 
         $video->update($data);
-        return back();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Амжилттай засагдлаа',
+            'data' => $video
+        ]);
     }
 
     public function destroy(Video $video)
     {
         $video->delete();
-        return back();
+
+        return response()->json([
+            'success' => true
+        ]);
     }
 }
