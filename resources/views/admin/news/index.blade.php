@@ -42,7 +42,13 @@
                     @forelse ($newsList as $key => $item)
                         <tr>
                             <td style="width: 40px">{{ $newsList->firstItem() + $key }}</td>
-                            <td><div class="img_block"><img src="/{{ $item->highlight_image }}" alt=""></div></td>
+                            <td>
+                                @if($item->highlight_image)
+                                <div class="img_block"><img src="/{{ $item->highlight_image }}" alt=""></div>
+                                @else
+                                <div class="img_block"><img src="/images/not_image.png" alt=""></div>
+                                @endif
+                            </td>
                             <td>{{ $item->title }}</td>
                             {{-- <td>{{ strip_tags(Str::limit($item->content, 240)) }}</td> --}}
                             <td>{{ $item->publish_at }}</td>

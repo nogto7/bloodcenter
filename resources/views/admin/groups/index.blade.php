@@ -102,7 +102,7 @@
                     <div class="">
                         <div class="form_item">
                             <label class="form_label">Гарчиг</label>
-                            <input name="title" class="form_input" placeholder="Гарчиг">
+                            <input name="title" class="form_input" placeholder="Гарчиг" required>
                         </div>
                         <div class="form_item">
                             <label class="form_label">Хамаарах цэс</label>
@@ -124,7 +124,7 @@
                 </div>
                 <div class="modal_footer">
                     <div class="dfc jce">
-                        <button type="button" class="__btn" data-bs-dismiss="modal"
+                        <button type="button" class="__btn"
                         aria-label="Close">Болих</button>
                         <button type="submit" class="__btn btn_primary ml2">Хадгалах</button>
                     </div>
@@ -146,7 +146,7 @@
                     <div class="">
                         <div class="form_item">
                             <label class="form_label">Гарчиг</label>
-                            <input name="title" id="edit_title" class="form_input" placeholder="Гарчиг">
+                            <input name="title" id="edit_title" class="form_input" placeholder="Гарчиг" required>
                         </div>
                         <div class="form_item">
                             <label class="form_label">Хамаарах цэс</label>
@@ -168,7 +168,7 @@
                 </div>
                 <div class="modal_footer">
                     <div class="dfc jce">
-                        <button type="button" class="__btn" data-bs-dismiss="modal"
+                        <button type="button" class="__btn" 
                         aria-label="Close">Болих</button>
                         <button type="submit" class="__btn btn_primary ml2">Хадгалах</button>
                     </div>
@@ -212,29 +212,29 @@
                     </div>
                     <div class="form_item">
                         <label class="form_label">Гарчиг</label>
-                        <input type="text" name="title" class="form_input" placeholder="Гарчиг">
+                        <input type="text" name="title" class="form_input" placeholder="Гарчиг" required>
                     </div>
-                    <div class="form_item" id="text-box">
+                    <div class="form_item" id="text-box-add">
                         <label class="form_label">Мэдээний агуулга</label>
-                        <textarea name="content" id="content"></textarea>
+                        <textarea name="content" id="content_add"></textarea>
                     </div>
-                    <div class="form_item" id="link-box" style="display: none;">
+                    <div class="form_item" id="link-box-add" style="display: none;">
                         <label class="form_label">Мэдээний холбоос</label>
                         <input type="text" name="link" class="form_input" placeholder="Мэдээний холбоос оруулна уу">
                     </div>
-                    <div class="form_item" id="file-box" style="display: none;">
+                    <div class="form_item" id="file-box-add" style="display: none;">
                         <label class="form_label">Сонгосон файл</label>
-                        <input type="hidden" name="file_id" id="file_id" value="{{ old('file_id', $item->file_id ?? '') }}">
-                        <span class="text_notice mb1" id="selected_file">Сонгоогүй</span>
-                        <input type="text" id="fileSearch" placeholder="Файл хайх..." class="form_input">
-                        <div class="file-picker-grid dg g3 gap1" id="filePicker"></div>
+                        <input type="hidden" name="file_id" id="file_id_add" value="{{ old('file_id', $item->file_id ?? '') }}">
+                        <span class="file_item mb1" id="selected_file_add">Сонгоогүй</span>
+                        <input type="text" id="fileSearch_add" placeholder="Файл хайх..." class="form_input">
+                        <div class="file-picker" id="filePicker_add"></div>
                     </div>
                 </div>
                 <div class="modal_footer">
                     <div class="dfc jce">
-                        <button type="button" class="__btn" data-bs-dismiss="modal"
+                        <button type="button" class="__btn" 
                         aria-label="Close">Болих</button>
-                        <button type="submit" onclick="closeModal('departmentModal')" class="__btn btn_primary ml2" data-bs-dismiss="modal"
+                        <button type="submit" id="saveItemBtn" class="__btn btn_primary ml2" 
                         aria-label="Close">Хадгалах</button>
                     </div>
                 </div>
@@ -279,27 +279,27 @@
                         <label class="form_label">Гарчиг</label>
                         <input type="text" name="title" id="edit_title" class="form_input" placeholder="Гарчиг">
                     </div>
-                    <div class="form_item" id="text-box">
+                    <div class="form_item" id="text-box-edit">
                         <label class="form_label">Мэдээний агуулга</label>
-                        <textarea name="content" id="content"></textarea>
+                        <textarea name="content" id="content_edit"></textarea>
                     </div>
-                    <div class="form_item" id="link-box" style="display: none;">
+                    <div class="form_item" id="link-box-edit" style="display: none;">
                         <label class="form_label">Мэдээний холбоос</label>
                         <input type="text" name="link" id="edit_link" class="form_input" placeholder="Мэдээний холбоос оруулна уу">
                     </div>
-                    <div class="form_item" id="file-box" style="display: none;">
+                    <div class="form_item" id="file-box-edit" style="display: none;">
                         <label class="form_label">Сонгосон файл</label>
-                        <input type="hidden" name="file_id" id="file_id" value="{{ old('file_id', $item->file_id ?? '') }}">
-                        <span class="text_notice mb1" id="selected_file">Сонгоогүй</span>
-                        <input type="text" id="fileSearch" placeholder="Файл хайх..." class="form_input">
-                        <div class="file-picker-grid dg g3 gap1" id="filePicker"></div>
+                        <input type="hidden" name="file_id" id="file_id_edit" value="{{ old('file_id', $item->file_id ?? '') }}">
+                        <span class="file_item mb1" id="selected_file_edit">Сонгоогүй</span>
+                        <input type="text" id="fileSearch_edit" placeholder="Файл хайх..." class="form_input">
+                        <div class="file-picker" id="filePicker_edit"></div>
                     </div>
                 </div>
                 <div class="modal_footer">
                     <div class="dfc jce">
-                        <button type="button" class="__btn" data-bs-dismiss="modal"
+                        <button type="button" class="__btn"
                         aria-label="Close">Болих</button>
-                        <button type="submit" onclick="closeModal('departmentModal')" class="__btn btn_primary ml2" data-bs-dismiss="modal"
+                        <button type="submit" onclick="closeModal('departmentModal')" class="__btn btn_primary ml2" 
                         aria-label="Close">Хадгалах</button>
                     </div>
                 </div>
@@ -311,68 +311,77 @@
 <script src="/js/tinymce/tinymce.min.js"></script>
 
 <script>
-    function loadFiles(search = '') {
+    function loadFiles(type = 'add', search = '') {
         fetch('/admin/files')
             .then(res => res.json())
             .then(files => {
-                const grid = document.getElementById('filePicker');
+                const grid = document.getElementById(`filePicker_${type}`);
                 grid.innerHTML = '';
 
                 files
                     .filter(f => f.title.toLowerCase().includes(search.toLowerCase()))
                     .forEach(f => {
                         const div = document.createElement('div');
-                        div.classList.add('file-item');
+                        div.classList.add('file_item');
+
                         div.innerHTML = f.mime_type.startsWith('image')
                             ? `<img src="/storage/${f.path}" style="max-width:100px;"><p>${f.title}</p>`
                             : `<p>📄 ${f.title}</p>`;
-                        
-                        div.onclick = () => selectFile(f);
+
+                        div.onclick = () => selectFile(f, div, type);
+
                         grid.appendChild(div);
                     });
             });
     }
 
-    document.getElementById('fileSearch').addEventListener('input', e => {
-        loadFiles(e.target.value);
-    });
+    document.getElementById('fileSearch_add')
+        ?.addEventListener('input', e => loadFiles('add', e.target.value));
+
+    document.getElementById('fileSearch_edit')
+        ?.addEventListener('input', e => loadFiles('edit', e.target.value));
 
     $('#addItem').on('shown.bs.modal', function () {
-        loadFiles();
+        loadFiles('add');
+
+        const type = document.getElementById('type').value;
+        toggleFields(type, 'add');
     });
 
-    function selectFile(file) {
-        const fileInput = document.getElementById('file_id');
-        const selected = document.getElementById('selected_file');
+    $('#editItem').on('shown.bs.modal', function () {
+        loadFiles('edit');
 
-        if (!fileInput || !selected) {
-            console.warn('File input or display div not found');
-            return;
-        }
+        const type = document.getElementById('edit_type').value;
+        toggleFields(type, 'edit');
+    });
+
+    function selectFile(file, el, type = 'add') {
+        const fileInput = document.getElementById(`file_id_${type}`);
+        const selected = document.getElementById(`selected_file_${type}`);
+
+        document.querySelectorAll(`#filePicker_${type} .file_item`).forEach(item => {
+            item.classList.remove('active');
+        });
+
+        el.classList.add('active');
 
         fileInput.value = file.id;
 
-        if (file.mime_type?.startsWith('image')) {
-            selected.innerHTML = `<img src="/storage/${file.path}" style="max-width:100px;"><span>${file.title}</span>`;
-        } else {
-            selected.innerHTML = `<span>📄 ${file.title}</span>`;
-        }
+        selected.classList.add('selected');
 
-        // File manager modal хаах, хэрэв хэрэгтэй бол
-        // $('#fileManagerModal').modal('hide');
+        if (file.mime_type?.startsWith('image')) {
+            selected.innerHTML = `
+                <div class="selected-box">
+                    <img src="/storage/${file.path}" style="max-width:100px;">
+                    <span>${file.title}</span>
+                </div>`;
+        } else {
+            selected.innerHTML = `<p>📄 ${file.title}</p><span></span>`;
+        }
     }
 
     document.getElementById('type').addEventListener('change', function () {
-    let type = this.value;
-
-    document.getElementById('text-box').style.display =
-        (type === 'text') ? 'block' : 'none';
-
-    document.getElementById('link-box').style.display =
-        (type === 'link') ? 'block' : 'none';
-
-    document.getElementById('file-box').style.display =
-        (type === 'image' || type === 'file') ? 'block' : 'none';
+        toggleFields(this.value, 'add');
     });
 
     document.querySelectorAll('.edit-group-btn').forEach(btn => {
@@ -396,53 +405,38 @@
         });
     });
 
-    document.querySelectorAll('.edit-items-btn').forEach(btn => {
-        btn.addEventListener('click', function () {
-            const id = this.dataset.id;
+    document.getElementById('groupEditForm').addEventListener('submit', function(e){
+        e.preventDefault();
 
-            fetch(`/admin/group-items/${id}/json`)
-                .then(res => {
-                    if (!res.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return res.json(); // ⭐ ЭНД JSON болгоно
-                })
-                .then(data => {
+        let formData = new FormData(this);
 
-                    const form = document.getElementById('itemEditForm');
-
-                    form.querySelector('#edit_group_id').value = data.group_id;
-                    form.querySelector('#edit_type').value = data.type;
-                    form.querySelector('[name="title"]').value = data.title;
-                    form.querySelector('[name="link"]').value = data.link ?? '';
-                    tinymce.get('content').setContent(data.content ?? '');
-
-                    document.getElementById('itemEditForm').dataset.id = id;
-
-                    document.getElementById('type').dispatchEvent(new Event('change'));
-                    toggleFields(data.type, document.getElementById('editItem'));
-
-                    new bootstrap.Modal(
-                        document.getElementById('editItem')
-                    ).show();
-
-                    document.getElementById('edit_type').addEventListener('change', function () {
-                        toggleFields(this.value, document.getElementById('editItem'));
-                    });
-                });
-        });
+        fetch('/admin/groups', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: formData
+        })
+        .then(res => res.json())
+        .then(() => location.reload());
     });
 
-    function toggleFields(type, container) {
-        container.querySelector('#text-box').style.display =
-            (type === 'text') ? 'block' : 'none';
+    document.getElementById('saveItemBtn').addEventListener('click', function () {
+        tinymce.triggerSave();
 
-        container.querySelector('#link-box').style.display =
-            (type === 'link') ? 'block' : 'none';
+        let form = document.getElementById('itemForm');
+        let formData = new FormData(form);
 
-        container.querySelector('#file-box').style.display =
-            (type === 'image' || type === 'file') ? 'block' : 'none';
-    }
+        fetch('/admin/group-items', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: formData
+        })
+        .then(res => res.json())
+        .then(() => location.reload());
+    });
 
     document.getElementById('itemEditForm').addEventListener('submit', function(e){
         e.preventDefault();
@@ -468,58 +462,143 @@
         .then(() => location.reload());
     });
 
-tinymce.init({
-  selector: '#content',
-  height: 500,
-license_key: 'gpl',
-  plugins: 'image table lists link code',
-  toolbar: `
-    undo redo | bold italic underline |
-    alignleft aligncenter alignright |
-    bullist numlist |
-    table image link |
-    code
-  `,
-  menubar: true,
-//   images_upload_url: '/admin/upload/news',
-  images_upload_url: "{{ route('admin.news.upload') }}",
-  automatic_uploads: true,
-  file_picker_types: 'image',
-  image_title: true,
+    document.querySelectorAll('.edit-items-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const id = this.dataset.id;
 
-  images_upload_handler: function (blobInfo, progress) {
-    return new Promise((resolve, reject) => {
-      let xhr = new XMLHttpRequest();
-      xhr.open('POST', "{{ route('admin.news.upload') }}");
+            fetch(`/admin/group-items/${id}/json`)
+                .then(res => res.json())
+                .then(data => {
 
-      // ✅ ЭНЭ Л ЧУХАЛ
-      xhr.setRequestHeader(
-        'X-CSRF-TOKEN',
-        document.querySelector('meta[name="csrf-token"]').content
-      );
+                    const form = document.getElementById('itemEditForm');
 
-      xhr.onload = function () {
-        if (xhr.status !== 200) {
-          reject('HTTP Error: ' + xhr.status);
-          return;
-        }
+                    form.dataset.id = id;
 
-        let json = JSON.parse(xhr.responseText);
+                    const editType = document.getElementById('edit_type');
 
-        if (!json.location) {
-          reject('Invalid response');
-          return;
-        }
+                    form.querySelector('#edit_group_id').value = data.group_id;
+                    form.querySelector('#edit_type').value = data.type;
+                    form.querySelector('[name="title"]').value = data.title ?? '';
+                    form.querySelector('#edit_link').value = data.link ?? '';
 
-        resolve(json.location);
-      };
+                    toggleFields(data.type, 'edit');
 
-      let formData = new FormData();
-      formData.append('file', blobInfo.blob(), blobInfo.filename());
+                    tinymce.get('content_edit').setContent(data.content ?? '');
 
-      xhr.send(formData);
+                    // 🔥 FILE SET
+                    if (data.file_id && data.file) {
+                        const selected = document.getElementById('selected_file_edit');
+                        document.getElementById('file_id_edit').value = data.file_id;
+
+                        if (data.file.mime_type.startsWith('image')) {
+                            selected.innerHTML = `
+                                <div class="selected-box">
+                                    <img src="/storage/${data.file.path}" style="max-width:100px;">
+                                    <span>${data.file.title}</span>
+                                </div>`;
+                        } else {
+                            selected.innerHTML = `<p>📄 ${data.file.title}</p><span></span>`;
+                        }
+
+                        selected.classList.add('selected');
+                    }
+
+                    // toggleFields(data.type, document.getElementById('editItem'));
+
+                    new bootstrap.Modal(document.getElementById('editItem')).show();
+                });
+        });
     });
-  }
-});
+
+    function toggleFields(type, mode = 'add') {
+        document.getElementById(`text-box-${mode}`).style.display =
+            (type === 'text') ? 'block' : 'none';
+
+        document.getElementById(`link-box-${mode}`).style.display =
+            (type === 'link') ? 'block' : 'none';
+
+        document.getElementById(`file-box-${mode}`).style.display =
+            (type === 'image' || type === 'file') ? 'block' : 'none';
+    }
+
+    document.getElementById('itemEditForm').addEventListener('submit', function(e){
+        e.preventDefault();
+
+        tinymce.triggerSave();
+
+        let id = this.dataset.id;
+        let formData = new FormData(this);
+
+        let url = '/admin/group-items';
+        
+        if(id){
+            url = `/admin/group-items/${id}`;
+            formData.append('_method', 'PUT');
+        }
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: formData
+        })
+        .then(res => res.json())
+        .then(() => location.reload());
+    });
+
+    tinymce.init({
+        selector: '#content_add, #content_edit',
+        height: 500,
+        license_key: 'gpl',
+        plugins: 'image table lists link code',
+        toolbar: `
+            undo redo | bold italic underline |
+            alignleft aligncenter alignright |
+            bullist numlist |
+            table image link |
+            code
+        `,
+        menubar: true,
+        //   images_upload_url: '/admin/upload/news',
+        images_upload_url: "{{ route('admin.news.upload') }}",
+        automatic_uploads: true,
+        file_picker_types: 'image',
+        image_title: true,
+
+        images_upload_handler: function (blobInfo, progress) {
+            return new Promise((resolve, reject) => {
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', "{{ route('admin.news.upload') }}");
+
+            // ✅ ЭНЭ Л ЧУХАЛ
+            xhr.setRequestHeader(
+                'X-CSRF-TOKEN',
+                document.querySelector('meta[name="csrf-token"]').content
+            );
+
+            xhr.onload = function () {
+                if (xhr.status !== 200) {
+                reject('HTTP Error: ' + xhr.status);
+                return;
+                }
+
+                let json = JSON.parse(xhr.responseText);
+
+                if (!json.location) {
+                reject('Invalid response');
+                return;
+                }
+
+                resolve(json.location);
+            };
+
+            let formData = new FormData();
+            formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+            xhr.send(formData);
+            });
+        }
+    });
 </script>
 @endsection

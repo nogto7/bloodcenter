@@ -57,11 +57,11 @@
                                 <div class="employee_list">
                                     @foreach($department->employees as $emp)
                                         <div class="employee_item">
-                                            <div class="emp_img img_block">
+                                            {{-- <div class="emp_img img_block">
                                                 @if($emp->photo)
                                                 <img src="{{ asset($emp->photo) }}" alt="{{ $emp->fullname }}">
                                                 @endif
-                                            </div>
+                                            </div> --}}
                                             <div class="emp_info">
                                                 <h4>{{ $emp->fullname }}</h4>
                                                 <p>{{ $emp->position }}</p>

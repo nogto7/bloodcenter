@@ -854,41 +854,6 @@ $(document).ready(function(){
             });
         });
     }
-    if(itemForm){
-        itemForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-    
-            const formData = new FormData(this);
-    
-            fetch('/admin/group-items', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: formData
-            })
-            .then(res => res.json())
-            .then(data => {
-                if(data.success){
-                    alert('Шил ажиллааны файл амжилттай нэмэгдлээ');
-                    this.reset();
-                    bootstrap.Modal.getInstance(document.getElementById('addItem')).hide();
-    
-                    // ⚡ TinyMCE-г ч бас reset хийх
-                    if(editor){
-                        editor.setContent('');
-                    }
-                } else {
-                    alert('Алдаа гарлаа');
-                }
-            })
-            .catch(err => {
-                console.error('Item save error:', err);
-                alert('Алдаа гарлаа');
-            });
-        });
-    }
 
     if(newsForm){
         newsForm.addEventListener('submit', function (e) {

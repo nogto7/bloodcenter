@@ -39,7 +39,13 @@
                     @forelse ($departmentList as $key => $item)
                     <tr>
                         <td style="width: 40px">{{ $departmentList->firstItem() + $key }}</td>
-                        <td><div class="img_block"><img src="/{{ $item->cover_image }}" alt=""></div></td>
+                        <td>
+                            @if($item->cover_image)
+                            <div class="img_block"><img src="/{{ $item->cover_image }}" alt=""></div>
+                            @else
+                            <div class="img_block"><img src="/images/not_image.png" alt=""></div>
+                            @endif
+                        </td>
                         <td>{{ $item->name }}</td>
                         <td>{{ strip_tags(Str::limit($item->content, 240)) }}</td>
                         <td>{{ $item->created_at }}</td>

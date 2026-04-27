@@ -410,6 +410,10 @@ button {
   margin-left: 20px;
 }
 
+.mb1 {
+  margin-bottom: 10px;
+}
+
 .mb2 {
   margin-bottom: 20px;
 }
@@ -3960,7 +3964,6 @@ em i {
 }
 .employee_list .employee_item .emp_info {
   text-align: center;
-  margin-top: 10px;
 }
 .employee_list .employee_item .emp_info h4 {
   font-size: 16px;
@@ -3980,6 +3983,56 @@ em i {
   display: flex;
   height: 5px;
   width: calc(100% + 2px);
+}
+
+.file-picker {
+  display: grid;
+  align-items: center;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.file_item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 5px 10px;
+  background-color: var(--backgroundColor);
+  border: 1px solid var(--borderColor);
+  transition: all 0.2s;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.file_item:hover {
+  background-color: var(--lgrayColor);
+}
+.file_item.active {
+  border-style: dashed;
+  border-color: var(--greenColor);
+}
+.file_item.active span {
+  display: block;
+}
+.file_item.selected {
+  color: var(--primaryColor);
+  font-weight: 500;
+  background-color: rgba(0, 59, 255, 0.0196078431);
+  border-color: var(--primaryColor);
+}
+.file_item.selected span {
+  display: block;
+}
+.file_item span {
+  display: none;
+  position: absolute;
+  content: "";
+  top: 50%;
+  right: 7px;
+  height: 14px;
+  width: 14px;
+  background: url("../images/confirmed_img.svg") no-repeat center center;
+  background-size: 100%;
+  transform: translateY(-50%);
 }
 
 .show_page_wrap {

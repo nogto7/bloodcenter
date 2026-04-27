@@ -141,7 +141,7 @@ Route::prefix('admin')
     // Group Items
     Route::get('group-items/create/{group}', [GroupController::class, 'createItem'])->name('group-items.create');
     Route::post('group-items', [GroupController::class, 'storeItem'])->name('group-items.store');
-    Route::get('group-items/{groupItem}/json', [GroupController::class, 'showItem']);
+    Route::get('group-items/{groupItem}/json', [GroupController::class, 'getItem']);
     Route::get('group-items/{groupItem}/edit', [GroupController::class, 'editItem'])->name('group-items.edit');
     Route::put('group-items/{groupItem}', [GroupController::class, 'updateItem'])->name('group-items.update');
     Route::delete('group-items/{groupItem}', [GroupController::class, 'destroyItem'])->name('group-items.destroy');
