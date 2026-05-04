@@ -4282,9 +4282,14 @@ em{
     .news_item, .other_news .o_news_item{
         grid-template-columns: 1fr;
         .item_img, .o_item_img{
-            height: auto !important;
-            max-height: 240px;
+            height: 100% !important;
+            .img_block{
+                height: 200px;
+            }
         }
+    }
+    .news_item ~ .news_item{
+        margin-top: $s2;
     }
     .news_content{
         em{
