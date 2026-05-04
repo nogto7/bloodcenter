@@ -27,8 +27,8 @@ mobileMenu = function () {
         $('body').removeClass('visibled');
     }
 
+    var pnHeight = $('.popular_news').height();
     if($(window).innerWidth() > 641){
-        var pnHeight = $('.popular_news').height();
         $('.other_news ul').css({
             height: pnHeight
         })
