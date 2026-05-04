@@ -5,17 +5,23 @@ let visible = '<div class="overflow_element" onclick="closeCategory()"></div>';
 var topTo = $('#gotoTop');
 
 mobileMenu = function () {
-    if ($(window).innerWidth() < 1121) {
-        if ($('.lang_wrap .menu_small').length === 0) {
-            $('.lang_wrap a').after(menuBtn);
+    if ($(window).innerWidth() < 1211) {
+        if ($('.menu_small').length === 0) {
+            $('.menu_navigation').after(menuBtn);
+
             if ($('.mobile_wrap').length === 0) {
                 $('body').prepend(menuWrap);
             }
+
             $('.menu_wrap > ul').appendTo('.mobile_wrap .m_block');
         }
+
         closeMenu();
     } else {
-        $('.mobile_wrap .m_block > ul').appendTo('.menu_wrap');
+        if ($('.mobile_wrap .m_block > ul').length) {
+            $('.mobile_wrap .m_block > ul').appendTo('.menu_wrap');
+        }
+
         $('.menu_small, .mobile_wrap').remove();
         $('html').removeClass('visible_page');
         $('body').removeClass('visibled');
