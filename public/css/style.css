@@ -4575,7 +4575,8 @@ em i {
     gap: 12px;
   }
   .other_news ul {
-    max-height: auto !important;
+    max-height: -moz-max-content !important;
+    max-height: max-content !important;
   }
   .title {
     font-size: 22px;
