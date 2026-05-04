@@ -4594,6 +4594,9 @@ em i {
     width: 100vw;
     padding: 0 12px;
   }
+  .page_grid .page_content {
+    max-width: calc(100vw - 24px);
+  }
   .main_content {
     padding: 16px 0;
   }

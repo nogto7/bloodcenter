@@ -4236,6 +4236,11 @@ em{
         width: 100vw;
         padding: 0 $s1_2;
     }
+    .page_grid{
+        .page_content{
+            max-width: calc(100vw - 24px);
+        }
+    }
     .main_content{
         padding: $s1_6 0;
     }
