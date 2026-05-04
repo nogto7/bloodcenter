@@ -51,7 +51,7 @@ class AppServiceProvider extends ServiceProvider
                 })
                 ->orderBy('publish_at', 'desc')
                 ->latest('publish_at')
-                ->take(15)
+                ->take(5)
                 ->get();
 
             $view->with('latestNews', $news);

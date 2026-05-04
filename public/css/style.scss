@@ -2628,7 +2628,7 @@ section{
 
 .other_news{
     ul{
-        max-height: 540px;
+        // max-height: 540px;
         overflow-y: auto;
         li{
             & ~ li{
@@ -4279,11 +4279,11 @@ em{
 }
 
 @media (max-width: 641px){
-    .news_item{
+    .news_item, .other_news .o_news_item{
         grid-template-columns: 1fr;
-        .item_img{
-            height: auto;
-            max-height: 260px;
+        .item_img, .o_item_img{
+            height: auto !important;
+            max-height: 240px;
         }
     }
     .news_content{

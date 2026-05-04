@@ -26,6 +26,17 @@ mobileMenu = function () {
         $('html').removeClass('visible_page');
         $('body').removeClass('visibled');
     }
+
+    if($(window).innerWidth() > 641){
+        var pnHeight = $('.popular_news').height();
+        $('.other_news ul').css({
+            height: pnHeight
+        })
+    } else {
+        $('.other_news ul').css({
+            height: 'auto'
+        })
+    }
 }
 
 closeMenu = function(){
@@ -987,11 +998,6 @@ $(document).ready(function(){
     $('.zoom_close').on('click', function(){
         $('.zoom_wrap').removeClass('show');
     });
-
-    var pnHeight = $('.popular_news').height();
-    $('.other_news ul').css({
-        height: pnHeight
-    })
 
     sliderHeight();
 
