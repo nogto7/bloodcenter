@@ -4519,6 +4519,9 @@ em i {
   .page_grid {
     padding: 12px 0 20px;
   }
+  .news_content img {
+    height: auto !important;
+  }
   .visible {
     overflow: hidden;
   }

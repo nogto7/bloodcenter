@@ -4147,6 +4147,11 @@ em{
     .page_grid{
         padding: $s1_2 0 $s2;
     }
+    .news_content{
+        img{
+            height: auto !important;
+        }
+    }
     .visible{
         overflow: hidden;
         .transparent_bg{
