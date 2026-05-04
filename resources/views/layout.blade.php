@@ -76,7 +76,6 @@
             </div>
         </div>
     </footer>
-    @include('components.toast')
 
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
