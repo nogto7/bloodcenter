@@ -3059,6 +3059,7 @@ section {
 }
 
 .other_news ul {
+  max-height: 540px;
   overflow-y: auto;
 }
 .other_news ul li ~ li {

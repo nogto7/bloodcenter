@@ -2628,7 +2628,7 @@ section{
 
 .other_news{
     ul{
-        // max-height: 540px;
+        max-height: 540px;
         overflow-y: auto;
         li{
             & ~ li{

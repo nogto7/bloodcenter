@@ -41,7 +41,7 @@ class HomeController extends Controller
                 $q->where('type', 'news');
             })
             ->latest('publish_at')
-            ->take(15)
+            ->take(5)
             ->get();
 
         $faqs = Faq::latest()->get();
