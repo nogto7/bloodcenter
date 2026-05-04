@@ -4215,6 +4215,11 @@ em{
     .other_news .o_news_item{
         gap: $s1_2;
     }
+    .other_news{
+        ul{
+            height: auto !important;
+        }
+    }
     .title{
         font-size: $s2_2;
         padding-bottom: $s2;

@@ -4574,6 +4574,9 @@ em i {
   .other_news .o_news_item {
     gap: 12px;
   }
+  .other_news ul {
+    height: auto !important;
+  }
   .title {
     font-size: 22px;
     padding-bottom: 20px;
