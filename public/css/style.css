@@ -3907,6 +3907,10 @@ em i {
   text-align: justify;
   text-indent: 0 !important;
 }
+.page_content p img {
+  max-width: 100%;
+  height: inherit;
+}
 .page_content .page_text {
   font-size: 16px;
   text-align: justify;

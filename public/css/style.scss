@@ -3518,6 +3518,10 @@ em{
         font-size: $s1_6;
         text-align: justify;
         text-indent: 0 !important;
+        img{
+            max-width: 100%;
+            height: inherit;
+        }
     }
     .page_text{
         font-size: $s1_6;
