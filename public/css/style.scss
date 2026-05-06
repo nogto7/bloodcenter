@@ -574,7 +574,7 @@ textarea{
 }
 .btn_primary{
     color: $wh;
-    background-color: var(--baseColor);
+    background-color: var(--primaryBaseColor);
     &:hover{
         background-color: var(--baseColorHover);
     }
@@ -1163,7 +1163,7 @@ span[class^="icon-"]{
         p{
             color: var(--baseColor);
             font-size: $s1_7;
-            font-weight: 400;
+            font-weight: 500;
             line-height: 1.2;
             text-transform: uppercase;
             transition: all .2s;
@@ -1624,13 +1624,11 @@ section{
 .title{
     display: block;
     position: $pr;
-    font-size: $s2_8;
+    font-size: $s3;
     font-weight: 600;
-    text-align: $c;
     text-transform: uppercase;
     line-height: 1;
-    padding-bottom: $s4;
-    margin: 0 auto;
+    padding-bottom: $s3;
     // &::before{
     //     position: $pa;
     //     content: '';
@@ -1928,7 +1926,7 @@ section{
         }
         h1{
             font-size: 3vw;
-            font-weight: 300;
+            font-weight: 600;
             text-transform: uppercase;
         }
         p{
@@ -2071,7 +2069,7 @@ section{
             color: var(--textColor);
             position: $pr;
             font-size: $s1_3;
-            font-weight: 500;
+            font-weight: 600;
             line-height: 1.2;
             text-transform: uppercase;
             padding: 39px $s1_4;
@@ -3488,6 +3486,7 @@ em{
             color: var(--textColor);
             font-size: $s1_8;
             font-weight: 500;
+            line-height: 1.3;
         }
     }
     .shilen_content{
@@ -3854,7 +3853,7 @@ em{
 /* Footer Style */
 .footer_wrap{
     position: $pr;
-    // background-color: var(--redPrimaryHoverColor);
+    background-color: #2d3340;
     // background-image: url('../images/bg_repeat.svg');
     .footer_middle{
         display: $g;
@@ -3927,10 +3926,10 @@ em{
         }
     }
     .footer_bottom{
+        color: #c3cad7;
         font-size: $s1_3;
         text-align: $c;
         padding: $s3 0;
-        border-top: 1px solid var(--lgrayColor);
     }
     p{
         & ~ p{
