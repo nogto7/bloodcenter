@@ -138,40 +138,38 @@
             prevEl: '.swiper-button-prev',
         }
     });
-    var swiper = new Swiper('#youtubeIds', {
+    var videoCount = {{ isset($slideVideo) ? $slideVideo->count() : 0 }};
+    var youtubeSwiper = new Swiper('#youtubeIds', {
         slidesPerView: 1,
         spaceBetween: 12,
         slidesPerGroup: 1,
-        loop: true,
-        autoplay: {
+        loop: videoCount > 4,
+        loopedSlides: videoCount,
+        autoplay: videoCount > 1 ? {
             delay: 3000,
-            disableOnInteraction:false
-        },
+            disableOnInteraction: false
+        } : false,
         speed: 1000,
         direction: 'horizontal',
-        loopFillGroupWithBlank: true,
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
         breakpoints: {
             767: {
-                slidesPerView: 2,
+                slidesPerView: Math.min(2, videoCount),
                 spaceBetween: 12,
-                slidesPerGroup: 1,
-                pagination: {
-                    dynamicBullets: false
-                }
+                slidesPerGroup: 1
             },
             991: {
-                slidesPerView: 3,
+                slidesPerView: Math.min(3, videoCount),
                 spaceBetween: 16,
-                slidesPerGroup: 2
+                slidesPerGroup: 1
             },
             1131: {
-                slidesPerView: 4,
+                slidesPerView: Math.min(4, videoCount),
                 spaceBetween: 20,
-                slidesPerGroup: 2
+                slidesPerGroup: 1
             }
         }
     });

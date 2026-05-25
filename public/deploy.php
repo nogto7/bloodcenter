@@ -79,11 +79,14 @@ $steps[] = ['name' => 'view:clear',   'result' => run("{$php} artisan view:clear
 $steps[] = ['name' => 'cache:clear',  'result' => run("{$php} artisan cache:clear", $repoPath)];
 $steps[] = ['name' => 'route:clear',  'result' => run("{$php} artisan route:clear", $repoPath)];
 
-// Step 4: Optimize (optional — production cache)
+// Step 4: Run migrations (schema changes)
+$steps[] = ['name' => 'migrate',      'result' => run("{$php} artisan migrate --force", $repoPath)];
+
+// Step 5: Optimize (optional — production cache)
 $steps[] = ['name' => 'config:cache', 'result' => run("{$php} artisan config:cache", $repoPath)];
 $steps[] = ['name' => 'route:cache',  'result' => run("{$php} artisan route:cache", $repoPath)];
 
-// Step 5: File permissions
+// Step 6: File permissions
 $steps[] = ['name' => 'permissions', 'result' => run("chmod -R 775 storage bootstrap/cache", $repoPath)];
 
 $elapsed = round((microtime(true) - $startTime) * 1000);

@@ -14,7 +14,7 @@ class GroupItem extends Model
         'link',
         'date',
         'content',
-        'file_path',
+        'file_id',
         'sort'
     ];
 
