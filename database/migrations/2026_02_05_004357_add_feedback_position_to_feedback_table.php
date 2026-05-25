@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasColumn('feedback', 'feedback_position')) {
+            return;
+        }
+
         Schema::table('feedback', function (Blueprint $table) {
             $table->string('feedback_position', 100)->nullable();    // Салбар
         });

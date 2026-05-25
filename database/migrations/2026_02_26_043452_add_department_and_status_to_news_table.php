@@ -8,6 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
+        if (Schema::hasColumn('news', 'department_id')) {
+            return;
+        }
+
         Schema::table('news', function (Blueprint $table) {
             $table->unsignedBigInteger('department_id')->nullable()->after('user_id');
             $table->enum('status', ['draft','pending','published'])->default('draft')->after('department_id');

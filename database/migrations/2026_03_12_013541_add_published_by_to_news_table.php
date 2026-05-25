@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasColumn('news', 'published_by')) {
+            return;
+        }
+
         Schema::table('news', function (Blueprint $table) {
             $table->unsignedBigInteger('published_by')->nullable()->after('user_id');
         });

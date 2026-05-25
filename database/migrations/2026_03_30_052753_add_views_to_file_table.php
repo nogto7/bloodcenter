@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up()
     {
+        if (Schema::hasColumn('files', 'views')) {
+            return;
+        }
+
         Schema::table('files', function (Blueprint $table) {
             $table->unsignedBigInteger('views')->default(0);
         });

@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasColumn('menus', 'type')) {
+            return;
+        }
+
         Schema::table('menus', function (Blueprint $table) {
             $table->string('type')->default('news');
         });
