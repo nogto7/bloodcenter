@@ -21,7 +21,7 @@
 </div>
 <div class="admin_file_wrap">
     <div class="file_content">
-        <h2>Мэдээ мэдээлэл</h2>
+        <h2>Мэдээ мэдээлэл <small class="news_count">({{ $newsList->total() }})</small></h2>
         <div class="table_wrap">
             <table class="table_content">
                 <thead>
