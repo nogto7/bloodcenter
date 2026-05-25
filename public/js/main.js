@@ -328,17 +328,28 @@ function previewFile(fileId) {
         .forEach(r => r.classList.remove('active'));
     row.classList.add('active');
 
-    // 🔹 Rename / Delete товч идэвхжүүлэх
+    // 🔹 Edit / Delete товч идэвхжүүлэх
     $('.file_options').css({
         'display': 'flex'
     });
-    // document.getElementById('btnRename').disabled = false;
+    const btnEdit = document.getElementById('btnEdit');
+    if (btnEdit) btnEdit.disabled = false;
     document.getElementById('btnDelete').disabled = false;
 
-    // document.getElementById('btnRename').onclick = () => {
-    //     if (!selectedFile) return;
-    //     window.location.href = `/admin/files/${selectedFile.id}/edit`;
-    // };
+    if (btnEdit) {
+        btnEdit.onclick = () => {
+            if (!selectedFile) return;
+            document.getElementById('edit_file_id').value = selectedFile.id;
+            document.getElementById('edit_file_title').value = selectedFile.title ?? '';
+            document.getElementById('edit_file_date').value = selectedFile.date ?? '';
+            document.getElementById('edit_file_number').value = selectedFile.number ?? '';
+            document.getElementById('edit_file_folder').value = selectedFile.folder_id ?? '';
+            document.getElementById('edit_file_menu').value = selectedFile.menu_id ?? '';
+            const modalEl = document.getElementById('editFile');
+            const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+            modal.show();
+        };
+    }
 
     document.getElementById('btnDelete').onclick = () => {
         if (!selectedFile) return;
@@ -668,9 +679,9 @@ $(document).ready(function(){
     if(fileForm){
         fileForm.addEventListener('submit', function (e) {
             e.preventDefault();
-        
+
             const formData = new FormData(this);
-        
+
             fetch('/admin/files', {
                 method: 'POST',
                 headers: {
@@ -687,14 +698,47 @@ $(document).ready(function(){
                 bootstrap.Modal.getInstance(
                     document.getElementById('addFile')
                 ).hide();
-        
+
                 this.reset();
-        
+
                 // 🔥 Sidebar шинэчлэх
                 reloadFolderTree(data.files);
             })
             .catch(err => {
                 console.error('Files save error:', err);
+                alert('Алдаа гарлаа');
+            });
+        });
+    }
+
+    const editFileForm = document.getElementById('editFileForm');
+    if(editFileForm){
+        editFileForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const id = document.getElementById('edit_file_id').value;
+            const formData = new FormData(this);
+
+            fetch(`/admin/files/${id}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            })
+            .then(res => {
+                if (!res.ok) throw res;
+                return res.json();
+            })
+            .then(() => {
+                bootstrap.Modal.getInstance(
+                    document.getElementById('editFile')
+                ).hide();
+                location.reload();
+            })
+            .catch(err => {
+                console.error('File edit error:', err);
                 alert('Алдаа гарлаа');
             });
         });

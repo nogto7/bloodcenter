@@ -81,6 +81,59 @@ class FileManagerController extends Controller
         return view('admin.files.show', compact('file'));
     }
 
+    public function update(Request $request, File $file)
+    {
+        $validated = $request->validate([
+            'title'     => 'required',
+            'date'      => 'nullable',
+            'number'    => 'nullable',
+            'folder_id' => 'nullable',
+            'menu_id'   => 'nullable',
+            'file'      => 'nullable|mimes:pdf,doc,docx,xls,xlsx|max:51200',
+        ]);
+
+        $data = [
+            'title'     => $validated['title'],
+            'date'      => $validated['date'] ?? null,
+            'number'    => $validated['number'] ?? null,
+            'folder_id' => $validated['folder_id'] ?? null,
+            'menu_id'   => $validated['menu_id'] ?? null,
+        ];
+
+        if ($request->hasFile('file')) {
+            $uploaded = $request->file('file');
+
+            if ($file->path && Storage::disk('public')->exists($file->path)) {
+                Storage::disk('public')->delete($file->path);
+            }
+
+            $data['path']      = $uploaded->store('files', 'public');
+            $data['mime_type'] = $uploaded->getClientMimeType();
+            $data['size']      = $uploaded->getSize();
+        }
+
+        $file->update($data);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'file' => [
+                    'id'        => $file->id,
+                    'title'     => $file->title,
+                    'path'      => $file->path,
+                    'mime_type' => $file->mime_type,
+                    'size'      => $file->size,
+                    'folder_id' => $file->folder_id,
+                    'menu_id'   => $file->menu_id,
+                    'date'      => $file->date,
+                    'number'    => $file->number,
+                ],
+            ]);
+        }
+
+        return redirect()->route('admin.files.index');
+    }
+
     public function destroy(File $file)
     {
         // 🔥 Storage дээр файл байвал устгана

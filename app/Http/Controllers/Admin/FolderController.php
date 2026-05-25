@@ -65,7 +65,7 @@ class FolderController extends Controller
             'files' => $folder->files()->with([
                 'folder:id,name',
                 'menu:id,title'
-            ])->select('id','title','path','mime_type','created_at','size','folder_id','menu_id')->get(),
+            ])->select('id','title','path','mime_type','created_at','size','folder_id','menu_id','date','number')->get(),
         ]);
     }
 

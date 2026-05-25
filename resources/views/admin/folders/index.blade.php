@@ -12,7 +12,7 @@
         </div>
         <div class="fline_header dfc">
             <div class="file_options dfc">
-                {{-- <button class="f_f_button f_edit" id="btnRename" disabled><span></span>Солих</button> --}}
+                <button class="f_f_button f_edit" id="btnEdit" disabled><span></span>Засах</button>
                 <button class="f_f_button f_delete" id="btnDelete" disabled><span></span>Устгах</button>
             </div>
             <div class="folder_file dfc">
@@ -137,11 +137,11 @@
                     </div>
                     <div class="form_item">
                         <label class="form_label">Баталсан огноо</label>
-                        <input type="text" name="date" class="form_input" placeholder="Баталсан огноо" required>
+                        <input type="text" name="date" class="form_input" placeholder="Баталсан огноо">
                     </div>
                     <div class="form_item">
                         <label class="form_label">Дугаар</label>
-                        <input type="text" name="number" class="form_input" placeholder="Дугаар" required>
+                        <input type="text" name="number" class="form_input" placeholder="Дугаар">
                     </div>
                     <div class="form_item">
                         <label class="form_label">Хамаарах хавтас</label>
@@ -177,6 +177,69 @@
                         aria-label="Close">Болих</button>
                         <button type="submit" onclick="closeModal('')" class="__btn btn_primary ml2" data-bs-dismiss="modal"
                         aria-label="Close">Хадгалах</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editFile" tabindex="-1" aria-labelledby="transfusionModal" aria-hidden="true" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="core_modal">
+            <div class="modal_header">
+                <h2>Файл засах</h2>
+            </div>
+            <form id="editFileForm">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="id" id="edit_file_id">
+                <div class="modal_main">
+                    <div class="form_item">
+                        <label class="form_label">Файлын нэр</label>
+                        <input type="text" name="title" id="edit_file_title" class="form_input" placeholder="Файлын нэр" required>
+                    </div>
+                    <div class="form_item">
+                        <label class="form_label">Баталсан огноо</label>
+                        <input type="text" name="date" id="edit_file_date" class="form_input" placeholder="Баталсан огноо">
+                    </div>
+                    <div class="form_item">
+                        <label class="form_label">Дугаар</label>
+                        <input type="text" name="number" id="edit_file_number" class="form_input" placeholder="Дугаар">
+                    </div>
+                    <div class="form_item">
+                        <label class="form_label">Хамаарах хавтас</label>
+                        <select name="folder_id" id="edit_file_folder" class="form_select">
+                            <option value="">— Folder сонгох —</option>
+                            @foreach($folders as $folder)
+                                <option value="{{ $folder->id }}">{{ $folder->name }}</option>
+                                @foreach ($folder->children as $child)
+                                    <option value="{{ $child->id }}">- {{ $child->name }}</option>
+                                @endforeach
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form_item">
+                        <label class="form_label">Хамаарах цэс</label>
+                        <select name="menu_id" id="edit_file_menu" class="form_select">
+                            <option value="">— Menu-д холбох —</option>
+                            @foreach($menus as $menu)
+                                <option value="{{ $menu->id }}">{{ $menu->title }}</option>
+                                @foreach($menu->children as $child)
+                                    <option value="{{ $child->id }}">— {{ $child->title }}</option>
+                                @endforeach
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form_item">
+                        <label class="form_label">Файл солих (заавал биш)</label>
+                        <input type="file" class="form_input" name="file">
+                    </div>
+                </div>
+                <div class="modal_footer">
+                    <div class="dfc jce">
+                        <button type="button" class="__btn" data-bs-dismiss="modal" aria-label="Close">Болих</button>
+                        <button type="submit" class="__btn btn_primary ml2">Хадгалах</button>
                     </div>
                 </div>
             </form>

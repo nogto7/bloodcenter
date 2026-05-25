@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 class File extends Model
 {
     protected $fillable = [
-        'title','path','mime_type','size','folder_id', 'menu_id'
+        'title','path','mime_type','size','folder_id','menu_id','date','number'
     ];
 
     protected static function booted()
