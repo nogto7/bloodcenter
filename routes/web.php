@@ -58,7 +58,6 @@ Route::post('/send-feedback', [FeedbackController::class, 'store'])->name('feedb
 
 Route::get('/about', [AboutController::class, 'about']);
 Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.detail');
-Route::get('{slug}', [PageController::class, 'menu'])->name('page.menu');
 Route::get('/file/{id}', [PageController::class, 'fileShow'])->name('file.show');
 Route::get('/department/{id}', [PageController::class, 'departmentShow'])
     ->name('department.show');
@@ -150,8 +149,6 @@ Route::prefix('admin')
     Route::post('group-items/sort', [GroupController::class, 'sort'])->name('group-items.sort');
 
     Route::resource('users', AdminUserController::class);
-    Route::get('users/{user}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
-    Route::put('users/{user}', [AdminUserController::class, 'update'])->name('users.update');
 
 });
 
@@ -183,8 +180,9 @@ Route::prefix('admin')
 |--------------------------------------------------------------------------
 */
 
+Route::get('{slug}', [PageController::class, 'menu'])->name('page.menu');
 Route::fallback(function () {
-    return redirect('/');
+    return response()->view('errors.404', [], 404);
 });
 
 require __DIR__.'/auth.php';

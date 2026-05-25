@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasColumn('group_items', 'date')) {
+            return;
+        }
+
         Schema::table('group_items', function (Blueprint $table) {
             $table->date('date')->nullable()->after('title');     // огноо
         });

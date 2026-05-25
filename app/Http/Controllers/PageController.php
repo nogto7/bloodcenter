@@ -19,23 +19,20 @@ class PageController extends Controller
         // dd($menu);
 
         if (!$menu) {
-            // Магадгүй slug нь sub menu бол parent-ийн url нэмж шалгах
-            $parts = explode('/', $slug); // legal/government -> ['legal','government']
-    
+            $parts = explode('/', $slug);
+        
             if(count($parts) == 2){
                 $parentSlug = $parts[0];
                 $childSlug  = $parts[1];
-    
+        
                 $menu = Menu::where('url', $childSlug)
-                            ->whereHas('parent', function($q) use ($parentSlug) {
-                                $q->where('url', $parentSlug);
-                            })
-                            ->firstOrFail();
+                    ->whereHas('parent', function($q) use ($parentSlug) {
+                        $q->where('url', $parentSlug);
+                    })
+                    ->first();
             }
         }
-        // dd($menu);
-
-        // Default null
+        
         $files = collect();
 
         // ⛔ MENU ОЛДООГҮЙ БОЛ ЭНД ДУУСНА

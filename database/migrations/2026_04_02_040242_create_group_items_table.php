@@ -11,15 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('group_items')) {
+            return;
+        }
+
         Schema::create('group_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('group_id')->constrained()->cascadeOnDelete();
-        
+
             $table->string('type'); // file, image, text
             $table->string('title')->nullable();
             $table->text('content')->nullable();
             $table->string('file_path')->nullable();
-        
+
             $table->integer('sort')->default(0);
             $table->timestamps();
         });

@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasColumn('group_items', 'file_id')) {
+            return;
+        }
+
         Schema::table('group_items', function (Blueprint $table) {
             $table->foreignId('file_id')->nullable()->constrained()->nullOnDelete();
         });

@@ -3319,6 +3319,7 @@ section {
   width: 240px;
   background-color: #f6f7f9;
   border-right: 1px solid var(--borderColor);
+  overflow-y: auto;
   z-index: 2;
 }
 .admin_sidebar .ad_sidebar ul li a {
@@ -4565,6 +4566,9 @@ em i {
   .header_wrap .header_topbar .ht_item ~ .ht_item {
     margin-top: 3px;
     margin-left: 0;
+  }
+  .logo .grid_logo {
+    grid-template-columns: 35px 1fr;
   }
   .logo span {
     height: 56px;

@@ -2898,6 +2898,7 @@ section{
         width: 240px;
         background-color: #f6f7f9;
         border-right: 1px solid var(--borderColor);
+        overflow-y: auto;
         z-index: 2;
         ul{
             li{
@@ -4202,6 +4203,9 @@ em{
         }
     }
     .logo{
+        .grid_logo{
+            grid-template-columns: 35px 1fr;
+        }
         span{
             height: $s5_6;
             width: $s5_6;
