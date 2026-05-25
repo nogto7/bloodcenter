@@ -54,7 +54,7 @@ class PageController extends Controller
 
             case 'files':
                 $files = File::where('menu_id', $menu->id)
-                ->latest()
+                ->latest('id')
                 ->get();
 
                 return view('files.index', compact('menu', 'parentMenu', 'files'));
