@@ -105,6 +105,9 @@
                 </tbody>
             </table>
         </div>
+        <div class="pagination_wrap mt2">
+            {{ $newsList->links() }}
+        </div>
     </div>
 </div>
 

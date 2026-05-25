@@ -59,10 +59,11 @@ class AdminNewsController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:6144',
             'highlight_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:8192',
             'menu_id' => 'nullable|string',
+            'publish_at' => 'nullable|date',
         ]);
 
         $data['slug'] = Str::slug($request->title);
-        $data['publish_at'] = $data['publish_at'] ?? now();
+        $data['publish_at'] = !empty($data['publish_at']) ? $data['publish_at'] : now();
         if($user->role == 'editor'){
             $data['status'] = 'draft';
             $data['is_active'] = 0;
