@@ -421,45 +421,29 @@
         .then(() => location.reload());
     });
 
-    document.getElementById('saveItemBtn').addEventListener('click', function () {
+    document.getElementById('itemForm').addEventListener('submit', function(e){
+        e.preventDefault();
         tinymce.triggerSave();
 
-        let form = document.getElementById('itemForm');
-        let formData = new FormData(form);
+        let formData = new FormData(this);
 
         fetch('/admin/group-items', {
             method: 'POST',
             headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json'
             },
             body: formData
         })
         .then(res => res.json())
-        .then(() => location.reload());
-    });
-
-    document.getElementById('itemEditForm').addEventListener('submit', function(e){
-        e.preventDefault();
-
-        let id = this.dataset.id;
-        let formData = new FormData(this);
-
-        let url = '/admin/group-items';
-        
-        if(id){
-            url = `/admin/group-items/${id}`;
-            formData.append('_method', 'PUT');
-        }
-
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            },
-            body: formData
+        .then(data => {
+            if (data && data.success) {
+                location.reload();
+            } else {
+                alert('Хадгалах үед алдаа гарлаа: ' + JSON.stringify(data));
+            }
         })
-        .then(res => res.json())
-        .then(() => location.reload());
+        .catch(err => alert('Сервер алдаа: ' + err.message));
     });
 
     document.querySelectorAll('.edit-items-btn').forEach(btn => {
@@ -530,7 +514,7 @@
         let formData = new FormData(this);
 
         let url = '/admin/group-items';
-        
+
         if(id){
             url = `/admin/group-items/${id}`;
             formData.append('_method', 'PUT');
@@ -539,12 +523,20 @@
         fetch(url, {
             method: 'POST',
             headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json'
             },
             body: formData
         })
         .then(res => res.json())
-        .then(() => location.reload());
+        .then(data => {
+            if (data && data.success) {
+                location.reload();
+            } else {
+                alert('Хадгалах үед алдаа гарлаа: ' + JSON.stringify(data));
+            }
+        })
+        .catch(err => alert('Сервер алдаа: ' + err.message));
     });
 
     tinymce.init({
