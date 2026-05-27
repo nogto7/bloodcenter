@@ -4,6 +4,19 @@ let visible = '<div class="overflow_element" onclick="closeCategory()"></div>';
     visibled = '<div class="visited" onclick="closeMenu()"></div>';
 var topTo = $('#gotoTop');
 
+async function handleAjaxResponse(res) {
+    const text = await res.text();
+    let data = null;
+    try { data = text ? JSON.parse(text) : null; } catch (e) {}
+    if (res.ok) return data;
+    const msg = (data && (data.message || (data.errors && Object.values(data.errors).flat().join('\n'))))
+        || ('Алдаа гарлаа (HTTP ' + res.status + ')');
+    const err = new Error(msg);
+    err.status = res.status;
+    err.data = data;
+    throw err;
+}
+
 mobileMenu = function () {
     if ($(window).innerWidth() < 1211) {
         if ($('.menu_small').length === 0) {
@@ -587,24 +600,22 @@ $(document).ready(function(){
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
                 },
                 body: formData
             })
-            .then(res => {
-                if (!res.ok) throw res;
-                return res.json();
-            })
+            .then(handleAjaxResponse)
             .then(data => {
                 bootstrap.Modal.getInstance(
                     document.getElementById('addSlider')
                 ).hide();
-        
+
                 this.reset();
             })
             .catch(err => {
                 console.error('Slider save error:', err);
-                alert('Алдаа гарлаа');
+                alert(err.message || 'Алдаа гарлаа');
             });
         });
     }
@@ -619,24 +630,22 @@ $(document).ready(function(){
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
                 },
                 body: formData
             })
-            .then(res => {
-                if (!res.ok) throw res;
-                return res.json();
-            })
+            .then(handleAjaxResponse)
             .then(data => {
                 bootstrap.Modal.getInstance(
                     document.getElementById('addVideo')
                 ).hide();
-        
+
                 this.reset();
             })
             .catch(err => {
                 console.error('Video save error:', err);
-                alert('Алдаа гарлаа');
+                alert(err.message || 'Алдаа гарлаа');
             });
         });
     }
@@ -651,27 +660,25 @@ $(document).ready(function(){
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
                 },
                 body: formData
             })
-            .then(res => {
-                if (!res.ok) throw res;
-                return res.json();
-            })
+            .then(handleAjaxResponse)
             .then(data => {
                 bootstrap.Modal.getInstance(
                     document.getElementById('addFolder')
                 ).hide();
-        
+
                 this.reset();
-        
+
                 // 🔥 Sidebar шинэчлэх
-                reloadFolderTree(data.folder);
+                if (data && data.folder) reloadFolderTree(data.folder);
             })
             .catch(err => {
                 console.error('Folder save error:', err);
-                alert('Алдаа гарлаа');
+                alert(err.message || 'Алдаа гарлаа');
             });
         });
     }
@@ -686,14 +693,12 @@ $(document).ready(function(){
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
                 },
                 body: formData
             })
-            .then(res => {
-                if (!res.ok) throw res;
-                return res.json();
-            })
+            .then(handleAjaxResponse)
             .then(data => {
                 bootstrap.Modal.getInstance(
                     document.getElementById('addFile')
@@ -702,11 +707,11 @@ $(document).ready(function(){
                 this.reset();
 
                 // 🔥 Sidebar шинэчлэх
-                reloadFolderTree(data.files);
+                if (data && data.files) reloadFolderTree(data.files);
             })
             .catch(err => {
                 console.error('Files save error:', err);
-                alert('Алдаа гарлаа');
+                alert(err.message || 'Алдаа гарлаа');
             });
         });
     }
@@ -723,14 +728,12 @@ $(document).ready(function(){
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
                 },
                 body: formData
             })
-            .then(res => {
-                if (!res.ok) throw res;
-                return res.json();
-            })
+            .then(handleAjaxResponse)
             .then(() => {
                 bootstrap.Modal.getInstance(
                     document.getElementById('editFile')
@@ -739,7 +742,7 @@ $(document).ready(function(){
             })
             .catch(err => {
                 console.error('File edit error:', err);
-                alert('Алдаа гарлаа');
+                alert(err.message || 'Алдаа гарлаа');
             });
         });
     }
@@ -754,24 +757,22 @@ $(document).ready(function(){
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
                 },
                 body: formData
             })
-            .then(res => {
-                if (!res.ok) throw res;
-                return res.json();
-            })
+            .then(handleAjaxResponse)
             .then(data => {
                 bootstrap.Modal.getInstance(
                     document.getElementById('addMenus')
                 ).hide();
-        
+
                 this.reset();
             })
             .catch(err => {
                 console.error('Menus save error:', err);
-                alert('Алдаа гарлаа');
+                alert(err.message || 'Алдаа гарлаа');
             });
         });
     }
@@ -785,24 +786,22 @@ $(document).ready(function(){
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
                 },
                 body: formData
             })
-            .then(res => {
-                if (!res.ok) throw res;
-                return res.json();
-            })
+            .then(handleAjaxResponse)
             .then(data => {
                 bootstrap.Modal.getInstance(
                     document.getElementById('addDepartment')
                 ).hide();
-        
+
                 this.reset();
             })
             .catch(err => {
-                console.error('News save error:', err);
-                alert('Алдаа гарлаа');
+                console.error('Department save error:', err);
+                alert(err.message || 'Алдаа гарлаа');
             });
         });
     }
@@ -824,31 +823,24 @@ $(document).ready(function(){
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                        'X-Requested-With': 'XMLHttpRequest'
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
                     },
                     body: formData,
                     credentials: 'include' // <- session cookie-г дамжуулна
                 });
-    
-                const data = await res.json();
-    
-                if (data.success) {
-                    // modal хаах
-                    bootstrap.Modal.getInstance(
-                        document.getElementById('addUser')
-                    ).hide();
-    
-                    this.reset();
-                    alert(data.message);
-    
-                    // Table-д шинэ row нэмж болно
-                    // addRowToTable(data.data);
-                } else {
-                    alert('Алдаа гарлаа: ' + (data.message || ''));
-                }
+
+                const data = await handleAjaxResponse(res);
+
+                bootstrap.Modal.getInstance(
+                    document.getElementById('addUser')
+                ).hide();
+
+                this.reset();
+                alert((data && data.message) || 'Амжилттай');
             } catch (err) {
                 console.error('User save error:', err);
-                alert('Алдаа гарлаа');
+                alert(err.message || 'Алдаа гарлаа');
             }
         });
     }
@@ -862,56 +854,54 @@ $(document).ready(function(){
             fetch('/admin/employee', {
                 method: 'POST',
                 headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
                 },
                 body: formData
             })
-            .then(res => res.json())
-            .then(data => {
-                if(data.success){
-                    alert('Ажилтан амжилттай нэмэгдлээ');
-                    this.reset();
-                    bootstrap.Modal.getInstance(document.getElementById('addEmployee')).hide();
-                } else {
-                    alert('Алдаа гарлаа');
-                }
+            .then(handleAjaxResponse)
+            .then(() => {
+                alert('Ажилтан амжилттай нэмэгдлээ');
+                this.reset();
+                bootstrap.Modal.getInstance(document.getElementById('addEmployee')).hide();
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                console.error('Employee save error:', err);
+                alert(err.message || 'Алдаа гарлаа');
+            });
         });
     }
 
     if(groupForm){
         groupForm.addEventListener('submit', function (e) {
             e.preventDefault();
-    
+
             const formData = new FormData(this);
-    
+
             fetch('/admin/groups', {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
                 },
                 body: formData
             })
-            .then(res => res.json())
-            .then(data => {
-                if(data.success){
-                    alert('Мэдээ амжилттай нэмэгдлээ');
-                    this.reset();
-                    bootstrap.Modal.getInstance(document.getElementById('addGroup')).hide();
-    
-                    // ⚡ TinyMCE-г ч бас reset хийх
-                    if(editor){
-                        editor.setContent('');
-                    }
-                } else {
-                    alert('Алдаа гарлаа');
+            .then(handleAjaxResponse)
+            .then(() => {
+                alert('Мэдээ амжилттай нэмэгдлээ');
+                this.reset();
+                bootstrap.Modal.getInstance(document.getElementById('addGroup')).hide();
+
+                // ⚡ TinyMCE-г ч бас reset хийх
+                if(typeof editor !== 'undefined' && editor){
+                    editor.setContent('');
                 }
             })
             .catch(err => {
                 console.error('Group save error:', err);
-                alert('Алдаа гарлаа');
+                alert(err.message || 'Алдаа гарлаа');
             });
         });
     }
@@ -935,29 +925,19 @@ $(document).ready(function(){
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
                 },
                 body: formData
             })
-            .then(async res => {
-                let text = await res.text();
-                console.log('RESPONSE:', text);
-            
-                try {
-                    return JSON.parse(text);
-                } catch (e) {
-                    throw new Error('JSON parse error');
-                }
-            })
-            .then(data => {
-                if(data.success){
-                    alert('Амжилттай');
-                    location.reload();
-                }
+            .then(handleAjaxResponse)
+            .then(() => {
+                alert('Амжилттай');
+                location.reload();
             })
             .catch(err => {
-                console.error('ERROR:', err);
-                alert('Алдаа гарлаа (console хар)');
+                console.error('News save error:', err);
+                alert(err.message || 'Алдаа гарлаа');
             });
         });
     }

@@ -431,19 +431,17 @@
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'X-Requested-With': 'XMLHttpRequest',
                 'Accept': 'application/json'
             },
             body: formData
         })
-        .then(res => res.json())
-        .then(data => {
-            if (data && data.success) {
-                location.reload();
-            } else {
-                alert('Хадгалах үед алдаа гарлаа: ' + JSON.stringify(data));
-            }
-        })
-        .catch(err => alert('Сервер алдаа: ' + err.message));
+        .then(handleAjaxResponse)
+        .then(() => location.reload())
+        .catch(err => {
+            console.error('Group item save error:', err);
+            alert(err.message || 'Алдаа гарлаа');
+        });
     });
 
     document.querySelectorAll('.edit-items-btn').forEach(btn => {
@@ -524,19 +522,17 @@
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'X-Requested-With': 'XMLHttpRequest',
                 'Accept': 'application/json'
             },
             body: formData
         })
-        .then(res => res.json())
-        .then(data => {
-            if (data && data.success) {
-                location.reload();
-            } else {
-                alert('Хадгалах үед алдаа гарлаа: ' + JSON.stringify(data));
-            }
-        })
-        .catch(err => alert('Сервер алдаа: ' + err.message));
+        .then(handleAjaxResponse)
+        .then(() => location.reload())
+        .catch(err => {
+            console.error('Group item update error:', err);
+            alert(err.message || 'Алдаа гарлаа');
+        });
     });
 
     tinymce.init({

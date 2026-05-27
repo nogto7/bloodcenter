@@ -424,24 +424,22 @@
             method: 'POST', // POST + @method('PUT') → Laravel handle PUT
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'X-Requested-With': 'XMLHttpRequest',
                 'Accept': 'application/json'
             },
             body: formData
         })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                console.log('Saved:', data);
-                bootstrap.Modal.getInstance(
-                    document.getElementById('editEmployeeModal')
-                ).hide();
-
-                // ✅ хүсвэл table update
-            } else {
-                alert(data.message || 'Алдаа гарлаа');
-            }
+        .then(handleAjaxResponse)
+        .then(() => {
+            bootstrap.Modal.getInstance(
+                document.getElementById('editEmployeeModal')
+            ).hide();
+            location.reload();
         })
-        .catch(err => console.error(err));
+        .catch(err => {
+            console.error('Employee update error:', err);
+            alert(err.message || 'Алдаа гарлаа');
+        });
     });
 
     // document.querySelectorAll('.edit-employee-btn').forEach(btn => {

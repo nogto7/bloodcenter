@@ -155,15 +155,13 @@
                 method: 'POST', // Laravel spoof
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'X-Requested-With': 'XMLHttpRequest'
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
                 },
                 body: formData
             })
-            .then(res => {
-                if (!res.ok) throw res;
-                return res.json();
-            })
-            .then(data => {
+            .then(handleAjaxResponse)
+            .then(() => {
                 bootstrap.Modal.getInstance(
                     document.getElementById('editVideo')
                 ).hide();
@@ -172,7 +170,7 @@
             })
             .catch(err => {
                 console.error('Update error:', err);
-                alert('Алдаа гарлаа');
+                alert(err.message || 'Алдаа гарлаа');
             });
         });
     }
