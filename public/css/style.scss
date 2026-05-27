@@ -3029,6 +3029,23 @@ section{
     border-bottom: 1px solid var(--borderColor);
     z-index: 9;
 }
+.admin_search{
+    align-items: $c;
+    margin-right: $s1_6;
+    .form_input{
+        height: $s3_2;
+        padding: 0 $s1;
+        border: 1px solid var(--borderColor);
+        border-radius: $s_6;
+        min-width: 240px;
+    }
+    .__btn{
+        height: $s3_2;
+        padding: 0 $s1_2;
+        border-radius: $s_6;
+        cursor: pointer;
+    }
+}
 .admin_root{
     top: 53px;
     width: calc(100% - 240px);
@@ -3346,6 +3363,34 @@ iframe{
         }
     }
 }
+.emp_position_group{
+    margin: $s1 0 $s2 $s3;
+    padding: $s_8 $s1_2;
+    background: #f7f7f8;
+    border-left: 3px solid var(--primaryColor);
+    border-radius: $s_4;
+}
+.emp_position_title{
+    font-size: $s1_4;
+    font-weight: 600;
+    margin: 0 0 $s_8 $s_4;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    small{
+        font-weight: 400;
+        color: #888;
+        margin-left: $s_6;
+    }
+}
+.emp_order_badge{
+    display: inline-block;
+    padding: $s_2 $s_6;
+    background: #eee;
+    border-radius: $s_4;
+    font-size: $s1_1;
+    color: #555;
+}
 
 .sub_folder{
     &.open{
@@ -3571,6 +3616,11 @@ em{
     gap: $s1_6;
     grid-template-columns: repeat(4, 1fr);
     margin-top: $s2;
+    &.chief_section{
+        margin-bottom: $s2;
+        padding-bottom: $s2;
+        border-bottom: 1px dashed #ddd;
+    }
     .employee_item{
         position: $pr;
         padding: $s1_2 $s1_2 $s1_7;
@@ -3606,6 +3656,30 @@ em{
             display: $fl;
             height: $s_5;
             width: calc(100% + 2px);
+        }
+        &.is_chief{
+            background: linear-gradient(135deg, #fff7f7 0%, #ffe5e5 100%);
+            border: 2px solid var(--primaryColor);
+            box-shadow: 0 4px 12px rgba(201, 56, 56, .12);
+            &::before{
+                content: "★ ДАРГА";
+                position: $pa;
+                top: -10px;
+                left: $s1_2;
+                padding: $s_2 $s_8;
+                background: var(--primaryColor);
+                color: $wh;
+                font-size: $s1_1;
+                font-weight: 700;
+                border-radius: $s_3;
+                letter-spacing: .5px;
+                z-index: 1;
+            }
+            .emp_info{
+                h4{
+                    color: var(--primaryColor);
+                }
+            }
         }
     }
 }
