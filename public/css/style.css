@@ -3761,6 +3761,47 @@ iframe {
   margin: 0;
 }
 
+.emp_position_group {
+  margin: 10px 0 20px 30px;
+  padding: 8px 12px;
+  background: #f7f7f8;
+  border-left: 3px solid var(--primaryColor, #c93838);
+  border-radius: 4px;
+}
+.emp_position_title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 8px 4px;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.emp_position_title small {
+  font-weight: 400;
+  color: #888;
+  margin-left: 6px;
+}
+.emp_order_badge {
+  display: inline-block;
+  padding: 2px 6px;
+  background: #eee;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #555;
+}
+
+.position_group {
+  margin-bottom: 24px;
+}
+.position_title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--primaryColor, #c93838);
+  color: var(--primaryColor, #c93838);
+}
+
 .sub_folder.open > .folder_item::before {
   transform: rotate(90deg) translate(-50%, 0);
 }

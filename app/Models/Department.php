@@ -23,6 +23,8 @@ class Department extends Model
 
     public function employees()
     {
-        return $this->hasMany(Employee::class)->orderBy('order');
+        return $this->hasMany(Employee::class)
+            ->orderBy('order')
+            ->orderBy('id');
     }
 }

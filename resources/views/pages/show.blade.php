@@ -54,22 +54,22 @@
                         <div class="show_text">{!! $department->description !!}</div>
                         <div class="employees">
                             @if($department && $department->employees->count())
-                                <div class="employee_list">
-                                    @foreach($department->employees as $emp)
-                                        <div class="employee_item">
-                                            {{-- <div class="emp_img img_block">
-                                                @if($emp->photo)
-                                                <img src="{{ asset($emp->photo) }}" alt="{{ $emp->fullname }}">
-                                                @endif
-                                            </div> --}}
-                                            <div class="emp_info">
-                                                <h4>{{ $emp->fullname }}</h4>
-                                                <p>{{ $emp->position }}</p>
-                                            </div>
-                                            <span style="background-color: {{ $department->color }}"></span>
+                                @foreach($department->employees->groupBy(function ($e) { return $e->position ?: 'Бусад'; }) as $position => $employees)
+                                    <div class="position_group">
+                                        <h3 class="position_title">{{ $position }}</h3>
+                                        <div class="employee_list">
+                                            @foreach($employees as $emp)
+                                                <div class="employee_item">
+                                                    <div class="emp_info">
+                                                        <h4>{{ $emp->fullname }}</h4>
+                                                        <p>{{ $emp->position }}</p>
+                                                    </div>
+                                                    <span style="background-color: {{ $department->color }}"></span>
+                                                </div>
+                                            @endforeach
                                         </div>
-                                    @endforeach
-                                </div>
+                                    </div>
+                                @endforeach
                             @else
                                 <div class="empty_text">Ажилтан бүртгэгдээгүй байна</div>
                             @endif

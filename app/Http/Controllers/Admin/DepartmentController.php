@@ -40,7 +40,10 @@ class DepartmentController extends Controller
             'photo' => 'nullable|image|max:4096',
             'phone' => 'nullable|string',
             'email' => 'nullable|email',
+            'order' => 'nullable|integer',
         ]);
+
+        $data['order'] = $data['order'] ?? 0;
 
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
@@ -82,6 +85,7 @@ class DepartmentController extends Controller
             'phone'         => 'nullable|string',
             'email'         => 'nullable|email',
             'photo'         => 'nullable|image|max:4096',
+            'order'         => 'nullable|integer',
         ]);
 
         if ($request->hasFile('photo')) {

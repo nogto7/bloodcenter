@@ -69,39 +69,45 @@
                         </td>
                     </tr>
                     
-                    {{-- Ажилчдын нэрийг жагсаах --}}
+                    {{-- Ажилчдын нэрийг position-аар бүлэглэж жагсаах --}}
                     @if($item->employees->isNotEmpty())
                     <tr>
                         <td colspan="7">
-                            <ul class="ad_emp_list">
-                                @foreach($item->employees as $emp)
-                                    <li>
-                                        <div class="img_block"><img src="{{ asset($emp->photo) }}" alt="{{ $emp->fullname }}"></div>
-                                        <div class="emp_desc">
-                                            <h3>{{ $emp->fullname }}</h3>
-                                            <p>{{ $emp->position }}</p>
-                                            <div class="emp_other">
-                                                <b>{{ $emp->phone }}</b>
-                                                <span>{{ $emp->email }}</span>
-                                            </div>
-                                        </div>
-                                        <div class="dfc mt1">
-                                            <button 
-                                                type="button"
-                                                class="f_f_button f_edit edit-employee-btn" 
-                                                data-id="{{ $emp->id }}"><span></span>
-                                            </button>
-                                            <form action="{{ route('admin.employee.destroy', $emp) }}" method="POST" style="display:inline-block;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="f_f_button f_delete ml1" onclick="return confirm('Та устгахдаа итгэлтэй байна уу?')">
-                                                    <span></span>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </li>
-                                @endforeach
-                            </ul>
+                            @foreach($item->employees->groupBy(function ($e) { return $e->position ?: 'Бусад'; }) as $position => $employees)
+                                <div class="emp_position_group">
+                                    <h4 class="emp_position_title">{{ $position }} <small>({{ $employees->count() }})</small></h4>
+                                    <ul class="ad_emp_list">
+                                        @foreach($employees as $emp)
+                                            <li>
+                                                <div class="img_block"><img src="{{ asset($emp->photo) }}" alt="{{ $emp->fullname }}"></div>
+                                                <div class="emp_desc">
+                                                    <h3>{{ $emp->fullname }}</h3>
+                                                    <p>{{ $emp->position }}</p>
+                                                    <div class="emp_other">
+                                                        <b>{{ $emp->phone }}</b>
+                                                        <span>{{ $emp->email }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="dfc mt1">
+                                                    <small class="emp_order_badge">№ {{ $emp->order }}</small>
+                                                    <button
+                                                        type="button"
+                                                        class="f_f_button f_edit edit-employee-btn ml1"
+                                                        data-id="{{ $emp->id }}"><span></span>
+                                                    </button>
+                                                    <form action="{{ route('admin.employee.destroy', $emp) }}" method="POST" style="display:inline-block;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="f_f_button f_delete ml1" onclick="return confirm('Та устгахдаа итгэлтэй байна уу?')">
+                                                            <span></span>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endforeach
                         </td>
                     </tr>
                     @else
@@ -211,7 +217,11 @@
                     </div>
                     <div class="form_item">
                         <label class="form_label">Албан тушаал</label>
-                        <input type="text" name="position" class="form_input" placeholder="Албан тушаал">
+                        <input type="text" name="position" class="form_input" placeholder="Албан тушаал (Дарга, Эмч, Сувилагч...)">
+                    </div>
+                    <div class="form_item">
+                        <label class="form_label">Дараалал</label>
+                        <input type="number" name="order" class="form_input" placeholder="Бага тоо нь түрүүнд харагдана" value="0">
                     </div>
                     <div class="form_item">
                         <label class="form_label">Зураг</label>
@@ -269,7 +279,11 @@
                     </div>
                     <div class="form_item">
                         <label class="form_label">Албан тушаал</label>
-                        <input type="text" name="position" id="edit_position" class="form_input">
+                        <input type="text" name="position" id="edit_position" class="form_input" placeholder="Дарга, Эмч, Сувилагч...">
+                    </div>
+                    <div class="form_item">
+                        <label class="form_label">Дараалал</label>
+                        <input type="number" name="order" id="edit_order" class="form_input" placeholder="Бага тоо нь түрүүнд харагдана" value="0">
                     </div>
                     <div class="form_item">
                         <label class="form_label">Зураг</label>
@@ -395,6 +409,7 @@
                     document.getElementById('edit_emp_id').value = data.id;
                     document.getElementById('edit_fullname').value = data.fullname ?? '';
                     document.getElementById('edit_position').value = data.position ?? '';
+                    document.getElementById('edit_order').value = data.order ?? 0;
                     document.getElementById('edit_phone').value = data.phone ?? '';
                     document.getElementById('edit_email').value = data.email ?? '';
                     document.getElementById('edit_department_id').value = data.department_id;
