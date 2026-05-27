@@ -54,22 +54,38 @@
                         <div class="show_text">{!! $department->description !!}</div>
                         <div class="employees">
                             @if($department && $department->employees->count())
-                                @foreach($department->employees->groupBy(function ($e) { return $e->position ?: 'Бусад'; }) as $position => $employees)
-                                    <div class="position_group">
-                                        <h3 class="position_title">{{ $position }}</h3>
-                                        <div class="employee_list">
-                                            @foreach($employees as $emp)
-                                                <div class="employee_item">
-                                                    <div class="emp_info">
-                                                        <h4>{{ $emp->fullname }}</h4>
-                                                        <p>{{ $emp->position }}</p>
-                                                    </div>
-                                                    <span style="background-color: {{ $department->color }}"></span>
+                                @php
+                                    $chiefs = $department->employees->filter(fn ($e) => mb_stripos((string) $e->position, 'дарга') !== false);
+                                    $others = $department->employees->reject(fn ($e) => mb_stripos((string) $e->position, 'дарга') !== false);
+                                @endphp
+
+                                @if($chiefs->isNotEmpty())
+                                    <div class="chief_list">
+                                        @foreach($chiefs as $emp)
+                                            <div class="employee_item is_chief">
+                                                <div class="emp_info">
+                                                    <h4>{{ $emp->fullname }}</h4>
+                                                    <p>{{ $emp->position }}</p>
                                                 </div>
-                                            @endforeach
-                                        </div>
+                                                <span style="background-color: {{ $department->color }}"></span>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                @endforeach
+                                @endif
+
+                                @if($others->isNotEmpty())
+                                    <div class="employee_list">
+                                        @foreach($others as $emp)
+                                            <div class="employee_item">
+                                                <div class="emp_info">
+                                                    <h4>{{ $emp->fullname }}</h4>
+                                                    <p>{{ $emp->position }}</p>
+                                                </div>
+                                                <span style="background-color: {{ $department->color }}"></span>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
                             @else
                                 <div class="empty_text">Ажилтан бүртгэгдээгүй байна</div>
                             @endif

@@ -3790,16 +3790,42 @@ iframe {
   color: #555;
 }
 
-.position_group {
-  margin-bottom: 24px;
+.chief_list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed #ddd;
 }
-.position_title {
+.employee_item.is_chief {
+  position: relative;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #fff7f7 0%, #ffe5e5 100%);
+  border: 2px solid var(--primaryColor, #c93838);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(201, 56, 56, 0.12);
+}
+.employee_item.is_chief::before {
+  content: "★ ДАРГА";
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  padding: 2px 8px;
+  background: var(--primaryColor, #c93838);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+.employee_item.is_chief .emp_info h4 {
   font-size: 18px;
   font-weight: 700;
-  margin: 0 0 12px;
-  padding-bottom: 6px;
-  border-bottom: 2px solid var(--primaryColor, #c93838);
   color: var(--primaryColor, #c93838);
+}
+.employee_item.is_chief .emp_info p {
+  font-weight: 600;
 }
 
 .sub_folder.open > .folder_item::before {
