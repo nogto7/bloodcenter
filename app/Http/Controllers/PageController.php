@@ -77,13 +77,15 @@ class PageController extends Controller
 
             case 'shilen':
                 $menuItems = Group::where('menu_id', $menu->id)
-                    ->latest()
+                    ->orderBy('sort')
+                    ->orderBy('id')
                     ->get();
-            
+
                 $items = GroupItem::whereIn('group_id', $menuItems->pluck('id'))
                     ->orderBy('order')
+                    ->orderBy('id')
                     ->get();
-            
+
                 return view('pages.shilen', compact('menu','menuItems', 'items'));
 
             case 'custom':
