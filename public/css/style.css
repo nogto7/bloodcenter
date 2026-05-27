@@ -3765,9 +3765,10 @@ iframe {
   margin: 10px 0 20px 30px;
   padding: 8px 12px;
   background: #f7f7f8;
-  border-left: 3px solid var(--primaryColor, #c93838);
+  border-left: 3px solid var(--primaryColor);
   border-radius: 4px;
 }
+
 .emp_position_title {
   font-size: 14px;
   font-weight: 600;
@@ -3781,6 +3782,7 @@ iframe {
   color: #888;
   margin-left: 6px;
 }
+
 .emp_order_badge {
   display: inline-block;
   padding: 2px 6px;
@@ -3788,34 +3790,6 @@ iframe {
   border-radius: 4px;
   font-size: 11px;
   color: #555;
-}
-
-.employee_list.chief_section {
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px dashed #ddd;
-}
-.employee_list .employee_item.is_chief {
-  background: linear-gradient(135deg, #fff7f7 0%, #ffe5e5 100%);
-  border: 2px solid var(--primaryColor, #c93838);
-  box-shadow: 0 4px 12px rgba(201, 56, 56, 0.12);
-}
-.employee_list .employee_item.is_chief::before {
-  content: "★ ДАРГА";
-  position: absolute;
-  top: -10px;
-  left: 12px;
-  padding: 2px 8px;
-  background: var(--primaryColor, #c93838);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  border-radius: 3px;
-  letter-spacing: 0.5px;
-  z-index: 1;
-}
-.employee_list .employee_item.is_chief .emp_info h4 {
-  color: var(--primaryColor, #c93838);
 }
 
 .sub_folder.open > .folder_item::before {
@@ -4033,6 +4007,11 @@ em i {
   grid-template-columns: repeat(4, 1fr);
   margin-top: 20px;
 }
+.employee_list.chief_section {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed #ddd;
+}
 .employee_list .employee_item {
   position: relative;
   padding: 12px 12px 17px;
@@ -4068,6 +4047,23 @@ em i {
   display: flex;
   height: 5px;
   width: calc(100% + 2px);
+}
+.employee_list .employee_item.is_chief::before {
+  content: "★";
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  padding: 2px 4px;
+  background: var(--primaryColor);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+  z-index: 1;
+}
+.employee_list .employee_item.is_chief .emp_info h4 {
+  color: var(--primaryColor);
 }
 
 .file-picker {

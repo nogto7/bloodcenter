@@ -3658,15 +3658,12 @@ em{
             width: calc(100% + 2px);
         }
         &.is_chief{
-            background: linear-gradient(135deg, #fff7f7 0%, #ffe5e5 100%);
-            border: 2px solid var(--primaryColor);
-            box-shadow: 0 4px 12px rgba(201, 56, 56, .12);
             &::before{
-                content: "★ ДАРГА";
+                content: "★";
                 position: $pa;
                 top: -10px;
                 left: $s1_2;
-                padding: $s_2 $s_8;
+                padding: $s_2 $s_4;
                 background: var(--primaryColor);
                 color: $wh;
                 font-size: $s1_1;
