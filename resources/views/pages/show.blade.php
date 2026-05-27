@@ -60,7 +60,7 @@
                                 @endphp
 
                                 @if($chiefs->isNotEmpty())
-                                    <div class="chief_list">
+                                    <div class="employee_list chief_section">
                                         @foreach($chiefs as $emp)
                                             <div class="employee_item is_chief">
                                                 <div class="emp_info">

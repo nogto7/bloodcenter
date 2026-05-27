@@ -3790,23 +3790,17 @@ iframe {
   color: #555;
 }
 
-.chief_list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+.employee_list.chief_section {
   margin-bottom: 20px;
-  padding-bottom: 16px;
+  padding-bottom: 20px;
   border-bottom: 1px dashed #ddd;
 }
-.employee_item.is_chief {
-  position: relative;
-  padding: 14px 16px;
+.employee_list .employee_item.is_chief {
   background: linear-gradient(135deg, #fff7f7 0%, #ffe5e5 100%);
   border: 2px solid var(--primaryColor, #c93838);
-  border-radius: 10px;
   box-shadow: 0 4px 12px rgba(201, 56, 56, 0.12);
 }
-.employee_item.is_chief::before {
+.employee_list .employee_item.is_chief::before {
   content: "★ ДАРГА";
   position: absolute;
   top: -10px;
@@ -3818,14 +3812,10 @@ iframe {
   font-weight: 700;
   border-radius: 3px;
   letter-spacing: 0.5px;
+  z-index: 1;
 }
-.employee_item.is_chief .emp_info h4 {
-  font-size: 18px;
-  font-weight: 700;
+.employee_list .employee_item.is_chief .emp_info h4 {
   color: var(--primaryColor, #c93838);
-}
-.employee_item.is_chief .emp_info p {
-  font-weight: 600;
 }
 
 .sub_folder.open > .folder_item::before {
