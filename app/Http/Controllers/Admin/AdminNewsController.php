@@ -17,29 +17,34 @@ use Illuminate\Support\Str;
 
 class AdminNewsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-    
-        if ($user->role === 'admin') {
-            $newsList = News::with('user', 'department', 'editor', 'publisher')
-                ->orderBy('publish_at', 'desc')
-                ->latest()
-                ->paginate(15);
-        } elseif ($user->role === 'publisher') {
-            $newsList = News::where('department_id', $user->department_id)
-                // ->where('status','draft')
-                ->with('user', 'department', 'editor', 'publisher')
-                ->orderBy('publish_at','desc')
-                ->paginate(15);
-        } else { // editor
-            $newsList = News::where('department_id', $user->department_id)
-                ->with('user', 'department', 'editor', 'publisher')
-                ->orderBy('publish_at','desc')
-                ->paginate(20);
+        $q = trim((string) $request->input('q', ''));
+
+        $query = News::with('user', 'department', 'editor', 'publisher');
+
+        if ($user->role !== 'admin') {
+            $query->where('department_id', $user->department_id);
         }
-    
-        return view('admin.news.index', compact('newsList'));
+
+        if ($q !== '') {
+            $like = '%' . str_replace(['%', '_'], ['\\%', '\\_'], $q) . '%';
+            $query->where(function ($w) use ($like) {
+                $w->where('title', 'like', $like)
+                  ->orWhere('excerpt', 'like', $like)
+                  ->orWhere('content', 'like', $like);
+            });
+        }
+
+        $perPage = $user->role === 'editor' ? 20 : 15;
+
+        $newsList = $query->orderBy('publish_at', 'desc')
+            ->latest()
+            ->paginate($perPage)
+            ->appends(['q' => $q]);
+
+        return view('admin.news.index', compact('newsList', 'q'));
     }
 
     public function create()

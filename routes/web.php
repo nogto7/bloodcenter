@@ -123,6 +123,7 @@ Route::prefix('admin')
 
     // File Manager
     Route::resource('folders', FolderController::class)->only(['index', 'create', 'store']);
+    Route::get('folders-search', [FolderController::class, 'search'])->name('folders.search');
     Route::delete('folders/{folder}', [FolderController::class, 'destroy'])->name('folders.destroy');
     
     Route::resource('files', FileManagerController::class)

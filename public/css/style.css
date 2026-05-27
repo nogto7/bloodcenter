@@ -3432,6 +3432,24 @@ section {
   z-index: 9;
 }
 
+.admin_search {
+  align-items: center;
+  margin-right: 16px;
+}
+.admin_search .form_input {
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--borderColor);
+  border-radius: 6px;
+  min-width: 240px;
+}
+.admin_search .__btn {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
 .admin_root {
   top: 53px;
   width: calc(100% - 240px);

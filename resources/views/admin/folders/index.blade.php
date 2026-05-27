@@ -11,6 +11,10 @@
             <div id="active-folder-breadcrumb" class="selected_folder"><p></p></div>
         </div>
         <div class="fline_header dfc">
+            <div class="admin_search dfc" role="search">
+                <input type="text" id="fileSearchInput" class="form_input" placeholder="Файлын нэр, дугаараар хайх...">
+                <button type="button" id="fileSearchClear" class="__btn ml1" style="display:none;">Цэвэрлэх</button>
+            </div>
             <div class="file_options dfc">
                 <button class="f_f_button f_edit" id="btnEdit" disabled><span></span>Засах</button>
                 <button class="f_f_button f_delete" id="btnDelete" disabled><span></span>Устгах</button>
@@ -57,7 +61,7 @@
         </div>
         <div class="admin_page_content dg">
             <div class="file_list">
-                <p class="not_file">Энэ хавтсанд файл алга</p>
+                <p class="not_file">Хавтас сонгоно уу эсвэл хайна уу</p>
             </div>
             <div class="file_preview" id="filePreview">
                 <p class="empty">Файл сонгоно уу</p>
@@ -246,4 +250,106 @@
         </div>
     </div>
 </div>
+<script>
+(function () {
+    const input = document.getElementById('fileSearchInput');
+    const clearBtn = document.getElementById('fileSearchClear');
+    if (!input) return;
+
+    const fileList = document.querySelector('.file_list');
+    const filePreview = document.getElementById('filePreview');
+    const breadcrumbItem = document.getElementById('active-folder-breadcrumb');
+    let timer = null;
+    let lastQuery = '';
+
+    function renderResults(files, q) {
+        if (!files.length) {
+            fileList.innerHTML = `<p class="not_file">"${q}" гэсэн утгаар файл олдсонгүй</p>`;
+            return;
+        }
+        let html = `<table class="table_content">
+            <thead><tr>
+                <th>Нэр</th>
+                <th>Хавтас</th>
+                <th>Төрөл</th>
+                <th>Хэмжээ</th>
+            </tr></thead><tbody>`;
+        files.forEach(file => {
+            const folderName = (file.folder && file.folder.name) ? file.folder.name : '-';
+            html += `<tr class="file_row"
+                onclick="previewFile(${file.id})"
+                data-file='${JSON.stringify(file).replace(/'/g, "&#39;")}'
+                draggable="true"
+                ondragstart="dragFile(event, ${file.id})">
+                <td><span class="file_type"></span>${file.title}</td>
+                <td>${folderName}</td>
+                <td>${file.mime_type ?? '-'}</td>
+                <td>${file.size ? (file.size / 1024).toFixed(2)+' KB' : '-'}</td>
+            </tr>`;
+        });
+        html += '</tbody></table>';
+        fileList.innerHTML = html;
+    }
+
+    function runSearch(q) {
+        if (q === lastQuery) return;
+        lastQuery = q;
+
+        if (q === '') {
+            clearBtn.style.display = 'none';
+            fileList.innerHTML = '<p class="not_file">Хавтас сонгоно уу эсвэл хайна уу</p>';
+            filePreview.innerHTML = '<p class="empty">Файл сонгоно уу</p>';
+            document.querySelectorAll('.folder_item.active').forEach(e => e.classList.remove('active'));
+            if (breadcrumbItem) {
+                breadcrumbItem.style.display = 'none';
+                const p = breadcrumbItem.querySelector('p');
+                if (p) p.textContent = '';
+            }
+            return;
+        }
+
+        clearBtn.style.display = '';
+        fileList.innerHTML = '<p class="not_file">Хайж байна...</p>';
+        if (breadcrumbItem) {
+            breadcrumbItem.style.display = 'list-item';
+            const p = breadcrumbItem.querySelector('p');
+            if (p) p.textContent = '🔍 "' + q + '" хайлт';
+        }
+        document.querySelectorAll('.folder_item.active').forEach(e => e.classList.remove('active'));
+        localStorage.removeItem('activeFolder');
+
+        fetch('/admin/folders-search?q=' + encodeURIComponent(q), {
+            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' }
+        })
+        .then(handleAjaxResponse)
+        .then(data => {
+            if (input.value.trim() !== q) return; // user-н шинэ хайлт давсан
+            renderResults(data.files || [], q);
+        })
+        .catch(err => {
+            console.error('File search error:', err);
+            fileList.innerHTML = '<p class="not_file">Хайлтын алдаа: ' + (err.message || 'Алдаа') + '</p>';
+        });
+    }
+
+    input.addEventListener('input', function () {
+        clearTimeout(timer);
+        timer = setTimeout(() => runSearch(this.value.trim()), 250);
+    });
+
+    input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            clearTimeout(timer);
+            runSearch(this.value.trim());
+        }
+    });
+
+    clearBtn.addEventListener('click', function () {
+        input.value = '';
+        runSearch('');
+        input.focus();
+    });
+})();
+</script>
 @endsection

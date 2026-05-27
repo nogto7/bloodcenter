@@ -139,5 +139,28 @@ class FolderController extends Controller
 
         return response()->json($files);
     }
-    
+
+    public function search(Request $request)
+    {
+        $q = trim((string) $request->input('q', ''));
+
+        if ($q === '') {
+            return response()->json(['folder' => null, 'files' => [], 'q' => '']);
+        }
+
+        $like = '%' . str_replace(['%', '_'], ['\\%', '\\_'], $q) . '%';
+
+        $files = File::where(function ($w) use ($like) {
+                $w->where('title', 'like', $like)
+                  ->orWhere('number', 'like', $like);
+            })
+            ->with(['folder:id,name', 'menu:id,title'])
+            ->select('id','title','path','mime_type','created_at','size','folder_id','menu_id','date','number')
+            ->orderBy('title')
+            ->limit(200)
+            ->get();
+
+        return response()->json(['folder' => null, 'files' => $files, 'q' => $q]);
+    }
+
 }

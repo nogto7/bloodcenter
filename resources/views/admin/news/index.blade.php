@@ -9,6 +9,13 @@
             </ul>
         </div>
         <div class="fline_header dfc">
+            <form method="GET" action="{{ route('admin.news.index') }}" class="admin_search dfc" role="search">
+                <input type="text" name="q" value="{{ $q ?? '' }}" class="form_input" placeholder="Гарчиг, агуулгаар хайх...">
+                <button type="submit" class="__btn btn_primary ml1">Хайх</button>
+                @if(!empty($q))
+                    <a href="{{ route('admin.news.index') }}" class="__btn ml1">Цэвэрлэх</a>
+                @endif
+            </form>
             <div class="file_options dfc">
                 <button class="f_f_button f_edit" id="btnRename" disabled><span></span>Солих</button>
                 <button class="f_f_button f_delete" id="btnDelete" disabled><span></span>Устгах</button>
@@ -21,7 +28,13 @@
 </div>
 <div class="admin_file_wrap">
     <div class="file_content">
-        <h2>Мэдээ мэдээлэл <small class="news_count">({{ $newsList->total() }})</small></h2>
+        <h2>
+            Мэдээ мэдээлэл
+            <small class="news_count">({{ $newsList->total() }})</small>
+            @if(!empty($q))
+                <small class="news_count">— "{{ $q }}" хайлтын үр дүн</small>
+            @endif
+        </h2>
         <div class="table_wrap">
             <table class="table_content">
                 <thead>
