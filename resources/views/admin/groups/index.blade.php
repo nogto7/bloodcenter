@@ -396,6 +396,7 @@
                 .then(data => {
                     const form = document.getElementById('groupForm');
 
+                    form.dataset.id = id;
                     form.querySelector('#edit_title').value = data.title ?? '';
                     form.querySelector('#edit_menu_id').value = data.menu_id ?? '';
                     form.querySelector('[name="sort"]').value = data.sort ?? 0;

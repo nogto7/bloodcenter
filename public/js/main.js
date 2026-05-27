@@ -877,9 +877,16 @@ $(document).ready(function(){
         groupForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
+            const id = this.dataset.id;
             const formData = new FormData(this);
+            let url = '/admin/groups';
 
-            fetch('/admin/groups', {
+            if (id) {
+                url = `/admin/groups/${id}`;
+                formData.append('_method', 'PUT');
+            }
+
+            fetch(url, {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
@@ -890,14 +897,8 @@ $(document).ready(function(){
             })
             .then(handleAjaxResponse)
             .then(() => {
-                alert('Мэдээ амжилттай нэмэгдлээ');
-                this.reset();
-                bootstrap.Modal.getInstance(document.getElementById('addGroup')).hide();
-
-                // ⚡ TinyMCE-г ч бас reset хийх
-                if(typeof editor !== 'undefined' && editor){
-                    editor.setContent('');
-                }
+                alert(id ? 'Амжилттай шинэчлэгдлээ' : 'Мэдээ амжилттай нэмэгдлээ');
+                location.reload();
             })
             .catch(err => {
                 console.error('Group save error:', err);
