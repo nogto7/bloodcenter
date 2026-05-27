@@ -77,6 +77,14 @@
         </div>
     </footer>
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DK2QWZXTT5"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-DK2QWZXTT5');
+    </script>
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
 </body>
