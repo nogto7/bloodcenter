@@ -59,6 +59,7 @@
                         <li><a href="/admin/feedback" class="icon_sidebar icon_feedback"><span></span><i>Санал хүсэлт</i></a></li>
                         <li><a href="/admin/folders" class="icon_sidebar icon_folder"><span></span><i>Файлын удирдлага</i></a></li>
                         <li><a href="/admin/users" class="icon_sidebar icon_users"><span></span><i>Хэрэглэгч</i></a></li>
+                        <li><a href="/admin/settings/contact" class="icon_sidebar icon_feedback"><span></span><i>Холбоо барих</i></a></li>
                         @endif
                     </ul>
                 </div>

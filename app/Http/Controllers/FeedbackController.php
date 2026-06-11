@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\Feedback;
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class FeedbackController extends Controller
 {
@@ -18,13 +20,19 @@ class FeedbackController extends Controller
 
     public function store(Request $request)
     {
+        // Админаас тохируулсан сонголтуудтай тулгаж шалгана (form-той ижил эх сурвалж)
+        $types = SiteSetting::list('feedback_types', ['Санал', 'Хүсэлт', 'Талархал']);
+        $positions = SiteSetting::list('feedback_positions');
+
         $validated = $request->validate([
             'name' => 'required|string|max:50',
             'phone' => 'required|string',
-            'email' => 'required|email|unique:feedback,email',
-            'feedback_type' => 'required|string',
+            'email' => 'required|email',
+            'feedback_type' => ['required', 'string', Rule::in($types)],
             'message' => 'required',
-            'feedback_position' => 'required|string',
+            'feedback_position' => count($positions)
+                ? ['required', 'string', Rule::in($positions)]
+                : ['nullable', 'string'],
         ]);
 
         Feedback::create($validated);

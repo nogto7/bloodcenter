@@ -1,7 +1,57 @@
+@php
+    $contactAddress = \App\Models\SiteSetting::get('contact_address');
+    $contactPhone = \App\Models\SiteSetting::get('contact_phone');
+    $contactEmail = \App\Models\SiteSetting::get('contact_email');
+    $contactWorkHours = \App\Models\SiteSetting::get('contact_work_hours');
+
+    $feedbackTypes = \App\Models\SiteSetting::list('feedback_types', ['Санал', 'Хүсэлт', 'Талархал']);
+    // Монгол улсын хэмжээний салбарууд — админы Холбоо барих тохиргооноос удирдана
+    $feedbackPositions = \App\Models\SiteSetting::list('feedback_positions');
+@endphp
 <h1 class="title">Санал, хүсэлт</h1>
 <div class="dg g2 gap3">
-    <div class="">
-
+    <div class="contact_info">
+        <h2>Холбоо барих</h2>
+        <ul>
+            @if($contactAddress)
+                <li>
+                    <span class="contact_icon"><i class="fa-solid fa-location-dot"></i></span>
+                    <div class="contact_text">
+                        <h3>Хаяг</h3>
+                        <p>{{ $contactAddress }}</p>
+                    </div>
+                </li>
+            @endif
+            @if($contactPhone)
+                <li>
+                    <span class="contact_icon"><i class="fa-solid fa-phone"></i></span>
+                    <div class="contact_text">
+                        <h3>Утас</h3>
+                        <p>{{ $contactPhone }}</p>
+                    </div>
+                </li>
+            @endif
+            @if($contactEmail)
+                <li>
+                    <span class="contact_icon"><i class="fa-solid fa-envelope"></i></span>
+                    <div class="contact_text">
+                        <h3>И-мэйл</h3>
+                        <p><a href="mailto:{{ $contactEmail }}">{{ $contactEmail }}</a></p>
+                    </div>
+                </li>
+            @endif
+            @if($contactWorkHours)
+                <li>
+                    <span class="contact_icon"><i class="fa-solid fa-clock"></i></span>
+                    <div class="contact_text">
+                        <h3>Цагийн хуваарь</h3>
+                        @foreach(preg_split('/\r\n|\r|\n/', $contactWorkHours) as $line)
+                            @if(trim($line) !== '')<p>{{ $line }}</p>@endif
+                        @endforeach
+                    </div>
+                </li>
+            @endif
+        </ul>
     </div>
     <div class="feedback_form">
         <form action="{{ route('feedback.send') }}" method="POST">
@@ -38,20 +88,24 @@
             <div class="dg g2 gap2">
                 <div class="form_item required">
                     <label class="form_label">Саналын төрөл</label>
-                    <select name="feedback_type" class="form_select" id="" required>
+                    <select name="feedback_type" class="form_select" required>
                         <option value="">Сонгох</option>
-                        <option value="Санал">Санал</option>
-                        <option value="Хүсэлт">Хүсэлт</option>
-                        <option value="Талархал">Талархал</option>
+                        @foreach($feedbackTypes as $type)
+                            <option value="{{ $type }}" {{ old('feedback_type') == $type ? 'selected' : '' }}>{{ $type }}</option>
+                        @endforeach
                     </select>
                 </div>
+                @if(count($feedbackPositions))
                 <div class="form_item required">
                     <label class="form_label">Саналын хүргүүлэх салбар</label>
-                    <select name="feedback_position" class="form_select" id="" required>
+                    <select name="feedback_position" class="form_select" required>
                         <option value="">Сонгох</option>
-                        <option value="Хүсэлт">Хүсэлт</option>
+                        @foreach($feedbackPositions as $position)
+                            <option value="{{ $position }}" {{ old('feedback_position') == $position ? 'selected' : '' }}>{{ $position }}</option>
+                        @endforeach
                     </select>
                 </div>
+                @endif
             </div>
             <div class="col2to1">
                 <div class="form_item required">

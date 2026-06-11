@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\FolderController;
 use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\GroupItemController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
@@ -150,6 +151,10 @@ Route::prefix('admin')
     Route::post('group-items/sort', [GroupController::class, 'sort'])->name('group-items.sort');
 
     Route::resource('users', AdminUserController::class);
+
+    // Site settings (Холбоо барих)
+    Route::get('settings/contact', [SiteSettingController::class, 'edit'])->name('settings.contact');
+    Route::post('settings/contact', [SiteSettingController::class, 'update'])->name('settings.contact.update');
 
 });
 

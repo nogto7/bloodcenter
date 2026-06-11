@@ -4756,3 +4756,66 @@ em i {
   }
 }
 /* Responsive Style End *//*# sourceMappingURL=style.css.map */
+/* Admin alert messages */
+.alert {
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.alert ul {
+  margin: 0;
+  padding-left: 12px;
+}
+.alert.alert-success {
+  background: #e8f7ee;
+  color: #1d7a46;
+  border: 1px solid #bfe7cf;
+}
+.alert.alert-danger {
+  background: #fdecec;
+  color: #b42318;
+  border: 1px solid #f5c6c6;
+}
+
+/* Homepage contact info (Санал хүсэлтийн зүүн тал) */
+.contact_info h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.contact_info ul {
+  display: grid;
+  gap: 16px;
+}
+.contact_info li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.contact_info .contact_icon {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--secondColor);
+  color: #fff;
+  font-size: 16px;
+}
+.contact_info .contact_text h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.contact_info .contact_text p {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--baseColor);
+}
+.contact_info .contact_text a {
+  color: var(--secondColor);
+}

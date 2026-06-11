@@ -4416,3 +4416,70 @@ em{
     }
 }
 /* Responsive Style End */
+/* Admin alert messages */
+.alert{
+    padding: $s1 $s1_4;
+    border-radius: $s_6;
+    margin-bottom: $s1_4;
+    font-weight: 500;
+    ul{
+        margin: 0;
+        padding-left: $s1_2;
+    }
+    &.alert-success{
+        background: #e8f7ee;
+        color: #1d7a46;
+        border: 1px solid #bfe7cf;
+    }
+    &.alert-danger{
+        background: #fdecec;
+        color: #b42318;
+        border: 1px solid #f5c6c6;
+    }
+}
+
+/* Homepage contact info (Санал хүсэлтийн зүүн тал) */
+.contact_info{
+    h2{
+        font-size: $s2;
+        font-weight: 700;
+        margin-bottom: $s2;
+        text-transform: uppercase;
+    }
+    ul{
+        display: grid;
+        gap: $s1_6;
+    }
+    li{
+        display: flex;
+        align-items: flex-start;
+        gap: $s1_2;
+    }
+    .contact_icon{
+        flex: 0 0 auto;
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: var(--secondColor);
+        color: #fff;
+        font-size: $s1_6;
+    }
+    .contact_text{
+        h3{
+            font-size: $s1_4;
+            font-weight: 600;
+            margin-bottom: $s_4;
+        }
+        p{
+            font-size: $s1_4;
+            line-height: $s2;
+            color: var(--baseColor);
+        }
+        a{
+            color: var(--secondColor);
+        }
+    }
+}
