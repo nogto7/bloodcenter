@@ -11,7 +11,6 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -69,8 +68,10 @@ class AdminNewsController extends Controller
 
         $data['slug'] = Str::slug($request->title);
         $data['publish_at'] = !empty($data['publish_at']) ? $data['publish_at'] : now();
+
+        // editor-ийн мэдээ хянагдахаар pending, admin/publisher-ийнх шууд нийтлэгдэнэ
         if($user->role == 'editor'){
-            $data['status'] = 'draft';
+            $data['status'] = 'pending';
             $data['is_active'] = 0;
         }else{
             $data['status'] = 'published';
@@ -85,7 +86,6 @@ class AdminNewsController extends Controller
         $data['menu_id'] = $request->menu_id ?? null;
         $data['user_id'] = $user->id;
         $data['department_id'] = $user->department_id; // editor-ийн алба
-        $data['status'] = 'pending'; // шинэ мэдээ pending
 
         // main image
         if ($request->hasFile('image')) {
@@ -99,22 +99,33 @@ class AdminNewsController extends Controller
 
         $news = News::create($data);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Мэдээ амжилттай нэмэгдлээ',
-            'data' => $news
-        ]);
+        // Модал (AJAX) JSON хүлээдэг, create хуудасны энгийн form redirect хүлээдэг
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Мэдээ амжилттай нэмэгдлээ',
+                'data' => $news
+            ]);
+        }
+
+        return redirect()->route('admin.news.index')->with('success', 'Мэдээ амжилттай нэмэгдлээ');
     }
 
     // Update
     public function update(Request $request, News $news, ImageService $imageService)
     {
+        $user = Auth::user();
+
+        if($user->role == 'editor' && $news->user_id != $user->id){
+            abort(403);
+        }
+
         $data = $request->validate([
             'title' => 'required',
             'excerpt' => 'nullable',
             'content' => 'nullable|string',
-            'image' => 'nullable|image',
-            'highlight_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:8192',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:6144',
+            'highlight_image' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:8192',
             'is_active' => 'nullable|boolean',
             'highlight' => 'nullable|boolean',
             'publish_at' => 'nullable|date',
@@ -123,72 +134,49 @@ class AdminNewsController extends Controller
 
         $data['slug'] = Str::slug($request->title);
 
-        $user = Auth::user();
-        
-        if($user->role === 'editor'){
-            $data['is_active'] = 0;
-        }else{
-            $data['status'] = 'published';
-            $data['is_active'] = $request->has('is_active') ? 1 : 0;
-        }
-
-        if($data['is_active'] == 0){
-            $data['status'] = 'pending';
-        }
-        $data['is_active'] = $request->has('is_active') ? 1 : 0;
+        // editor-ийн засвар дахин хянагдана, бусдынх checkbox-оор шийдэгдэнэ
+        $data['is_active'] = $user->role === 'editor' ? 0 : ($request->has('is_active') ? 1 : 0);
+        $data['status'] = $data['is_active'] ? 'published' : 'pending';
         $data['highlight'] = $request->has('highlight') ? 1 : 0;
-
-        // menu_id-г устгах
         $data['menu_id'] = $request->menu_id ?? null;
 
-        // ✅ logged-in user-ийн id-г нэмнэ
-        $data['user_id'] = Auth::id();
-
-        $user = Auth::user();
-
-        if($user->role == 'editor' && $news->user_id != $user->id){
-            abort(403);
+        // Огноог хөндөөгүй бол хуучин утгыг хадгална
+        if (empty($data['publish_at'])) {
+            unset($data['publish_at']);
         }
-        
+
         if($user->role == 'editor'){
             $data['department_id'] = $user->department_id;
         }
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            if ($news->image && File::exists(public_path($news->image))) {
+                File::delete(public_path($news->image));
+            }
+
             $data['image'] = $imageService->resizeAndSave(
                 $request->file('image'),
-                'uploads/news', // зөв folder
+                'uploads/news',
                 1200,
                 75
             );
         }
-        
+
         if ($request->hasFile('highlight_image') && $request->file('highlight_image')->isValid()) {
-        
             // Хуучин зургийг устгах
             if ($news->highlight_image && File::exists(public_path($news->highlight_image))) {
                 File::delete(public_path($news->highlight_image));
             }
-        
+
             $data['highlight_image'] = $imageService->resizeAndSave(
                 $request->file('highlight_image'),
                 'uploads/news',
                 1200,
                 75
             );
-        }        
-        // dd(
-        //     $request->hasFile('highlight_image'),
-        //     $request->file('highlight_image')
-        // );
+        }
 
         $news->update($data);
-        
-        // return response()->json([
-        //     'success' => true,
-        //     'message' => 'Мэдээ амжилттай шинэчлэгдлээ',
-        //     'data' => $news
-        // ]);
 
         return redirect()->route('admin.news.index')->with('success', 'Мэдээ амжилттай шинэчлэгдлээ');
     }
@@ -233,30 +221,12 @@ class AdminNewsController extends Controller
         return back()->with('success','Мэдээ publisher руу илгээгдлээ');
     }
 
-    // public function upload(Request $request)
-    // {
-    //     if ($request->hasFile('file')) { 
-    //         $file = $request->file('file');
-
-    //         $filename = time() . '_' . $file->getClientOriginalName();
-    //         $file->move(public_path('uploads/news'), $filename);
-
-    //         return response()->json([
-    //             'location' => asset('uploads/news/' . $filename)
-    //         ]);
-    //     }
-
-    //     return response()->json([
-    //         'error' => 'File not uploaded'
-    //     ], 400);
-    // }
-
     public function upload(Request $request)
     {
         if ($request->hasFile('file')) {
 
             $file = $request->file('file');
-            $filename = time() . '.jpg'; // 🔥 бүгдийг jpg болгоё
+            $filename = time() . '_' . uniqid() . '.jpg'; // бүгдийг jpg болгоно, нэр давхцахаас сэргийлнэ
 
             $manager = new ImageManager(new Driver());
             $image = $manager->read($file);
@@ -294,7 +264,11 @@ class AdminNewsController extends Controller
             File::delete(public_path($news->highlight_image));
         }
 
+        if ($news->image && File::exists(public_path($news->image))) {
+            File::delete(public_path($news->image));
+        }
+
         $news->delete();
-        return back();
+        return back()->with('success', 'Мэдээ устгагдлаа');
     }
 }

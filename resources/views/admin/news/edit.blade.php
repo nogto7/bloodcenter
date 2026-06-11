@@ -7,11 +7,18 @@
             @if(session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li class="__error">{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form action="{{ route('admin.news.update', $news) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
-                <div class="form_item">
-                </div>
                 <div class="dg g3 gap1">
                     <div class="form_item">
                         <label class="form_label">Гарчиг</label>
@@ -39,7 +46,7 @@
                 </div>
                 <div class="form_item">
                     <label class="form_label">Нийтлэх огноо</label>
-                    <input type="datetime-local" name="publish_at" value="{{ old('publish_at', $news->publish_at) }}" class="form_input">
+                    <input type="datetime-local" name="publish_at" value="{{ old('publish_at', $news->publish_at?->format('Y-m-d\TH:i')) }}" class="form_input">
                 </div>  
                 <div class="form_item">
                     <label class="form_label">Товч агуулга</label>
@@ -53,13 +60,13 @@
                 </div>
                 <div class="form_item">
                     <label>Онцлох зураг</label>
-                    <input type="file" name="highlight_image">
+                    <input type="file" name="highlight_image" accept="image/*">
                     @if($news->highlight_image)
                     <div class="thumbnail_img">
                         <div class="img_block"><img src="{{ asset($news->highlight_image) }}" alt="" width="100"></div>
                     </div>
                     @endif
-                    @error('images')<p>{{ $message }}</p>@enderror
+                    @error('highlight_image')<p class="__error">{{ $message }}</p>@enderror
                 </div>
                 @if(auth()->user()->role === 'admin' || auth()->user()->role === 'publisher')
                 <div class="form_item">
@@ -84,62 +91,5 @@
         </div>
     </div>
 </div>
-<script src="/js/tinymce/tinymce.min.js"></script>
-
-
-<script>
-    tinymce.init({
-      selector: '#content',
-      height: 500,
-    license_key: 'gpl',
-      plugins: 'image table lists link code',
-      toolbar: `
-        undo redo | bold italic underline |
-        alignleft aligncenter alignright |
-        bullist numlist |
-        table image link |
-        code
-      `,
-      menubar: true,
-    //   images_upload_url: '/admin/upload/news',
-      images_upload_url: "{{ route('admin.news.upload') }}",
-      automatic_uploads: true,
-      file_picker_types: 'image',
-      image_title: true,
-    
-      images_upload_handler: function (blobInfo, progress) {
-        return new Promise((resolve, reject) => {
-          let xhr = new XMLHttpRequest();
-          xhr.open('POST', "{{ route('admin.news.upload') }}");
-    
-          // ✅ ЭНЭ Л ЧУХАЛ
-          xhr.setRequestHeader(
-            'X-CSRF-TOKEN',
-            document.querySelector('meta[name="csrf-token"]').content
-          );
-    
-          xhr.onload = function () {
-            if (xhr.status !== 200) {
-              reject('HTTP Error: ' + xhr.status);
-              return;
-            }
-    
-            let json = JSON.parse(xhr.responseText);
-    
-            if (!json.location) {
-              reject('Invalid response');
-              return;
-            }
-    
-            resolve(json.location);
-          };
-    
-          let formData = new FormData();
-          formData.append('file', blobInfo.blob(), blobInfo.filename());
-    
-          xhr.send(formData);
-        });
-      }
-    });
-    </script>
+@include('admin.partials.tinymce')
 @endsection

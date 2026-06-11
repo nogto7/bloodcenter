@@ -5,21 +5,30 @@
     <div class="section_line">
         <div class="admin_form">
             <h1 class="title">Мэдээлэл оруулах</h1>
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li class="__error">{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form method="POST" action="{{ route('admin.news.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="dg g3 gap1">
                     <div class="form_item col2to1">
                         <label class="form_label">Гарчиг</label>
-                        <input name="title" class="form_input" placeholder="Гарчиг">
+                        <input name="title" class="form_input" placeholder="Гарчиг" value="{{ old('title') }}">
                     </div>
                     <div class="form_item">
                         <label class="form_label">Хамаарах цэс</label>
                         <select name="menu_id" class="form_select">
                             <option value="">— Menu-д холбох —</option>
                             @foreach($menus as $menu)
-                                <option value="{{ $menu->id }}">{{ $menu->title }}</option>
+                                <option value="{{ $menu->id }}" {{ old('menu_id') == $menu->id ? 'selected' : '' }}>{{ $menu->title }}</option>
                                 @foreach($menu->children as $child)
-                                    <option value="{{ $child->id }}">— {{ $child->title }}</option>
+                                    <option value="{{ $child->id }}" {{ old('menu_id') == $child->id ? 'selected' : '' }}>— {{ $child->title }}</option>
                                 @endforeach
                             @endforeach
                         </select>
@@ -34,15 +43,16 @@
                 </div>                
                 <div class="form_item">
                     <label class="form_label">Мэдээний линк /Гарчиг товч утга/</label>
-                    <input name="excerpt" class="form_input" placeholder="Мэдээний линк">
+                    <input name="excerpt" class="form_input" placeholder="Мэдээний линк" value="{{ old('excerpt') }}">
                 </div>
                 <div class="form_item">
                     <label class="form_label">Мэдээний агуулга</label>
-                    <textarea name="content" id="content"></textarea>
+                    <textarea name="content" id="content">{{ old('content') }}</textarea>
                 </div>
                 <div class="form_item">
                     <label class="form_label">Онцлох зураг</label>
-                    <input type="file" name="highlight_image" class="form_input">
+                    <input type="file" name="highlight_image" class="form_input" accept="image/*">
+                    @error('highlight_image')<p class="__error">{{ $message }}</p>@enderror
                 </div>
                 <div class="form_item">
                     <div class="dfc">
@@ -63,27 +73,5 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-<script>
-    ClassicEditor.create(document.querySelector('#content'), {
-        ckfinder: {
-            uploadUrl: "{{ route('admin.news.upload') }}?_token={{ csrf_token() }}"
-        },
-        image: {
-            resizeOptions: [
-                { name: 'resizeImage:original', label: 'Original', value: null },
-                { name: 'resizeImage:50', label: '50%', value: '50' },
-                { name: 'resizeImage:75', label: '75%', value: '75' }
-            ],
-            toolbar: [
-                'imageTextAlternative',
-                'imageStyle:inline',
-                'imageStyle:block',
-                'imageStyle:side',
-                'resizeImage'
-            ]
-        }
-    })
-    .catch(error => console.error(error));
-</script>
+@include('admin.partials.tinymce')
 @endsection

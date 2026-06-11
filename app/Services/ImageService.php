@@ -20,18 +20,8 @@ class ImageService
         int $maxWidth = 1200,
         int $quality = 75
     ): string {
-        // $filename = time().'_'.uniqid().'.jpg'; // JPG-ээр хадгалах
-
-        // $image = $this->manager
-        //     ->read($file->getRealPath())  // 👈 realPath заавал өгнө
-        //     ->orient()                     // iPhone rotation автомат
-        //     ->scaleDown($maxWidth)
-        //     ->toJpeg($quality);
-
-        // $fullPath = public_path($path.'/'.$filename);
-        // $image->save($fullPath);
-
-        $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        // JPEG болгож хадгалдаг тул өргөтгөл нь үргэлж .jpg байна
+        $filename = time() . '_' . uniqid() . '.jpg';
 
         $image = $this->manager
             ->read($file)

@@ -15,8 +15,8 @@ class DepartmentController extends Controller
 {
     public function index()
     {
+        // Админ жагсаалтад идэвхгүйг нь ч харуулна, эс бөгөөс дахин удирдах боломжгүй болдог
         $departmentList = Department::withCount('employees')
-            ->where('is_active', 1)
             ->latest()
             ->paginate(20);
         $departments = Department::all();
@@ -47,7 +47,7 @@ class DepartmentController extends Controller
 
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
-            $filename = time().'_'.$file->getClientOriginalName();
+            $filename = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
             $file->move(public_path('uploads/employees'), $filename);
             $data['photo'] = 'uploads/employees/' . $filename;
         }
@@ -96,7 +96,7 @@ class DepartmentController extends Controller
             }
 
             $file = $request->file('photo');
-            $filename = time().'_'.$file->getClientOriginalName();
+            $filename = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
             $file->move(public_path('uploads/employees'), $filename);
             $data['photo'] = 'uploads/employees/'.$filename;
         }
@@ -131,16 +131,16 @@ class DepartmentController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'menu_id' => 'nullable|string',
-            'name' => 'required',
             'description' => 'nullable',
             'color' => 'nullable|string',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
             'order' => 'nullable|integer',
         ]);
 
         if ($request->hasFile('cover_image')) {
             $file = $request->file('cover_image');
-            $filename = time().'_highlight_'.$file->getClientOriginalName();
+            // Кирилл, зайтай нэр URL эвддэг тул аюулгүй нэр үүсгэнэ
+            $filename = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
             $file->move(public_path('uploads/department'), $filename);
             $data['cover_image'] = 'uploads/department/' . $filename;
         }
@@ -164,10 +164,9 @@ class DepartmentController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'menu_id' => 'nullable|string',
-            'name' => 'required',
             'description' => 'nullable',
             'color' => 'nullable|string',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
             'is_active' => 'nullable|boolean',
             'order' => 'nullable|integer',
         ]);
@@ -180,13 +179,14 @@ class DepartmentController extends Controller
             }
 
             $file = $request->file('cover_image');
-            $filename = time().'_highlight_'.$file->getClientOriginalName();
+            $filename = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
             $file->move(public_path('uploads/department'), $filename);
-            
+
             $data['cover_image'] = 'uploads/department/' . $filename;
         }
         
-        $data['is_active'] = $request->has('is_active') ? 1 : 1;
+        // Edit form-д is_active талбар байхгүй тул засвар хийхэд идэвхтэй хэвээр үлдээнэ
+        $data['is_active'] = 1;
 
         // menu_id-г устгах
         $data['menu_id'] = $request->menu_id ?? null;
@@ -201,28 +201,18 @@ class DepartmentController extends Controller
 
     public function upload(Request $request)
     {
-        if ($request->hasFile('upload')) {
-            $file = $request->file('upload');
-            $filename = time().'_'.$file->getClientOriginalName();
+        // TinyMCE-ийн images_upload_handler 'file' нэрээр илгээж, {location} хүлээдэг
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
             $file->move(public_path('uploads/ckeditor'), $filename);
 
-            // ⚠️ ЭНЭ ЧУХАЛ
-            $url = '/uploads/ckeditor/' . $filename;
-
             return response()->json([
-                'uploaded' => 1,
-                'fileName' => $filename,
-                'url' => $url
+                'location' => asset('uploads/ckeditor/' . $filename)
             ]);
         }
 
-        return response()->json([
-            "uploaded" => false,
-            "error" => [
-                "message" => "File not uploaded"
-            ]
-        ]);
-
+        return response()->json(['error' => 'No file'], 400);
     }
 
     public function json($id)

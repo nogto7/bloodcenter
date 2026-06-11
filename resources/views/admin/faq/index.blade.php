@@ -113,24 +113,9 @@
     </div>
 </div>
 
-<script src="/js/tinymce/tinymce.min.js"></script>
+@include('admin.partials.tinymce', ['selector' => '#faq_answer, #faq_edit_answer'])
 
 <script>
-    tinymce.init({
-        selector: '#faq_answer, #faq_edit_answer',
-        height: 500,
-        license_key: 'gpl',
-        plugins: 'image table lists link code',
-        toolbar: `
-            undo redo | bold italic underline |
-            alignleft aligncenter alignright |
-            bullist numlist |
-            table image link |
-            code
-        `,
-        menubar: true
-    });
-
     document.getElementById('faqForm').addEventListener('submit', function(e){
         e.preventDefault();
 

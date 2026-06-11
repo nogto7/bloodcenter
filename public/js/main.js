@@ -218,14 +218,6 @@ function undoMove(){
     });
 }
 
-function showLoader() {
-    document.getElementById('moveLoader').style.display = 'block';
-}
-
-function hideLoader() {
-    document.getElementById('moveLoader').style.display = 'none';
-}
-
 let selectedFile = null;
 
 function folderView(el, folderId) {
@@ -798,6 +790,7 @@ $(document).ready(function(){
                 ).hide();
 
                 this.reset();
+                location.reload();
             })
             .catch(err => {
                 console.error('Department save error:', err);

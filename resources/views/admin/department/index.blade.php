@@ -21,6 +21,12 @@
 </div>
 <div class="admin_file_wrap">
     <div class="file_content">
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
         <h2>Алба</h2>
         <div class="table_wrap">
             <table class="table_content">
@@ -46,7 +52,12 @@
                             <div class="img_block"><img src="/images/not_image.png" alt=""></div>
                             @endif
                         </td>
-                        <td>{{ $item->name }}</td>
+                        <td>
+                            {{ $item->name }}
+                            @unless($item->is_active)
+                                <span class="status status_danger">Идэвхгүй</span>
+                            @endunless
+                        </td>
                         <td>{{ strip_tags(Str::limit($item->content, 240)) }}</td>
                         <td>{{ $item->created_at }}</td>
                         <td>
@@ -314,69 +325,23 @@
 </div>
 
 {{-- {{ $item->links() }} --}}
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-<script>
-    ClassicEditor.create(document.querySelector('#content'), {
-        ckfinder: {
-            uploadUrl: "{{ route('admin.department.upload') }}?_token={{ csrf_token() }}"
-        },
-        image: {
-            resizeOptions: [
-                { name: 'resizeImage:original', label: 'Original', value: null },
-                { name: 'resizeImage:50', label: '50%', value: '50' },
-                { name: 'resizeImage:75', label: '75%', value: '75' }
-            ],
-            toolbar: [
-                'imageTextAlternative',
-                'imageStyle:inline',
-                'imageStyle:block',
-                'imageStyle:side',
-                'resizeImage'
-            ]
-        }
-    })
-    .catch(error => console.error(error));
-</script>
+@include('admin.partials.tinymce', ['uploadUrl' => route('admin.department.upload')])
 
 <script>
-    let editEditor;
-    
-    ClassicEditor.create(document.querySelector('#edit_content'))
-        .then(editor => editEditor = editor);
-    
-    document.querySelectorAll('.department_edit').forEach(btn => {
-        btn.addEventListener('click', function () {
-            const id = this.dataset.id;
-    
-            fetch(`/admin/department/${id}/json`)
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('edit_id').value = data.id;
-                document.getElementById('edit_name').value = data.name;
-                editEditor.setData(data.description ?? '');
-
-                // 🔥 хуучин зураг preview
-                const preview = document.getElementById('editImagePreview');
-                preview.src = data.cover_image ? '/' + data.cover_image : '/images/icon_upload_file.png';
-
-                // 🔥 menu select тохируулах
-                const menuSelect = document.querySelector('#editDepartmentForm select[name="menu_id"]');
-                Array.from(menuSelect.options).forEach(option => {
-                    option.selected = (parseInt(option.value) === data.menu_id);
-                });
-
-                // form action
-                const form = document.getElementById('editDepartmentForm');
-                form.action = `/admin/department/${data.id}`;
-
-                new bootstrap.Modal(
-                    document.getElementById('editDepartmentModal')
-                ).show();
+    // Зураг сонгоход preview-г шинэчилнэ (нэмэх болон засах modal)
+    function bindPhotoPreview(inputId, previewId){
+        const input = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
+        if (input && preview) {
+            input.addEventListener('change', () => {
+                if (input.files.length) {
+                    preview.src = URL.createObjectURL(input.files[0]);
+                }
             });
-        });
-    });
-
-    // let editEmpModal = new bootstrap.Modal(document.getElementById('editEmployeeModal'));
+        }
+    }
+    bindPhotoPreview('photo', 'imagePreview');
+    bindPhotoPreview('edit_emp_photo', 'editEmpImagePreview');
 
     document.querySelectorAll('.edit-employee-btn').forEach(btn => {
         btn.addEventListener('click', function () {

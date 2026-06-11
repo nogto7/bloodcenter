@@ -28,6 +28,12 @@
 </div>
 <div class="admin_file_wrap">
     <div class="file_content">
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
         <h2>
             Мэдээ мэдээлэл
             <small class="news_count">({{ $newsList->total() }})</small>
@@ -213,61 +219,5 @@
 
 {{-- {{ $item->links() }} --}}
 
-<script src="/js/tinymce/tinymce.min.js"></script>
-
-<script>
-tinymce.init({
-    selector: '#content',
-    height: 500,
-    license_key: 'gpl',
-    plugins: 'image table lists link code',
-    toolbar: `
-        undo redo | bold italic underline |
-        alignleft aligncenter alignright |
-        bullist numlist |
-        table image link |
-        code
-    `,
-    menubar: true,
-    //   images_upload_url: '/admin/upload/news',
-    images_upload_url: "{{ route('admin.news.upload') }}",
-    automatic_uploads: true,
-    file_picker_types: 'image',
-    image_title: true,
-
-    images_upload_handler: function (blobInfo, progress) {
-        return new Promise((resolve, reject) => {
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', "{{ route('admin.news.upload') }}");
-
-        // ✅ ЭНЭ Л ЧУХАЛ
-        xhr.setRequestHeader(
-            'X-CSRF-TOKEN',
-            document.querySelector('meta[name="csrf-token"]').content
-        );
-
-        xhr.onload = function () {
-            if (xhr.status !== 200) {
-            reject('HTTP Error: ' + xhr.status);
-            return;
-            }
-
-            let json = JSON.parse(xhr.responseText);
-
-            if (!json.location) {
-            reject('Invalid response');
-            return;
-            }
-
-            resolve(json.location);
-        };
-
-        let formData = new FormData();
-        formData.append('file', blobInfo.blob(), blobInfo.filename());
-
-        xhr.send(formData);
-        });
-    }
-});
-</script>
+@include('admin.partials.tinymce')
 @endsection
