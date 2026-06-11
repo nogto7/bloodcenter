@@ -11,6 +11,7 @@
 <h1 class="title">Санал, хүсэлт</h1>
 <div class="dg g2 gap3">
     <div class="contact_info">
+        @if($contactAddress || $contactPhone || $contactEmail || $contactWorkHours)
         <h2>Холбоо барих</h2>
         <ul>
             @if($contactAddress)
@@ -52,6 +53,7 @@
                 </li>
             @endif
         </ul>
+        @endif
     </div>
     <div class="feedback_form">
         <form action="{{ route('feedback.send') }}" method="POST">
