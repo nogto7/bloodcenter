@@ -4511,3 +4511,30 @@ em{
         }
     }
 }
+
+/* Editor-оос орж ирсэн ul/ol жагсаалтын загварыг сэргээх (global reset дарж байсан) */
+.news_content{
+    ul, ol{
+        margin: $s1_4 0;
+        padding-left: $s3;
+        li{
+            & ~ li{
+                margin-top: $s_8;
+            }
+        }
+    }
+    ul{
+        list-style: disc;
+        ul{
+            list-style: circle;
+            margin: $s_8 0;
+        }
+    }
+    ol{
+        list-style: decimal;
+        ol{
+            list-style: lower-alpha;
+            margin: $s_8 0;
+        }
+    }
+}

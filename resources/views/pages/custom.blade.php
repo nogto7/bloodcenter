@@ -12,7 +12,9 @@
                     </h1>
                     <div class="dg page_grid gap3">
                         <div class="page_content">
-                            {!! $news->content !!}
+                            <div class="news_content">
+                                {!! $news->content !!}
+                            </div>
                         </div>
                         <div class="page_sidebar">
                             @include('components.latestNews')

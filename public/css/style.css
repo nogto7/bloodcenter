@@ -4847,3 +4847,28 @@ em i {
   color: var(--secondColor);
   border-bottom-color: var(--secondColor);
 }
+
+/* Editor-оос орж ирсэн ul/ol жагсаалтын загварыг сэргээх (global reset дарж байсан) */
+.news_content ul,
+.news_content ol {
+  margin: 14px 0;
+  padding-left: 30px;
+}
+.news_content ul li ~ li,
+.news_content ol li ~ li {
+  margin-top: 8px;
+}
+.news_content ul {
+  list-style: disc;
+}
+.news_content ul ul {
+  list-style: circle;
+  margin: 8px 0;
+}
+.news_content ol {
+  list-style: decimal;
+}
+.news_content ol ol {
+  list-style: lower-alpha;
+  margin: 8px 0;
+}
