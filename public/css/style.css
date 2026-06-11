@@ -4819,3 +4819,31 @@ em i {
 .contact_info .contact_text a {
   color: var(--secondColor);
 }
+
+/* Admin list tabs */
+.admin_tabs {
+  display: flex;
+  gap: 6px;
+  margin: 14px 0;
+  border-bottom: 1px solid var(--borderColor);
+}
+.admin_tabs .admin_tab {
+  display: inline-block;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--baseColor);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.admin_tabs .admin_tab small {
+  font-weight: 500;
+  opacity: 0.7;
+}
+.admin_tabs .admin_tab:hover {
+  color: var(--secondColor);
+}
+.admin_tabs .admin_tab.active {
+  color: var(--secondColor);
+  border-bottom-color: var(--secondColor);
+}

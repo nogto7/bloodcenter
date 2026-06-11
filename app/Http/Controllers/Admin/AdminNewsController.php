@@ -20,8 +20,9 @@ class AdminNewsController extends Controller
     {
         $user = Auth::user();
         $q = trim((string) $request->input('q', ''));
+        $tab = $request->input('tab', 'all');
 
-        $query = News::with('user', 'department', 'editor', 'publisher');
+        $query = News::with('user', 'department', 'editor', 'publisher', 'menu');
 
         if ($user->role !== 'admin') {
             $query->where('department_id', $user->department_id);
@@ -36,14 +37,32 @@ class AdminNewsController extends Controller
             });
         }
 
+        // Tab бүрийн тоог tab-аас бусад шүүлтүүр дээр тооцно
+        $tabCounts = [
+            'all' => (clone $query)->count(),
+            'news' => (clone $query)->whereHas('menu', fn ($m) => $m->where('type', 'news'))->count(),
+            'other' => (clone $query)->whereHas('menu', fn ($m) => $m->where('type', '!=', 'news'))->count(),
+            'none' => (clone $query)->whereNull('menu_id')->count(),
+        ];
+
+        if ($tab === 'news') {
+            $query->whereHas('menu', fn ($m) => $m->where('type', 'news'));
+        } elseif ($tab === 'other') {
+            $query->whereHas('menu', fn ($m) => $m->where('type', '!=', 'news'));
+        } elseif ($tab === 'none') {
+            $query->whereNull('menu_id');
+        } else {
+            $tab = 'all';
+        }
+
         $perPage = $user->role === 'editor' ? 20 : 15;
 
         $newsList = $query->orderBy('publish_at', 'desc')
             ->latest()
             ->paginate($perPage)
-            ->appends(['q' => $q]);
+            ->appends(['q' => $q, 'tab' => $tab]);
 
-        return view('admin.news.index', compact('newsList', 'q'));
+        return view('admin.news.index', compact('newsList', 'q', 'tab', 'tabCounts'));
     }
 
     public function create()

@@ -10,10 +10,11 @@
         </div>
         <div class="fline_header dfc">
             <form method="GET" action="{{ route('admin.news.index') }}" class="admin_search dfc" role="search">
+                <input type="hidden" name="tab" value="{{ $tab }}">
                 <input type="text" name="q" value="{{ $q ?? '' }}" class="form_input" placeholder="Гарчиг, агуулгаар хайх...">
                 <button type="submit" class="__btn btn_primary ml1">Хайх</button>
                 @if(!empty($q))
-                    <a href="{{ route('admin.news.index') }}" class="__btn ml1">Цэвэрлэх</a>
+                    <a href="{{ route('admin.news.index', ['tab' => $tab]) }}" class="__btn ml1">Цэвэрлэх</a>
                 @endif
             </form>
             <div class="file_options dfc">
@@ -41,6 +42,14 @@
                 <small class="news_count">— "{{ $q }}" хайлтын үр дүн</small>
             @endif
         </h2>
+        <div class="admin_tabs">
+            @foreach(['all' => 'Бүгд', 'news' => 'Мэдээ', 'other' => 'Бусад цэс', 'none' => 'Цэс холбоогүй'] as $key => $label)
+                <a href="{{ route('admin.news.index', array_filter(['tab' => $key, 'q' => $q])) }}"
+                    class="admin_tab {{ $tab === $key ? 'active' : '' }}">
+                    {{ $label }} <small>({{ $tabCounts[$key] }})</small>
+                </a>
+            @endforeach
+        </div>
         <div class="table_wrap">
             <table class="table_content">
                 <thead>
@@ -48,6 +57,7 @@
                         <th>#</th>
                         <th>Зураг</th>
                         <th>Гарчиг</th>
+                        <th>Цэс</th>
                         <th>Огноо</th>
                         <th style="width: 125px">Онцолсон эсэх</th>
                         <th>Төлөв</th>
@@ -69,7 +79,7 @@
                                 @endif
                             </td>
                             <td>{{ $item->title }}</td>
-                            {{-- <td>{{ strip_tags(Str::limit($item->content, 240)) }}</td> --}}
+                            <td>{{ $item->menu->title ?? '—' }}</td>
                             <td>{{ $item->publish_at }}</td>
                             <td>
                                 @if($item->highlight)
@@ -118,7 +128,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9">Мэдээ олдсонгүй</td>
+                            <td colspan="10">Мэдээ олдсонгүй</td>
                         </tr>
                     @endforelse
                 </tbody>

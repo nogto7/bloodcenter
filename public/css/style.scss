@@ -4483,3 +4483,31 @@ em{
         }
     }
 }
+
+/* Admin list tabs */
+.admin_tabs{
+    display: flex;
+    gap: $s_6;
+    margin: $s1_4 0;
+    border-bottom: 1px solid var(--borderColor);
+    .admin_tab{
+        display: inline-block;
+        padding: $s_8 $s1_4;
+        font-size: $s1_4;
+        font-weight: 600;
+        color: var(--baseColor);
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+        small{
+            font-weight: 500;
+            opacity: .7;
+        }
+        &:hover{
+            color: var(--secondColor);
+        }
+        &.active{
+            color: var(--secondColor);
+            border-bottom-color: var(--secondColor);
+        }
+    }
+}
