@@ -51,9 +51,11 @@ class MenuController extends Controller
             'sort' => 'nullable|integer',
             'active' => 'boolean',
             'type' => 'nullable|required|string',
+            'target_blank' => 'nullable|boolean',
         ]);
-        
+
         $data['user_id'] = Auth::id();
+        $data['target_blank'] = $request->boolean('target_blank');
 
         $menus = Menu::create($data);
 
@@ -101,7 +103,10 @@ class MenuController extends Controller
             'sort' => 'nullable|integer',
             'active' => 'boolean',
             'type' => 'required|in:news,files,url,shilen,page,custom',
+            'target_blank' => 'nullable|boolean',
         ]);
+
+        $data['target_blank'] = $request->boolean('target_blank');
 
         $menu->update($data);
 

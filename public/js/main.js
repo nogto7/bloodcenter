@@ -769,6 +769,22 @@ $(document).ready(function(){
         });
     }
 
+    // Цэсний "type" сонголтоос хамаарч "Шинэ цонхонд нээх" талбарыг зөвхөн линк төрөлд харуулна
+    document.querySelectorAll('select[name="type"]').forEach(function (typeSelect) {
+        const form = typeSelect.closest('form');
+        if (!form) return;
+
+        const targetField = form.querySelector('.target_blank_field');
+        if (!targetField) return;
+
+        const toggleTargetField = function () {
+            targetField.style.display = typeSelect.value === 'url' ? '' : 'none';
+        };
+
+        typeSelect.addEventListener('change', toggleTargetField);
+        toggleTargetField();
+    });
+
     if(departmentForm){
         departmentForm.addEventListener('submit', function (e) {
             e.preventDefault();

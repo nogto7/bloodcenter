@@ -21,7 +21,7 @@
         : '/' . ltrim($item->url ?? '', '/');
 @endphp
 <li class="{{ $liClass }}">
-    <a href="{{ $href }}" {{ $item->id == 5 ? 'target=_blank' : '' }}>{{ $item->title }}</a>
+    <a href="{{ $href }}" {{ $item->target_blank ? 'target=_blank' : '' }}>{{ $item->title }}</a>
     @if($hasChildren)
         <div class="{{ $wrapClass }}">
             <ul class="{{ $wrapClass }}">

@@ -62,6 +62,13 @@
                         <label class="form_label">Цэсний дараалал /order/</label>
                         <input type="number" class="form_input" name="sort" value="0"></input>
                     </div>
+                    <div class="form_item target_blank_field">
+                        <label class="form-radiobox-label">
+                            <input type="checkbox" name="target_blank" value="1" class="form-radiobox hidden" >
+                            <span class="form-radiomark"></span>
+                            <span class="label-text">Шинэ цонхонд нээх /target=_blank/</span>
+                        </label>
+                    </div>
                     <div class="form_item">
                         <label class="form-radiobox-label">
                             <input type="radio" name="active" value="1" class="form-radiobox hidden" >

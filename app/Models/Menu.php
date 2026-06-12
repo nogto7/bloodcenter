@@ -13,7 +13,12 @@ class Menu extends Model
         'parent_id',
         'sort',
         'active',
-        'type'
+        'type',
+        'target_blank',
+    ];
+
+    protected $casts = [
+        'target_blank' => 'boolean',
     ];
 
     public static function types()
