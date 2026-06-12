@@ -63,9 +63,9 @@
                         <input type="number" class="form_input" name="sort" value="0"></input>
                     </div>
                     <div class="form_item target_blank_field">
-                        <label class="form-radiobox-label">
-                            <input type="checkbox" name="target_blank" value="1" class="form-radiobox hidden" >
-                            <span class="form-radiomark"></span>
+                        <label class="form-checkbox-label">
+                            <input type="checkbox" name="target_blank" value="1" class="form-checkbox hidden" >
+                            <span class="form-checkmark"></span>
                             <span class="label-text">Шинэ цонхонд нээх /target=_blank/</span>
                         </label>
                     </div>
