@@ -16,7 +16,7 @@ class MenuController extends Controller
         $menus = Menu::whereNull('parent_id')
             ->where('active', 1)
             ->orderBy('sort')
-            ->with('children') // Энэ нь recursive children load хийх болно
+            ->with('children.children.children') // дэд цэс + дэдийн дэд цэсийг гүн ачаална
             // ->with(['children' => function ($q) {
             //     $q->orderBy('sort');
             // }])
@@ -74,7 +74,7 @@ class MenuController extends Controller
         $menus = Menu::where('active', 1)
             ->where('id', '!=', $menu->id) // өөрийгөө parent болгохоос сэргийлнэ
             ->orderBy('sort')
-            ->with('children')
+            ->with('children.children.children')
             ->get();
 
         $types = [

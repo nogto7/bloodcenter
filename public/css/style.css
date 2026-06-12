@@ -2661,6 +2661,9 @@ section {
   transform: translate(0);
   opacity: 1;
 }
+.menu_wrap li.is_sub .sub_menu li.is_sub_sub:hover .sub_sub_menu .sub_sub_menu, .menu_wrap li.is_sub .sub_sub_menu li.is_sub_sub:hover .sub_sub_menu .sub_sub_menu {
+  left: 0 !important;
+}
 .menu_wrap li.is_sub:hover:last-child .sub_menu, .menu_wrap li.is_sub:hover:last-child .sub_sub_menu, .menu_wrap li.is_sub:hover:nth-last-child(2) .sub_menu, .menu_wrap li.is_sub:hover:nth-last-child(2) .sub_sub_menu {
   left: auto;
   right: 0 !important;
@@ -4755,7 +4758,7 @@ em i {
     gap: 20px;
   }
 }
-/* Responsive Style End *//*# sourceMappingURL=style.css.map */
+/* Responsive Style End */
 /* Admin alert messages */
 .alert {
   padding: 10px 14px;
@@ -4849,13 +4852,11 @@ em i {
 }
 
 /* Editor-оос орж ирсэн ul/ol жагсаалтын загварыг сэргээх (global reset дарж байсан) */
-.news_content ul,
-.news_content ol {
+.news_content ul, .news_content ol {
   margin: 14px 0;
   padding-left: 30px;
 }
-.news_content ul li ~ li,
-.news_content ol li ~ li {
+.news_content ul li ~ li, .news_content ol li ~ li {
   margin-top: 8px;
 }
 .news_content ul {
@@ -4871,4 +4872,4 @@ em i {
 .news_content ol ol {
   list-style: lower-alpha;
   margin: 8px 0;
-}
+}/*# sourceMappingURL=style.css.map */

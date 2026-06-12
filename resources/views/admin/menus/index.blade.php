@@ -36,48 +36,7 @@
                 </thead>
                 <tbody>
                 @foreach($menus as $index => $menu)
-                    <tr>
-                        <td style="width: 40px">{{ $index + 1 }}</td>
-                        <td>{{ $menu->title }}</td>
-                        <td>{{ $menu->url }}</td>
-                        <td>{{ $menu->type }}</td>
-                            <td style="width: 170px">
-                            <div class="dfc">
-                                <a href="{{ route('admin.menus.edit', $menu) }}" class="f_f_button f_edit"><span></span>Засах</a>
-                                <form action="{{ route('admin.menus.destroy', $menu) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="f_f_button f_delete ml1" onclick="return confirm('Та устгахдаа итгэлтэй байна уу?')"><span></span>Устгах</button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @if($menu->children->isNotEmpty())
-                        <tr>
-                            <td colspan="5">
-                                <table class="table_content">
-                                    @foreach($menu->children as $index => $child)
-                                    <tr>
-                                        <td style="width: 40px">{{ $index + 1 }}</td>
-                                        <td>{{ $child->title }}</td>
-                                        <td>{{ $child->url }}</td>
-                                        <td>{{ $child->type }}</td>
-                                        <td style="width: 170px">
-                                            <div class="dfc">
-                                                <a href="{{ route('admin.menus.edit', $child) }}" class="f_f_button f_edit"><span></span>Засах</a>
-                                                <form action="{{ route('admin.menus.destroy', $child) }}" method="POST" style="display:inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="f_f_button f_delete ml1" onclick="return confirm('Та устгахдаа итгэлтэй байна уу?')"><span></span>Устгах</button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </table>
-                            </td>
-                        </tr>
-                    @endif
+                    @include('admin.menus._row', ['menu' => $menu, 'index' => $index, 'depth' => 0])
                 @endforeach
                 </tbody>
             </table>

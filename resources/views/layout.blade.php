@@ -40,24 +40,8 @@
                         <div class="menu_wrap">
                             <ul>
                                 @foreach($menus as $menu)
-                                <li class="{{ count($menu->children) ? 'is_sub' : '' }}">
-                                    @if( $menu->type === 'url')<a href="{{ $menu->url }}" {{ $menu->id == 5 ? 'target=_blank' : '' }}>{{ $menu->title }}</a>
-                                    @else 
-                                    <a href="/{{ $menu->url }}" {{ $menu->id == 5 ? 'target=_blank' : '' }}>{{ $menu->title }}</a>
-                                    @endif
-                                    @if(count($menu->children))
-                                    <div class="sub_menu">
-                                        <ul class="sub_menu">
-                                            @foreach($menu->children as $child)
-                                                <li>
-                                                    <a href="/{{ $child->url ?? '#' }}">{{ $child->title }}</a>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                    @endif
-                                </li>
-                            @endforeach
+                                    @include('partials.menu_item', ['item' => $menu, 'depth' => 0])
+                                @endforeach
                             </ul>
                         </div>
                     </div>

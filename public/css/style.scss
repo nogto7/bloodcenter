@@ -2197,6 +2197,9 @@ section{
                                 margin: 0;
                                 transform: translate(0);
                                 opacity: 1;
+                                .sub_sub_menu{
+                                    left: 0 !important;
+                                }
                             }
                         }
                     }
