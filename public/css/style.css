@@ -2686,7 +2686,7 @@ section {
 }
 .menu_navigation .header_banner img {
   display: flex;
-  height: 52px;
+  height: 80px;
   width: auto;
   max-width: 100%;
   -o-object-fit: contain;
