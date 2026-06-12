@@ -44,6 +44,9 @@
                                 @endforeach
                             </ul>
                         </div>
+                        <a href="https://iaac.mn/" target="_blank" rel="noopener noreferrer" class="header_banner" title="Авлигыг мэдээлэх дугаар 11-10">
+                            <img src="{{ asset('images/avliga_banner.png') }}" alt="Авлигыг мэдээлэх дугаар 11-10">
+                        </a>
                     </div>
                 </div>
             </div>

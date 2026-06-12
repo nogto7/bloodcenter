@@ -2230,6 +2230,40 @@ section{
         }
     }
 }
+.menu_navigation{
+    .header_banner{
+        flex: 0 0 auto;
+        display: $fl;
+        align-items: $c;
+        margin-left: $s1;
+        img{
+            display: $fl;
+            height: 52px;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+            transition: all .2s;
+        }
+    }
+}
+.fixed{
+    .menu_navigation .header_banner img{
+        height: 44px;
+    }
+}
+@media (max-width: 991px){
+    .menu_navigation .header_banner{
+        margin-left: $s1;
+        img{
+            height: 40px;
+        }
+    }
+}
+@media (max-width: 768px){
+    .menu_navigation .header_banner img{
+        height: 34px;
+    }
+}
 .menu_slide{
     position: $pr;
     width: 100%;
