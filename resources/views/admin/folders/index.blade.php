@@ -163,12 +163,7 @@
                         <label class="form_label">Хамаарах цэс</label>
                         <select name="menu_id" class="form_select">
                             <option value="">— Menu-д холбох —</option>
-                            @foreach($menus as $menu)
-                                <option value="{{ $menu->id }}">{{ $menu->title }}</option>
-                                @foreach($menu->children as $child)
-                                    <option value="{{ $child->id }}">— {{ $child->title }}</option>
-                                @endforeach
-                            @endforeach
+                            @include('admin.partials.menu_options', ['items' => $menus])
                         </select>
                     </div>
                     <div class="form_item">
@@ -227,12 +222,7 @@
                         <label class="form_label">Хамаарах цэс</label>
                         <select name="menu_id" id="edit_file_menu" class="form_select">
                             <option value="">— Menu-д холбох —</option>
-                            @foreach($menus as $menu)
-                                <option value="{{ $menu->id }}">{{ $menu->title }}</option>
-                                @foreach($menu->children as $child)
-                                    <option value="{{ $child->id }}">— {{ $child->title }}</option>
-                                @endforeach
-                            @endforeach
+                            @include('admin.partials.menu_options', ['items' => $menus])
                         </select>
                     </div>
                     <div class="form_item">

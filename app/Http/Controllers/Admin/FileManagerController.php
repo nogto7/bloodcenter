@@ -23,8 +23,9 @@ class FileManagerController extends Controller
     public function create()
     {
         $folders = Folder::all();
-        $menus   = Menu::where('active',1)
-            ->with('children')
+        $menus   = Menu::whereNull('parent_id')
+            ->where('active',1)
+            ->with('children.children.children')
             ->orderBy('sort')
             ->get();
 
