@@ -19,9 +19,28 @@
     $href = $item->type === 'url'
         ? ($item->url ?: '#')
         : '/' . ltrim($item->url ?? '', '/');
+
+    // Идэвхтэй цэс: тухайн цэс өөрөө эсвэл доорх дэд цэсийн аль нэг нь
+    // одоогийн нээлттэй хуудас бол идэвхтэй гэж үзнэ (эцэг цэс хүртэл ялгарна).
+    $currentPath = trim(request()->path(), '/');
+    $isActive = function ($node) use (&$isActive, $currentPath) {
+        if ($node->type !== 'url') {
+            $slug = trim($node->url ?? '', '/');
+            if ($slug !== '' && $slug === $currentPath) {
+                return true;
+            }
+        }
+        foreach ($node->children as $child) {
+            if ($isActive($child)) {
+                return true;
+            }
+        }
+        return false;
+    };
+    $active = $isActive($item);
 @endphp
 <li class="{{ $liClass }}">
-    <a href="{{ $href }}" {{ $item->target_blank ? 'target=_blank' : '' }}>{{ $item->title }}</a>
+    <a href="{{ $href }}" class="{{ $active ? 'active' : '' }}" {{ $item->target_blank ? 'target=_blank' : '' }}>{{ $item->title }}</a>
     @if($hasChildren)
         <div class="{{ $wrapClass }}">
             <ul class="{{ $wrapClass }}">
