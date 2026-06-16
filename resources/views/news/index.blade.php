@@ -25,8 +25,8 @@
                                         </div>
                                     </a>
                                 @endforeach
-                                {{ $news->links() }}
                             </div>
+                            {{ $news->links() }}
                         </div>
                         <div class="page_sidebar">
                             @include('components.latestNews')
