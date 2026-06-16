@@ -8,7 +8,6 @@
     // Монгол улсын хэмжээний салбарууд — админы Холбоо барих тохиргооноос удирдана
     $feedbackPositions = \App\Models\SiteSetting::list('feedback_positions');
 @endphp
-<h1 class="title">Санал, хүсэлт</h1>
 <div class="dg g2 gap3">
     <div class="contact_info">
         @if($contactAddress || $contactPhone || $contactEmail || $contactWorkHours)
@@ -56,6 +55,7 @@
         @endif
     </div>
     <div class="feedback_form">
+        <h2>Санал, хүсэлт</h2>
         <form action="{{ route('feedback.send') }}" method="POST">
             @csrf
             <div class="dg g2 gap2">

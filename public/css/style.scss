@@ -4521,6 +4521,15 @@ em{
     }
 }
 
+.feedback_form{
+    h2{
+        font-size: $s2;
+        font-weight: 700;
+        margin-bottom: $s2;
+        text-transform: uppercase;
+    }
+}
+
 /* Admin list tabs */
 .admin_tabs{
     display: flex;

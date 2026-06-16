@@ -4856,6 +4856,13 @@ em i {
   color: var(--secondColor);
 }
 
+.feedback_form h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
 /* Admin list tabs */
 .admin_tabs {
   display: flex;
