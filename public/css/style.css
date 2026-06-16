@@ -2542,7 +2542,7 @@ section {
   font-weight: 600;
   line-height: 1.2;
   text-transform: uppercase;
-  padding: 39px 14px;
+  padding: 39px 10px;
   transition: all 0.15s;
 }
 .menu_wrap li a::before {
@@ -2686,7 +2686,7 @@ section {
 }
 .menu_navigation .header_banner img {
   display: flex;
-  height: 80px;
+  height: 70px;
   width: auto;
   max-width: 100%;
   -o-object-fit: contain;
