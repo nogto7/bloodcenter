@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class MenuController extends Controller
 {
@@ -59,6 +60,10 @@ class MenuController extends Controller
 
         $menus = Menu::create($data);
 
+        // Линк хоосон бол гарчигнаас автоматаар давхцахгүй слаг үүсгэнэ
+        // (үндсэн цэс шиг дэд цэс ч төрлөөс хамаарсан хуудас руу resolve хийгдэхэд хэрэгтэй)
+        $this->ensureUrl($menus);
+
         return response()->json([
             'success' => true,
             'department' => $menus
@@ -110,7 +115,25 @@ class MenuController extends Controller
 
         $menu->update($data);
 
+        // Линк хоосон бол автоматаар үүсгэнэ
+        $this->ensureUrl($menu);
+
         return redirect()->route('admin.menus.index')->with('success', 'Menu шинэчлэгдлээ');
+    }
+
+    /**
+     * Линк (url) хоосон бол гарчигнаас давхцахгүй слаг үүсгэж хадгална.
+     * type=url (гадаад/тусгай линк) дээр хүрэхгүй.
+     */
+    private function ensureUrl(Menu $menu): void
+    {
+        if ($menu->type === 'url' || filled($menu->url)) {
+            return;
+        }
+
+        $base = Str::slug($menu->title) ?: 'menu';
+        $menu->url = $base . '-' . $menu->id;
+        $menu->save();
     }
 
     // Delete menu
