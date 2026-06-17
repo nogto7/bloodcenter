@@ -35,7 +35,7 @@ class FileManagerController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'file' => 'nullable|mimes:pdf,doc,docx,xls,xlsx|max:51200',
+            'file' => 'required|mimes:pdf,doc,docx,xls,xlsx|max:51200',
             'title' => 'required',
             'folder_id' => 'nullable',
             'menu_id' => 'nullable',
@@ -52,9 +52,9 @@ class FileManagerController extends Controller
             'path'      => $path,
             'mime_type' => $uploaded->getClientMimeType(),
             'size'      => $uploaded->getSize(),
-            'folder_id' => $validated['folder_id'] ?? null,
-            'menu_id'   => $validated['menu_id'] ?? null,
-            'date'      => $validated['date'] ?? null,
+            'folder_id' => ($validated['folder_id'] ?? null) ?: null, // хоосон мөрийг null болгоно (bigint багана)
+            'menu_id'   => ($validated['menu_id'] ?? null) ?: null,
+            'date'      => ($validated['date'] ?? null) ?: null,       // хоосон мөрийг null болгоно (date багана)
             'number'    => $validated['number'] ?? null,
         ]);
 
@@ -95,10 +95,10 @@ class FileManagerController extends Controller
 
         $data = [
             'title'     => $validated['title'],
-            'date'      => $validated['date'] ?? null,
+            'date'      => ($validated['date'] ?? null) ?: null,       // хоосон мөрийг null болгоно (date багана)
             'number'    => $validated['number'] ?? null,
-            'folder_id' => $validated['folder_id'] ?? null,
-            'menu_id'   => $validated['menu_id'] ?? null,
+            'folder_id' => ($validated['folder_id'] ?? null) ?: null,  // хоосон мөрийг null болгоно (bigint багана)
+            'menu_id'   => ($validated['menu_id'] ?? null) ?: null,
         ];
 
         if ($request->hasFile('file')) {

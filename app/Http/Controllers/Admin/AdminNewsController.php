@@ -102,7 +102,7 @@ class AdminNewsController extends Controller
         }
 
         $data['highlight'] = $request->has('highlight') ? 1 : 0;
-        $data['menu_id'] = $request->menu_id ?? null;
+        $data['menu_id'] = $request->menu_id ?: null; // хоосон мөрийг null болгоно (bigint багана)
         $data['user_id'] = $user->id;
         $data['department_id'] = $user->department_id; // editor-ийн алба
 
@@ -157,7 +157,7 @@ class AdminNewsController extends Controller
         $data['is_active'] = $user->role === 'editor' ? 0 : ($request->has('is_active') ? 1 : 0);
         $data['status'] = $data['is_active'] ? 'published' : 'pending';
         $data['highlight'] = $request->has('highlight') ? 1 : 0;
-        $data['menu_id'] = $request->menu_id ?? null;
+        $data['menu_id'] = $request->menu_id ?: null; // хоосон мөрийг null болгоно (bigint багана)
 
         // Огноог хөндөөгүй бол хуучин утгыг хадгална
         if (empty($data['publish_at'])) {
