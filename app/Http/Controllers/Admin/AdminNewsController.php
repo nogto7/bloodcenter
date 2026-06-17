@@ -67,7 +67,37 @@ class AdminNewsController extends Controller
 
     public function create()
     {
-        return view('admin.news.create');   
+        $menus = Menu::where('active', 1)
+                    ->orderBy('sort')
+                    ->get();
+
+        return view('admin.news.create', compact('menus'));
+    }
+
+    /**
+     * Гарчгаас давтагдахгүй slug үүсгэнэ. Аль хэдийн байгаа бол -2, -3 ... залгана.
+     * Хоосон гарчигт цаг хугацаагаар fallback хийнэ.
+     */
+    protected function uniqueSlug(?string $title, ?int $ignoreId = null): string
+    {
+        $base = Str::slug((string) $title);
+
+        if ($base === '') {
+            $base = 'medee-' . now()->format('YmdHis');
+        }
+
+        $slug = $base;
+        $i = 2;
+
+        while (
+            News::where('slug', $slug)
+                ->when($ignoreId, fn ($q) => $q->where('id', '!=', $ignoreId))
+                ->exists()
+        ) {
+            $slug = $base . '-' . $i++;
+        }
+
+        return $slug;
     }
 
     // Store
@@ -85,7 +115,7 @@ class AdminNewsController extends Controller
             'publish_at' => 'nullable|date',
         ]);
 
-        $data['slug'] = Str::slug($request->title);
+        $data['slug'] = $this->uniqueSlug($request->title);
         $data['publish_at'] = !empty($data['publish_at']) ? $data['publish_at'] : now();
 
         // editor-ийн мэдээ хянагдахаар pending, admin/publisher-ийнх шууд нийтлэгдэнэ
@@ -151,7 +181,7 @@ class AdminNewsController extends Controller
             'menu_id' => 'nullable|string',
         ]);
 
-        $data['slug'] = Str::slug($request->title);
+        $data['slug'] = $this->uniqueSlug($request->title, $news->id);
 
         // editor-ийн засвар дахин хянагдана, бусдынх checkbox-оор шийдэгдэнэ
         $data['is_active'] = $user->role === 'editor' ? 0 : ($request->has('is_active') ? 1 : 0);
