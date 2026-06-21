@@ -181,6 +181,8 @@ button {
 }
 
 *, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   box-sizing: border-box;
 }
@@ -188,7 +190,9 @@ button {
 *, *:focus, *:active {
   -ms-box-sizing: border-box;
   -khtml-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   -o-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   outline: none;
   box-sizing: border-box;
@@ -288,8 +292,7 @@ button {
 }
 
 .gap_col2 {
-  -moz-column-gap: 20px;
-       column-gap: 20px;
+  column-gap: 20px;
 }
 
 .dfc {
@@ -480,6 +483,7 @@ button {
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 
@@ -639,11 +643,6 @@ button {
   border-color: var(--primaryColor);
   box-shadow: 0 0 0 3px rgba(0, 59, 255, 0.1882352941);
 }
-.form_input::-moz-placeholder, .form_select::-moz-placeholder, .form_textarea::-moz-placeholder {
-  color: #acb4c1;
-  font-size: 13px;
-  font-weight: 400;
-}
 .form_input::placeholder,
 .form_select::placeholder,
 .form_textarea::placeholder {
@@ -736,9 +735,7 @@ button {
 
 select, .form_select {
   position: relative;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  appearance: none;
   padding-right: 30px;
   background-image: url("../images/drop-arrow.svg");
   background-repeat: no-repeat;
@@ -752,10 +749,6 @@ select, .form_select {
   min-height: 6rem;
   max-height: 12rem;
   resize: vertical;
-}
-
-textarea::-moz-placeholder {
-  color: #acb4c1;
 }
 
 textarea::placeholder {
@@ -775,11 +768,6 @@ textarea::placeholder {
 .form_item_l {
   height: 48px;
   padding: 0 14px;
-}
-
-.form_item::-moz-placeholder {
-  color: #acb4c1;
-  font-size: 14px;
 }
 
 .form_item::placeholder {
@@ -916,7 +904,6 @@ textarea::placeholder {
 .required .form_label {
   display: table;
   position: relative;
-  width: -moz-max-content;
   width: max-content;
   padding-right: 10px;
 }
@@ -1015,7 +1002,6 @@ textarea::placeholder {
   align-items: center;
   justify-content: center;
   height: 36px;
-  width: -moz-max-content;
   width: max-content;
   padding: 4px 20px;
   background-color: var(--backgroundColor);
@@ -1247,6 +1233,7 @@ textarea::placeholder {
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 
@@ -2057,7 +2044,6 @@ span[class^=icon-].search {
   border: 1px solid var(--borderColor);
 }
 .table_content .__btn, .ck-content .table .__btn, .news_content table .__btn {
-  width: -moz-max-content;
   width: max-content;
 }
 
@@ -2082,10 +2068,8 @@ section {
 .img_block img {
   height: 100%;
   width: 100%;
-  -o-object-position: center center;
-     object-position: center center;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-position: center center;
+  object-fit: cover;
 }
 
 .section {
@@ -2255,7 +2239,6 @@ section {
 .guide_main .guide_content .guide_header .guide_logo span {
   display: flex;
   height: 90px;
-  width: -moz-max-content;
   width: max-content;
   background: url("../images/transfusion-logo.png") no-repeat center center;
   background-size: 100%;
@@ -2689,8 +2672,7 @@ section {
   height: 70px;
   width: auto;
   max-width: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
   transition: all 0.2s;
 }
 
@@ -2951,7 +2933,6 @@ section {
 }
 
 .popular_news .item_img {
-  height: -moz-fit-content;
   height: fit-content;
   max-height: 410px;
   border-radius: 12px;
@@ -3079,7 +3060,6 @@ section {
 }
 .news_content img {
   max-width: 100%;
-  max-height: -moz-max-content;
   max-height: max-content;
 }
 .news_content em {
@@ -3703,6 +3683,20 @@ iframe {
 .file_preview_info .dfc span:last-child {
   padding-left: 5px;
 }
+.file_preview_info .file_link {
+  margin-top: 10px;
+}
+.file_preview_info .file_link h5 {
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+.file_preview_info .file_link .file_link_row input {
+  flex: 1;
+  font-size: 13px;
+}
+.file_preview_info .file_link .file_link_row button {
+  white-space: nowrap;
+}
 .file_preview_info .prev_info {
   margin-top: 10px;
 }
@@ -3969,7 +3963,6 @@ em i {
   display: block;
   position: relative;
   padding: 7px 12px 7px 10px;
-  width: -moz-max-content;
   width: max-content;
   background-color: #fff;
   border: 1px solid #b1b7bf;
@@ -4249,7 +4242,6 @@ em i {
 }
 .page_404 a {
   justify-content: center;
-  width: -moz-max-content;
   width: max-content;
   margin: 0 auto;
 }
@@ -4691,7 +4683,6 @@ em i {
     gap: 12px;
   }
   .other_news ul {
-    max-height: -moz-max-content !important;
     max-height: max-content !important;
   }
   .title {
@@ -4912,4 +4903,6 @@ em i {
 .news_content ol ol {
   list-style: lower-alpha;
   margin: 8px 0;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style.css.map */

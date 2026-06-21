@@ -3304,6 +3304,22 @@ iframe{
             }
         }
     }
+    .file_link{
+        margin-top: $s1;
+        h5{
+            font-size: $s1_3;
+            margin-bottom: 5px;
+        }
+        .file_link_row{
+            input{
+                flex: 1;
+                font-size: 13px;
+            }
+            button{
+                white-space: nowrap;
+            }
+        }
+    }
     .prev_info{
         margin-top: $s1;
         h5{

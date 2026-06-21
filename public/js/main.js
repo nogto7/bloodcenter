@@ -398,9 +398,18 @@ function previewFile(fileId) {
         `;
     }
 
+    const fileLink = `${window.location.origin}/storage/${file.path}`;
+
     previewHtml += `<div class="file_preview_info">
         <h4>${file.title}</h4>
         <div class="dfc"><span>${file.mime_type}</span>-<span>${(file.size/1024).toFixed(2)} KB</span></div>
+        <div class="file_link">
+            <h5>Холбоос</h5>
+            <div class="file_link_row dfc">
+                <input type="text" class="form_input" value="${fileLink}" readonly onclick="this.select()">
+                <button type="button" class="__btn btn_primary ml1" onclick="copyFileLink(this, '${fileLink}')">Хуулах</button>
+            </div>
+        </div>
         <div class="prev_info"><h5>Мэдээлэл</h5><div class="dcsb">
             <p>Хавтас</p>
             <em>${file.folder?.name ?? '-'}</em>
@@ -413,6 +422,31 @@ function previewFile(fileId) {
     `
 
     document.getElementById('filePreview').innerHTML = previewHtml;
+}
+
+function copyFileLink(btn, link) {
+    const done = () => {
+        const original = btn.textContent;
+        btn.textContent = 'Хуулсан!';
+        setTimeout(() => { btn.textContent = original; }, 1500);
+    };
+
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(link).then(done).catch(() => fallbackCopy(link, done));
+    } else {
+        fallbackCopy(link, done);
+    }
+}
+
+function fallbackCopy(text, done) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) {}
+    document.body.removeChild(ta);
 }
 
 function editFile(id) {
